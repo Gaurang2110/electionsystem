@@ -40,30 +40,30 @@ export const ElectionQuest: React.FC = () => {
   const visualProgress = maxCompletedIndex === -1 ? 0 : ((maxCompletedIndex) / (steps.length - 1)) * 100;
 
   return (
-    <Card className="p-8 bg-slate-900 border-white/5 shadow-3d overflow-hidden relative group">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] -z-10 group-hover:bg-primary/20 transition-colors" />
+    <Card variant="glass" className="p-5 bg-white/70 border-white/50 shadow-premium overflow-hidden relative group">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px] -z-10" />
       
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div className="space-y-1">
+      <div className="flex items-center justify-between gap-4 mb-6">
+        <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <div className="px-2 py-0.5 bg-primary text-white text-[9px] font-black uppercase tracking-[0.2em] rounded-full">Active</div>
-            <h3 className="text-2xl font-black text-white font-display tracking-tight uppercase">Election Quest</h3>
+            <h3 className="text-sm font-black text-slate-900 font-display tracking-tight uppercase">Election Quest</h3>
+            <div className="px-1.5 py-0.5 bg-emerald-500 text-white text-[7px] font-black uppercase tracking-[0.1em] rounded-full">Active</div>
           </div>
-          <p className="text-slate-500 text-[11px] font-bold uppercase tracking-widest">Complete steps to unlock the National Voter Badge</p>
+          <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">Complete steps for rewards</p>
         </div>
         <div className="flex flex-col items-end">
-          <span className="text-4xl font-black text-white font-display leading-none">{Math.round(progressPercent)}%</span>
-          <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Total Completion</span>
+          <span className="text-2xl font-black text-slate-900 font-display leading-none">{Math.round(progressPercent)}%</span>
+          <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Complete</span>
         </div>
       </div>
 
       {/* Progress Track */}
-      <div className="relative mb-12">
-        <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-800 -translate-y-1/2 rounded-full overflow-hidden">
+      <div className="relative mb-10 px-2">
+        <div className="absolute top-1/2 left-2 right-2 h-0.5 bg-slate-100 -translate-y-1/2 rounded-full overflow-hidden">
           <motion.div 
             initial={{ width: 0 }}
             animate={{ width: `${visualProgress}%` }}
-            className="h-full bg-gradient-to-r from-blue-600 to-primary shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+            className="h-full bg-gradient-to-r from-emerald-500 to-primary"
           />
         </div>
 
@@ -71,45 +71,29 @@ export const ElectionQuest: React.FC = () => {
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div key={step.id} className="flex flex-col items-center gap-4">
+              <div key={step.id} className="flex flex-col items-center gap-3">
                 <div className="relative">
                   <motion.div 
                     initial={false}
                     animate={{ 
-                      scale: step.completed ? 1.1 : 1,
-                      backgroundColor: step.completed ? '#3b82f6' : '#1e293b'
+                      scale: step.completed ? 1 : 0.85,
+                      backgroundColor: step.completed ? '#10B981' : '#F8FAFC'
                     }}
                     className={cn(
-                      "w-12 h-12 rounded-2xl flex items-center justify-center border-2 transition-all duration-500 relative group/step",
-                      step.completed ? "border-blue-400 text-white shadow-lg shadow-blue-500/20" : "border-slate-800 text-slate-500"
+                      "w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-500 relative group/step",
+                      step.completed ? "border-white text-white shadow-lg shadow-emerald-500/20" : "border-slate-100 text-slate-300"
                     )}
                   >
-                    {/* Micro-insight tooltip */}
-                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-32 p-2 bg-slate-800 border border-white/10 rounded-lg opacity-0 group-hover/step:opacity-100 transition-opacity pointer-events-none z-20 shadow-xl">
-                      <p className="text-[9px] text-white font-bold text-center leading-tight">
-                        {step.insight}
-                      </p>
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-800" />
-                    </div>
-
                     {step.completed ? (
-                      <CheckCircle2 size={24} strokeWidth={3} />
+                      <CheckCircle2 size={14} strokeWidth={3} />
                     ) : (
-                      <Icon size={20} />
+                      <Icon size={12} />
                     )}
                   </motion.div>
-                  
-                  {/* Sign Language Guide Overlay */}
-                  {step.videoType && (
-                    <SignLanguageGuide 
-                      type={step.videoType as any} 
-                      className="absolute -top-2 -right-2 w-6 h-6 p-0 bg-white text-slate-900 border-2 border-slate-900 shadow-sm"
-                    />
-                  )}
                 </div>
                 <span className={cn(
-                  "text-[9px] font-black uppercase tracking-widest text-center max-w-[60px]",
-                  step.completed ? "text-white" : "text-slate-500"
+                  "text-[8px] font-black uppercase tracking-widest text-center",
+                  step.completed ? "text-emerald-600" : "text-slate-400"
                 )}>
                   {step.label}
                 </span>
@@ -119,48 +103,35 @@ export const ElectionQuest: React.FC = () => {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {nextStep ? (
           <Link href={nextStep.link}>
             <motion.div 
-              whileHover={{ x: 5 }}
-              className="flex items-center justify-between p-4 bg-primary/10 border border-primary/20 rounded-2xl group transition-all"
+              whileHover={{ x: 3 }}
+              className="flex items-center justify-between p-3 bg-primary/5 border border-primary/10 rounded-xl group transition-all"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                  <Zap size={18} fill="white" />
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                  <Zap size={14} fill="currentColor" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Next Up</p>
-                  <h4 className="text-sm font-black text-white uppercase tracking-tight">{nextStep.label}</h4>
-                  <p className="text-[10px] text-slate-500 font-bold mt-0.5">
-                    Why: {steps.find(s => s.id === nextStep.id)?.insight}
-                  </p>
+                  <p className="text-[8px] font-black text-primary uppercase tracking-widest leading-none">Next Up</p>
+                  <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-tight mt-1">{nextStep.label}</h4>
                 </div>
               </div>
-              <ArrowRight className="text-primary group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={14} className="text-primary group-hover:translate-x-1 transition-transform" />
             </motion.div>
           </Link>
         ) : (
-          <div className="flex items-center gap-3 p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white">
-              <CheckCircle2 size={20} />
+          <div className="flex items-center gap-3 p-3 bg-emerald-500/5 rounded-xl border border-emerald-500/10">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white">
+              <CheckCircle2 size={16} />
             </div>
             <div>
-              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Master Citizen</p>
-              <h4 className="text-sm font-black text-white uppercase tracking-tight">All Steps Completed</h4>
+              <p className="text-[11px] font-black text-slate-900 uppercase tracking-tight">Quest Completed</p>
             </div>
           </div>
         )}
-
-        <div className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">
-            <Lock size={18} />
-          </div>
-          <p className="text-xs text-slate-400 font-bold leading-relaxed">
-            Unlock the <span className="text-white">"Democracy Champion"</span> status and exclusive stickers by completing the remaining {steps.length - completedCount} steps.
-          </p>
-        </div>
       </div>
     </Card>
   );

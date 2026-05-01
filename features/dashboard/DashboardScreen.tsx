@@ -1,359 +1,275 @@
 "use client";
 import * as React from "react";
-import { 
-  Compass, 
-  MessageSquare, 
-  CheckCircle2, 
-  FileText, 
-  ArrowRight,
+import { motion } from "framer-motion";
+import {
+  Compass,
+  Map as MapIcon,
+  MessageSquare,
   ShieldCheck,
+  FileText,
   Sparkles,
-  Accessibility,
-  Mic
+  CheckCircle2,
+  ArrowRight,
+  Zap,
+  TrendingUp,
+  Award,
+  Globe,
+  Clock
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { QuickAction } from "./QuickAction";
 import { useAppStore } from "@/store/useAppStore";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { motion } from "framer-motion";
-import { DashboardSkeleton } from "@/components/ui/DashboardSkeleton";
-import { VotingReadinessCard } from "./VotingReadinessCard";
-import { ImpactCard } from "./ImpactCard";
-import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";
-import { HelpOthersCard } from "@/features/share/HelpOthersCard";
-import { ElectionTimeline } from "@/features/timeline/ElectionTimeline";
-import { MockBallot } from "@/features/ballot/MockBallot";
-import { CandidateMatchSimulation } from "@/features/candidate-match/CandidateMatchSimulation";
-import { HeatmapCard } from "@/features/results/HeatmapCard";
-import { DiscussionSnapshot } from "@/features/community/DiscussionSnapshot";
-import { SpeakerButton } from "@/components/ui/SpeakerButton";
-import { SignLanguageGuide } from "@/components/ui/SignLanguageGuide";
 import { ElectionQuest } from "@/features/gamification/quest/ElectionQuest";
-import { ShareCard } from "@/features/gamification/share/ShareCard";
-import { StickerGallery } from "@/features/gamification/stickers/StickerGallery";
-import { BadgeUnlockOverlay } from "@/features/gamification/BadgeUnlockOverlay";
 import { NeighbourhoodLeaderboard } from "@/features/gamification/leaderboard/NeighbourhoodLeaderboard";
-import { StateStickers } from "@/features/gamification/stickers/StateStickers";
-import { MiniQuiz } from "@/features/gamification/quiz/MiniQuiz";
-import { GamificationFeedback } from "@/features/gamification/GamificationFeedback";
-import { VotingDayMode } from "@/features/voting-day/VotingDayMode";
+import { AchievementsWidget } from "@/features/gamification/achievements/AchievementsWidget";
+import { StickerGallery } from "@/features/gamification/stickers/StickerGallery";
+import { HeatmapCard } from "@/features/results/HeatmapCard";
+import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";
+import { cn } from "@/utils/cn";
 
-const container = {
+const containerVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15
+      staggerChildren: 0.1,
+      delayChildren: 0.3
     }
   }
 };
 
-const item = {
+const itemVariants = {
   hidden: { opacity: 0, y: 30 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      type: "spring", 
-      stiffness: 150, 
-      damping: 20 
-    } 
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20
+    }
   }
 };
 
-import { useVoiceGuidance } from "@/hooks/useVoiceGuidance";
+import { Gauge } from "@/components/ui/Gauge";
 
 export const DashboardScreen: React.FC = () => {
-  const { 
-    progress, 
-    voterType, 
-    isSimpleMode, 
-    isHighContrast,
-    toggleHighContrast,
-    getMissingSteps 
-  } = useAppStore();
-  const { speak } = useVoiceGuidance();
-  const missingSteps = getMissingSteps();
-  const t = useTranslations('dashboard');
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      if (isSimpleMode) {
-        speak(`Welcome to your Dashboard. Your voting readiness is ${progress} percent. ${missingSteps.length > 0 ? 'You have ' + missingSteps.length + ' tasks to complete.' : 'You are all set to vote!'}`);
-      }
-    }, 1200);
-    return () => clearTimeout(timer);
-  }, [isSimpleMode, progress, missingSteps.length, speak]);
-
-  if (isLoading) return <div className="px-6 md:px-16 lg:px-24 xl:px-32"><DashboardSkeleton /></div>;
+  const { profile, progress, notifications, getNextBestAction } = useAppStore();
+  const nextBestAction = getNextBestAction();
 
   return (
-    <motion.div 
-      variants={container}
+    <motion.div
+      variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="flex flex-col gap-16 pb-32 px-6 md:px-16 lg:px-24 xl:px-32 relative"
+      className="flex flex-col gap-6 pb-20 relative"
     >
-      <SignLanguageGuide type="voting" className="absolute top-0 right-0" />
-      <VotingDayMode />
-      <BadgeUnlockOverlay />
-      <GamificationFeedback />
-      <motion.div variants={item}>
-        <VotingReadinessCard />
-      </motion.div>
-
-      <motion.div variants={item}>
-        <ImpactCard />
-      </motion.div>
-      
-      {/* Accessibility Hub */}
-      <motion.div variants={item} className="space-y-6">
-        <div className="flex items-center gap-2 px-2">
-          <div className="w-2 h-2 rounded-full bg-primary" />
-          <h3 className="text-sm font-black text-slate-500 uppercase tracking-[0.2em]">Accessibility Hub</h3>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card 
-            className={cn(
-              "p-6 cursor-pointer transition-all border-2",
-              isSimpleMode ? "bg-primary/20 border-primary" : "bg-slate-900/40 border-white/5 hover:border-white/10"
-            )}
-            onClick={toggleSimpleMode}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-primary">
-                <Accessibility size={24} />
-              </div>
-              <div>
-                <p className="text-xs font-black text-slate-500 uppercase tracking-widest mb-1">Simple Mode</p>
-                <h4 className="text-white font-bold">{isSimpleMode ? "Enabled" : "Disabled"}</h4>
-              </div>
-            </div>
-          </Card>
-
-          <Card 
-            className={cn(
-              "p-6 cursor-pointer transition-all border-2",
-              isHighContrast ? "bg-yellow-400/20 border-yellow-400" : "bg-slate-900/40 border-white/5 hover:border-white/10"
-            )}
-            onClick={toggleHighContrast}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-yellow-400">
-                <Sparkles size={24} />
-              </div>
-              <div>
-                <p className="text-xs font-black text-slate-500 uppercase tracking-widest mb-1">High Contrast</p>
-                <h4 className="text-white font-bold">{isHighContrast ? "Enabled" : "Disabled"}</h4>
-              </div>
-            </div>
-          </Card>
-
-          <Card 
-            className="p-6 cursor-pointer transition-all bg-slate-900/40 border-2 border-white/5 hover:border-white/10"
-            onClick={() => {
-              const btn = document.getElementById('voice-trigger');
-              if (btn) btn.click();
-            }}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-emerald-400">
-                <Mic size={24} />
-              </div>
-              <div>
-                <p className="text-xs font-black text-slate-500 uppercase tracking-widest mb-1">Voice Control</p>
-                <h4 className="text-white font-bold">Start Listening</h4>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </motion.div>
-
-      {/* High-Frequency Quick Actions */}
-      <motion.div 
-        variants={item} 
-        className={cn(
-          "grid gap-6",
-          isSimpleMode ? "grid-cols-1 md:grid-cols-2" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        )}
-      >
-        <Link href="/assistant" className="h-full">
-          <QuickAction icon={MessageSquare} label={t('actions.assistant') || "AI Assistant"} color="bg-blue-500/20 text-blue-400" />
-        </Link>
-        <Link href="/map" className="h-full">
-          <QuickAction icon={Compass} label={t('actions.map') || "Booth Map"} color="bg-indigo-500/20 text-indigo-400" />
-        </Link>
-        <Link href="/documents" className="h-full">
-          <QuickAction icon={FileText} label={t('actions.documents') || "Documents"} color="bg-rose-500/20 text-rose-400" />
-        </Link>
-        <Link href="/journey" className="h-full">
-          <QuickAction icon={Sparkles} label={t('actions.journey') || "Journey"} color="bg-purple-500/20 text-purple-400" />
-        </Link>
-      </motion.div>
-
-      {/* Gamification Quest */}
-      <motion.div variants={item}>
-        <ElectionQuest />
-      </motion.div>
-
-      {/* Share Progress */}
-      <motion.div variants={item} id="share-card">
-        <ShareCard />
-      </motion.div>
-
-      {/* Special Guidance Segment */}
-      {voterType === 'first-time' && (
-        <motion.div 
-          variants={item}
-          className="p-10 rounded-[3rem] bg-amber-500/10 border border-amber-500/20 relative overflow-hidden group shadow-3d"
-        >
-          <div className="absolute -right-8 -top-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
-            <ShieldCheck size={200} className="text-amber-500" />
-          </div>
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shadow-[0_0_10px_rgba(245,158,11,0.6)]" />
-              <h3 className="text-amber-500 font-black uppercase text-[11px] tracking-[0.3em]">
-                First-Timer Elite Guide
-              </h3>
-            </div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-white font-black text-3xl leading-tight max-w-xl">
-                Building the future? <br/><span className="text-amber-500">We&apos;ve built your roadmap.</span>
-              </h2>
-              <SpeakerButton text="Building the future? We've built your roadmap." className="bg-amber-500/20 text-amber-500 hover:bg-amber-500/30" />
-            </div>
-            <Link href="/journey" className="inline-flex items-center gap-3 px-8 py-4 bg-amber-500 text-amber-950 font-black text-sm uppercase tracking-widest rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-amber-500/20">
-              Start Simplified Journey
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Constituency Insights Shortcut */}
-      <motion.div variants={item}>
-        <Link href="/insights">
-          <Card className="p-10 bg-slate-900/40 backdrop-blur-3xl border-white/5 group relative overflow-hidden" hover={true}>
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] group-hover:bg-primary/10 transition-all duration-700" />
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
-              <div className="flex items-center gap-8">
-                <div className="w-20 h-20 bg-primary/10 rounded-[2rem] flex items-center justify-center text-primary shadow-3d border border-primary/20 group-hover:scale-110 transition-transform duration-500">
-                  <Compass size={40} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <p className="text-[11px] font-black uppercase text-emerald-400 tracking-[0.3em]">Area Analytics</p>
-                  </div>
-                  <h3 className="font-black text-white text-3xl font-display tracking-tight group-hover:text-primary transition-colors">Explore Your Area</h3>
-                  <p className="text-slate-500 text-sm font-medium mt-1">Track representative performance, budgets, and active projects.</p>
-                </div>
-              </div>
-              <div className="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white group-hover:rotate-[-45deg] transition-all duration-700 border border-white/5">
-                <ArrowRight size={28} />
-              </div>
-            </div>
-          </Card>
-        </Link>
-      </motion.div>
-
-      {/* Interactive Practice Core */}
-      <motion.div variants={item} id="mock-ballot">
-        <div className="flex items-end justify-between mb-8 px-2">
-          <div className="space-y-1">
-            <h3 className="text-2xl font-black text-white font-display">Election Laboratory</h3>
-            <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">Interactive simulation modules</p>
-          </div>
-          <Sparkles className="text-primary opacity-20" size={32} />
-        </div>
-        <MockBallot />
-      </motion.div>
-
-      {/* Candidate Match Simulation */}
-      <motion.div variants={item}>
-        <CandidateMatchSimulation />
-      </motion.div>
-
-      {/* Smart Suggestions Engine */}
-      <motion.div variants={item}>
-        <div className="flex items-center gap-3 mb-6 px-2">
-          <Sparkles className="text-emerald-500 animate-pulse" size={20} />
-          <h3 className="text-xl font-black text-white font-display uppercase tracking-wider">Smart Suggestions</h3>
-        </div>
-        <Link href={missingSteps[0]?.link || "/journey"}>
-          <Card className="flex items-center justify-between py-10 px-10 bg-slate-900/40 backdrop-blur-2xl border-white/5 group overflow-hidden" hover={true}>
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-            <div className="flex items-center gap-8 relative z-10">
-              <div className="w-16 h-16 bg-emerald-500/10 rounded-[1.5rem] flex items-center justify-center text-emerald-500 shadow-3d border border-emerald-500/20 group-hover:scale-110 transition-transform duration-500">
-                <CheckCircle2 size={32} />
-              </div>
-              <div>
-                <p className="text-[11px] font-black uppercase text-emerald-500 tracking-[0.3em] mb-2">Priority Task</p>
-                <h3 className="font-black text-white text-2xl font-display tracking-tight group-hover:text-emerald-400 transition-colors">
-                  {missingSteps[0]?.label || "System Optimized: You are Ready!"}
-                </h3>
-                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">Impact: +25% Readiness Boost</p>
-              </div>
-            </div>
-            <div className="w-14 h-14 rounded-full bg-slate-800/50 text-slate-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white group-hover:scale-110 group-hover:rotate-[-45deg] transition-all duration-500 shadow-3d relative z-10">
-              <ArrowRight size={24} />
-            </div>
-          </Card>
-        </Link>
-      </motion.div>
-
-      {/* Live Data Visuals */}
-      <motion.div variants={item} className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div className="space-y-6">
-          <div className="px-2">
-            <h3 className="text-xl font-black text-white font-display uppercase tracking-wider">National Trends</h3>
-            <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">Live Turnout Intelligence</p>
-          </div>
-          <HeatmapCard />
-        </div>
-        <DiscussionSnapshot />
-      </motion.div>
-
-      {/* Event Horizon */}
-      <motion.div variants={item}>
-        <div className="mb-8 px-2">
-          <h3 className="text-xl font-black text-white font-display uppercase tracking-wider">Event Horizon</h3>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">Election Timeline & Deadlines</p>
-        </div>
-        <ElectionTimeline />
-      </motion.div>
-
-
-      {/* Achievement Stickers */}
-      <motion.div variants={item}>
-        <StickerGallery />
-      </motion.div>
-
-      {/* Local Leaderboard Simulation */}
-      <motion.div variants={item}>
-        <NeighbourhoodLeaderboard />
-      </motion.div>
-
-      {/* Gamification Grid (Quiz & Stickers) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <motion.div variants={item}>
-          <MiniQuiz />
-        </motion.div>
-        <motion.div variants={item}>
-          <StateStickers />
-        </motion.div>
+      {/* Background Decoration from Stitch */}
+      <div className="absolute top-0 right-0 w-[40%] h-[400px] pointer-events-none opacity-10 -z-10 overflow-hidden select-none">
+        <img
+          src="https://lh3.googleusercontent.com/aida/ADBb0uj4XMK-Q_ZT71KlIia6FrakOt6IDNKeNV6Nfut71doHQIJU_44WpR-3GiAALf958Wtq6C5fDZawlzAiFiKrDKfichKGf8xYw6wVdy_E99UXzUXc4DTzXDEAhuOaYACEstruEj3NOlrPuVZgEXKhZyZvogg6_AW6gHgVYJrPAOhEzhz1Abe0Z2GRGnIgjSsJ4hjQe1mwT6UJc4XgvgotCO_8MhZ5sN0psJnNMXdMHxW5aGfExHpRrdX94XPupYPwX7GGC2GJtkbx5Q"
+          alt="Parliament Decoration"
+          className="w-full h-full object-cover object-right-top"
+          style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 80%)' }}
+        />
       </div>
 
-      <motion.div variants={item}>
-        <HelpOthersCard />
+      {/* GREETING SECTION */}
+      <motion.div variants={itemVariants} className="mb-2">
+        <h2 className="text-3xl font-black text-slate-900 font-display flex items-center gap-3">
+          Namaste, {profile.name || "Aarav"}! <span className="text-2xl animate-bounce">👋</span>
+        </h2>
+        <p className="text-slate-500 text-sm font-medium mt-1">
+          Let's make every vote count. You are <span className="text-primary font-black">{progress}%</span> of the way to be a <span className="text-primary font-black uppercase tracking-tighter">Ready Citizen!</span>
+        </p>
       </motion.div>
 
-      <motion.div variants={item} className="pb-10 opacity-60">
-        <LegalDisclaimer />
+      {/* TWO COLUMN GRID LAYOUT */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        {/* LEFT COLUMN: MAIN CONTENT (SPAN 8) */}
+        <div className="lg:col-span-8 space-y-8">
+
+          {/* HERO ROW */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Readiness Card */}
+            <motion.div variants={itemVariants}>
+              <Card variant="premium" className="p-8 h-full bg-[#0F172A] relative overflow-hidden group">
+                <div className="absolute -right-20 -top-20 w-60 h-60 bg-primary/20 rounded-full blur-[80px]" />
+                <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-saffron/10 rounded-full blur-[60px]" />
+
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 relative z-10">Your Voting Readiness</h3>
+
+                <div className="flex items-center justify-between relative z-10">
+                  <Gauge value={progress} size={140} strokeWidth={12} subLabel="Almost There!" />
+
+                  <div className="text-right">
+                    <p className="text-xs text-slate-400 font-medium mb-1">Keep going!</p>
+                    <p className="text-sm font-black text-white mb-4">You're doing great.</p>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-secondary border border-secondary/20 rounded-lg text-[10px] font-black uppercase tracking-widest">
+                      <CheckCircle2 size={12} />
+                      <span>High Readiness</span>
+                    </div>
+                  </div>
+                </div>
+
+                <motion.button
+                  whileHover={{ backgroundColor: 'rgba(255,255,255,0.15)' }}
+                  className="w-full mt-8 py-3 bg-white/10 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-white transition-all"
+                >
+                  View Full Report
+                </motion.button>
+              </Card>
+            </motion.div>
+
+            {/* Next Step Card - Dynamic */}
+            <motion.div variants={itemVariants}>
+              <Card variant="glass" className="p-8 h-full bg-white/60 border-white/40 shadow-premium flex flex-col justify-between group">
+                <div>
+                  <div className="flex items-center gap-2 text-primary font-black text-[10px] uppercase tracking-widest mb-6">
+                    <Sparkles size={14} className="animate-pulse" />
+                    <span>Next Step for You</span>
+                  </div>
+
+                  <div className="bg-slate-50/80 rounded-2xl p-5 border border-slate-100/50 flex items-center gap-5">
+                    <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-3xl group-hover:rotate-3 transition-transform">
+                      {nextBestAction.id === 'eligibility' ? '📋' :
+                        nextBestAction.id === 'registration' ? '📝' :
+                          nextBestAction.id === 'locate' ? '🗺️' :
+                            nextBestAction.id === 'documents' ? '📂' :
+                              nextBestAction.id === 'quiz' ? '🧠' : '✅'}
+                    </div>
+                    <div>
+                      <h4 className="font-black text-slate-900 text-base leading-tight">{nextBestAction.label}</h4>
+                      <p className="text-xs text-slate-500 font-medium mt-1">Impact: <span className="text-secondary font-black">{nextBestAction.impact}</span> on your readiness</p>
+                    </div>
+                  </div>
+                </div>
+
+                <Link href={nextBestAction.link} className="w-full mt-6">
+                  <button className="w-full py-3.5 bg-primary text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group">
+                    <span>{nextBestAction.id === 'ready' ? 'View Journey' : nextBestAction.label}</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
+              </Card>
+            </motion.div>
+          </div>
+
+          {/* MISSION CONTROL (QUICK ACTIONS) */}
+          <motion.div variants={itemVariants} className="space-y-4">
+            <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] px-2">Mission Control</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+              {[
+                { id: "map", label: "Booth Map", icon: MapIcon, color: "text-emerald-500 bg-emerald-50 border-emerald-100", desc: "Find area" },
+                { id: "docs", label: "Documents", icon: FileText, color: "text-orange-500 bg-orange-50 border-orange-100", desc: "Verify docs" },
+                { id: "ai", label: "AI Assistant", icon: MessageSquare, color: "text-indigo-500 bg-indigo-50 border-indigo-100", desc: "Ask anything" },
+                { id: "journey", label: "Journey", icon: Sparkles, color: "text-purple-500 bg-purple-50 border-purple-100", desc: "Track path" },
+                { id: "myth", label: "Myth vs Fact", icon: ShieldCheck, color: "text-blue-500 bg-blue-50 border-blue-100", desc: "Know truth" },
+                { id: "timeline", label: "Timeline", icon: Clock, color: "text-rose-500 bg-rose-50 border-rose-100", desc: "Key dates" },
+              ].map((action) => (
+                <Link key={action.id} href={`/${action.id}`}>
+                  <motion.div
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className="glass-card bg-white/80 p-5 rounded-2xl border-white/50 shadow-sm flex flex-col items-center text-center gap-3 group transition-all"
+                  >
+                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center border transition-all duration-500 group-hover:rotate-6", action.color)}>
+                      <action.icon size={20} />
+                    </div>
+                    <div>
+                      <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{action.label}</h4>
+                      <p className="text-[8px] text-slate-500 font-bold mt-1 opacity-0 group-hover:opacity-100 transition-opacity">{action.desc}</p>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ELECTION QUEST TRACKER */}
+          <motion.div variants={itemVariants}>
+            <ElectionQuest />
+          </motion.div>
+
+        </div>
+
+        {/* RIGHT COLUMN: WIDGETS (SPAN 4) */}
+        <div className="lg:col-span-4 space-y-8">
+
+          {/* ELECTION INSIGHTS WIDGET */}
+          <motion.div variants={itemVariants}>
+            <Card variant="glass" className="p-6 bg-white/80 border-white/50 shadow-premium">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="font-black text-slate-900 text-sm uppercase tracking-widest">Election Insights</h3>
+                <TrendingUp size={16} className="text-slate-400" />
+              </div>
+
+              <div className="space-y-6">
+                {/* Promise Match */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-end">
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Promises Match</span>
+                    <span className="text-secondary font-black text-xs">64%</span>
+                  </div>
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: '64%' }}
+                      className="h-full bg-secondary"
+                    />
+                  </div>
+                </div>
+
+                {/* Transparency */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-end">
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Transparency</span>
+                    <span className="text-primary font-black text-xs">82%</span>
+                  </div>
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: '82%' }}
+                      className="h-full bg-primary"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-100">
+                  <div className="flex items-center justify-between p-4 bg-primary/5 rounded-2xl border border-primary/10 group cursor-pointer hover:bg-primary/10 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                        <Zap size={18} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Active Issues</p>
+                        <p className="text-[8px] font-bold text-slate-400 uppercase mt-0.5">12 Reported Today</p>
+                      </div>
+                    </div>
+                    <ArrowRight size={14} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* LEADERBOARD WIDGET */}
+          <motion.div variants={itemVariants}>
+            <NeighbourhoodLeaderboard />
+          </motion.div>
+
+
+          {/* DISCLAIMER */}
+          <motion.div variants={itemVariants}>
+            <LegalDisclaimer />
+          </motion.div>
+
+        </div>
+      </div>
+
+      {/* FULL WIDTH ACHIEVEMENTS SECTION */}
+      <motion.div variants={itemVariants} className="w-full">
+        <AchievementsWidget />
       </motion.div>
     </motion.div>
   );

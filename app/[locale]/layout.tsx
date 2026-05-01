@@ -11,8 +11,8 @@ const hiFont = Noto_Sans_Devanagari({ subsets: ["devanagari"], variable: "--font
 const guFont = Noto_Sans_Gujarati({ subsets: ["gujarati"], variable: "--font-gujarati", weight: ["400", "500", "700"] });
 const bnFont = Noto_Sans_Bengali({ subsets: ["bengali"], variable: "--font-bengali", weight: ["400", "500", "700"] });
 
-import { Header } from "@/components/ui/Header";
-import { BottomNav } from "@/components/ui/BottomNav";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { TopHeader } from "@/components/layout/TopHeader";
 import { LanguageOnboarding } from "@/components/onboarding/LanguageOnboarding";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { DemoModeOverlay } from "@/components/ui/DemoModeOverlay";
@@ -64,16 +64,18 @@ export default async function LocaleLayout({
             <div className="absolute bottom-[10%] right-[-10%] w-[30%] h-[30%] bg-purple-500/5 rounded-full blur-[100px]" />
           </div>
 
-          <div className="w-full min-h-screen flex flex-col relative bg-white/40 shadow-[0_0_100px_rgba(0,0,0,0.02)]">
-            <Header />
-            <main className="flex-1 px-6 md:px-16 lg:px-24 xl:px-32">
-              <PageTransition>
-                {children}
-              </PageTransition>
-              <TrustBadges variant="minimal" className="mt-20 mb-10" />
-              <LegalDisclaimer className="mb-32 opacity-50" />
-            </main>
-            <BottomNav />
+          <div className="w-full min-h-screen flex relative bg-slate-50/30">
+            <Sidebar />
+            <div className="flex-1 ml-[240px] flex flex-col min-h-screen">
+              <TopHeader />
+              <main className="flex-1 p-6 max-w-[1600px] mx-auto w-full">
+                <PageTransition>
+                  {children}
+                </PageTransition>
+                <TrustBadges variant="minimal" className="mt-20 mb-10" />
+                <LegalDisclaimer className="mb-10 opacity-50" />
+              </main>
+            </div>
             <UniversalContinueCTA />
             <DemoModeOverlay />
             <GuidedTourOverlay />

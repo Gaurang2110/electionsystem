@@ -31,7 +31,7 @@ export const UniversalContinueCTA: React.FC = () => {
   if (pathname === nextAction.link) return null;
 
   return (
-    <div className="fixed bottom-[110px] left-0 right-0 z-[40] flex justify-center px-6 pointer-events-none">
+    <div className="fixed bottom-[20px] left-0 right-0 z-[40] flex justify-center px-6 pointer-events-none">
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -44,9 +44,9 @@ export const UniversalContinueCTA: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-4 pl-6 pr-4 py-4 bg-slate-900 text-white rounded-[2rem] border border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.5)] group relative overflow-hidden"
           >
-            {/* Pulsing Glow */}
+
             <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
-            
+
             <div className="flex flex-col items-start leading-none gap-1 relative z-10">
               <span className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1.5">
                 <Zap size={10} fill="currentColor" className="animate-pulse" />

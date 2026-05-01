@@ -1,0 +1,8 @@
+[
+  {"state": "Maharashtra", "voters": 98000000, "turnout": 65.2, "readiness": 72},
+  {"state": "Uttar Pradesh", "voters": 150000000, "turnout": 59.1, "readiness": 64},
+  {"state": "West Bengal", "voters": 72000000, "turnout": 82.3, "readiness": 81},
+  {"state": "Gujarat", "voters": 49000000, "turnout": 64.5, "readiness": 68},
+  {"state": "Karnataka", "voters": 53000000, "turnout": 68.9, "readiness": 75},
+  {"state": "Tamil Nadu", "voters": 62000000, "turnout": 73.4, "readiness": 78}
+]

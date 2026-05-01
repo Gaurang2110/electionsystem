@@ -1,0 +1,22 @@
+[
+  {
+    "id": "registration",
+    "icon": "UserPlus",
+    "color": "blue"
+  },
+  {
+    "id": "verification",
+    "icon": "ShieldCheck",
+    "color": "indigo"
+  },
+  {
+    "id": "booth",
+    "icon": "MapPin",
+    "color": "emerald"
+  },
+  {
+    "id": "vote",
+    "icon": "CheckSquare",
+    "color": "rose"
+  }
+]

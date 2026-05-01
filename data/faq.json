@@ -1,0 +1,22 @@
+[
+  {
+    "keywords": ["register", "registration", "form 6", "apply"],
+    "answer": "Hi! To register as a new voter, just follow these steps:\n• Visit voters.eci.gov.in\n• Fill out Form 6 online\n• Upload your photo and documents\nYou can also use the Voter Helpline App!"
+  },
+  {
+    "keywords": ["documents", "id", "aadhaar", "proof"],
+    "answer": "You'll need these documents ready:\n• Identity Proof (Aadhaar or PAN)\n• Age Proof (Birth Certificate)\n• Address Proof (Bank Passbook or Utility Bill)\nKeep them scanned and ready to upload!"
+  },
+  {
+    "keywords": ["booth", "location", "where", "vote"],
+    "answer": "Finding your booth is easy! Just:\n• Enter your PIN code in our 'Find My Booth' tab\n• Or search your EPIC number on the ECI website\nWe'll show you exactly where to go on voting day!"
+  },
+  {
+    "keywords": ["eligible", "age", "citizen"],
+    "answer": "Voting is a proud right! You're eligible if:\n• You are an Indian citizen\n• You've turned 18 by the qualifying date\nReady to make your voice heard?"
+  },
+  {
+    "keywords": ["status", "track", "check"],
+    "answer": "Tracking your application is simple:\n• Use the Reference ID from your registration\n• Visit the NVSP portal's tracking section\nIt usually takes a few weeks to process!"
+  }
+]

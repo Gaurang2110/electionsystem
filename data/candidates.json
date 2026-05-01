@@ -1,0 +1,23 @@
+[
+  {
+    "id": "c1",
+    "name": "Candidate A",
+    "symbol": "☀️",
+    "vision": "Education & Infrastructure",
+    "description": "Focusing on building 500 new schools and high-speed rail."
+  },
+  {
+    "id": "c2",
+    "name": "Candidate B",
+    "symbol": "🌳",
+    "vision": "Environment & Sustainability",
+    "description": "Aiming for 100% renewable energy and forest conservation."
+  },
+  {
+    "id": "c3",
+    "name": "Candidate C",
+    "symbol": "⚙️",
+    "vision": "Technology & Jobs",
+    "description": "Creating 1 million tech jobs and digitizing all public services."
+  }
+]

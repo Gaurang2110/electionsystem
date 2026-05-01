@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Gov School Booth A",
+    "lat": 23.0225,
+    "lng": 72.5714,
+    "district": "Ahmedabad",
+    "distance": "1.2 km"
+  },
+  {
+    "id": 2,
+    "name": "Community Center Booth B",
+    "lat": 19.0760,
+    "lng": 72.8777,
+    "district": "Mumbai City",
+    "distance": "0.8 km"
+  },
+  {
+    "id": 3,
+    "name": "Public Library Booth C",
+    "lat": 28.6139,
+    "lng": 77.2090,
+    "district": "Delhi",
+    "distance": "2.1 km"
+  }
+]

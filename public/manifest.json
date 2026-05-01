@@ -1,0 +1,21 @@
+{
+  "name": "Civic AI Election Assistant",
+  "short_name": "CivicAI",
+  "description": "Your multilingual, voice-powered guide to the Indian Elections.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0E14",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

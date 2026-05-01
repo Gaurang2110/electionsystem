@@ -1,0 +1,12 @@
+[
+  { "state": "Gujarat", "turnout": 68 },
+  { "state": "Maharashtra", "turnout": 72 },
+  { "state": "Rajasthan", "turnout": 64 },
+  { "state": "Karnataka", "turnout": 71 },
+  { "state": "Tamil Nadu", "turnout": 74 },
+  { "state": "Uttar Pradesh", "turnout": 59 },
+  { "state": "Punjab", "turnout": 67 },
+  { "state": "West Bengal", "turnout": 82 },
+  { "state": "Kerala", "turnout": 77 },
+  { "state": "Bihar", "turnout": 56 }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "state": "Gujarat",
+    "constituencies": [
+      {
+        "id": "guj-surat",
+        "area": "Surat",
+        "representative": "Sample Leader A",
+        "term": "2024–2029",
+        "promises": [
+          { "title": "Metro Connectivity", "status": "completed" },
+          { "title": "Smart Drainage", "status": "in-progress" },
+          { "title": "New Public Hospital", "status": "pending" }
+        ],
+        "budget": {
+          "allocated": 500,
+          "used": 320
+        },
+        "projects": [
+          { "name": "Surat Metro Phase 1", "desc": "Expanding connectivity across industrial zones." },
+          { "name": "Tapi Riverfront Development", "desc": "Beautification and flood management project." }
+        ]
+      },
+      {
+        "id": "guj-ahmedabad",
+        "area": "Ahmedabad",
+        "representative": "Sample Leader B",
+        "term": "2024–2029",
+        "promises": [
+          { "title": "Solar Street Lights", "status": "completed" },
+          { "title": "IT Park Phase 2", "status": "in-progress" }
+        ],
+        "budget": {
+          "allocated": 750,
+          "used": 450
+        },
+        "projects": [
+          { "name": "Gift City Expansion", "desc": "New residential and commercial infrastructure." }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Maharashtra",
+    "constituencies": [
+      {
+        "id": "mah-mumbai",
+        "area": "Mumbai South",
+        "representative": "Sample Leader C",
+        "term": "2024–2029",
+        "promises": [
+          { "title": "Coastal Road", "status": "completed" },
+          { "title": "Slum Redevelopment", "status": "in-progress" }
+        ],
+        "budget": {
+          "allocated": 1200,
+          "used": 890
+        },
+        "projects": [
+          { "name": "Marine Drive Refurbishment", "desc": "Upgrading public amenities along the coast." }
+        ]
+      }
+    ]
+  }
+]

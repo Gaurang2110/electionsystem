@@ -1,0 +1,42 @@
+[
+  {
+    "id": "u1",
+    "title": "Registration Deadline Extended",
+    "description": "The ECI has extended the deadline for online registration to ensure all eligible citizens can participate.",
+    "type": "official",
+    "date": "2026-05-01",
+    "priority": "high"
+  },
+  {
+    "id": "u2",
+    "title": "How to verify your name online",
+    "description": "Check the official Electoral Roll to verify your polling booth and voter serial number.",
+    "type": "tip",
+    "date": "2026-04-28",
+    "priority": "medium"
+  },
+  {
+    "id": "u3",
+    "title": "New Form 6 Guidance",
+    "description": "Minor changes to the Form 6 submission process for faster digital processing.",
+    "type": "process",
+    "date": "2026-04-25",
+    "priority": "medium"
+  },
+  {
+    "id": "u4",
+    "title": "Aadhaar Linking Benefits",
+    "description": "Linking your Aadhaar with Voter ID helps in faster e-KYC and identity verification.",
+    "type": "tip",
+    "date": "2026-04-20",
+    "priority": "low"
+  },
+  {
+    "id": "u5",
+    "title": "Booth Relocation in District 4",
+    "description": "Some polling booths in District 4 have been moved to larger community halls for better accessibility.",
+    "type": "official",
+    "date": "2026-04-15",
+    "priority": "medium"
+  }
+]

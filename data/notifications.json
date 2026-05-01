@@ -1,0 +1,23 @@
+[
+  {
+    "id": "deadline-1",
+    "type": "deadline",
+    "priority": "high",
+    "message_key": "notif_deadline_registration",
+    "date": "2026-05-15"
+  },
+  {
+    "id": "step-1",
+    "type": "incomplete",
+    "priority": "medium",
+    "message_key": "notif_incomplete_profile",
+    "link": "/profile"
+  },
+  {
+    "id": "election-1",
+    "type": "voting",
+    "priority": "high",
+    "message_key": "notif_voting_day",
+    "date": "2026-05-20"
+  }
+]

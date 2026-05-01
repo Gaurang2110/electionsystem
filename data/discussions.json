@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "user": "Anita R.",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Anita",
+    "text": "Just completed my voter verification! It was surprisingly easy this time.",
+    "time": "2h ago",
+    "likes": 24
+  },
+  {
+    "id": "2",
+    "user": "Rahul S.",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul",
+    "text": "Does anyone know if driving license is enough for ID proof at the booth?",
+    "time": "4h ago",
+    "likes": 12
+  },
+  {
+    "id": "3",
+    "user": "Priya M.",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+    "text": "Encouraging all my first-time voter friends to check the eligibility list today!",
+    "time": "6h ago",
+    "likes": 56
+  }
+]

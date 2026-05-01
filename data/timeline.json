@@ -1,0 +1,26 @@
+[
+  {
+    "id": "reg_start",
+    "event_key": "registration_open",
+    "date": "2026-04-01",
+    "type": "official"
+  },
+  {
+    "id": "reg_deadline",
+    "event_key": "registration_deadline",
+    "date": "2026-05-15",
+    "type": "deadline"
+  },
+  {
+    "id": "voter_list_pub",
+    "event_key": "voter_list",
+    "date": "2026-05-18",
+    "type": "official"
+  },
+  {
+    "id": "voting_day",
+    "event_key": "election_day",
+    "date": "2026-05-20",
+    "type": "voting"
+  }
+]

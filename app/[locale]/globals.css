@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0B0E14;
+  --foreground: #F8FAFC;
+  --primary: #6366f1;
+  --secondary: #10b981;
+  --accent: #8b5cf6;
+  --card-bg: rgba(25, 29, 36, 0.8);
+}
+
+.high-contrast {
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --primary: #FFFF00; /* Yellow for high visibility */
+  --secondary: #00FF00; /* Lime */
+  --accent: #00FFFF; /* Cyan */
+  --card-bg: #000000;
+}
+
+.high-contrast * {
+  border-color: #FFFFFF !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.high-contrast body {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+.high-contrast .glass, 
+.high-contrast .glass-dark,
+.high-contrast .bg-slate-900,
+.high-contrast .bg-slate-900\/80,
+.high-contrast .bg-slate-950\/90 {
+  background: #000000 !important;
+  border: 2px solid #FFFFFF !important;
+}
+
+.high-contrast button {
+  border: 2px solid #FFFFFF !important;
+}
+
+.high-contrast .text-slate-400,
+.high-contrast .text-slate-500 {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-outfit);
+  --font-hi: var(--font-hindi);
+  --font-gu: var(--font-gujarati);
+  --font-bn: var(--font-bengali);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  
+  --shadow-premium: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+  --shadow-3d: 0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+  --shadow-inner-white: inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+  --shadow-glow: 0 0 20px 0 rgba(99, 102, 241, 0.15);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Better Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+html[lang="hi"] body, html[lang="mr"] body {
+  font-family: var(--font-hindi), var(--font-inter), sans-serif;
+}
+
+html[lang="gu"] body {
+  font-family: var(--font-gujarati), var(--font-inter), sans-serif;
+}
+
+html[lang="bn"] body {
+  font-family: var(--font-bengali), var(--font-inter), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.glass {
+  background: rgba(25, 29, 36, 0.7);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-premium), var(--shadow-inner-white);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.premium-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #7c3aed 100%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Indic script specific polish */
+[lang="hi"], [lang="gu"], [lang="bn"], [lang="mr"] {
+  line-height: 1.8;
+  word-spacing: 0.1em;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+[lang="hi"] h1, [lang="hi"] h2, [lang="mr"] h1, [lang="mr"] h2 {
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+[lang="gu"] h1, [lang="gu"] h2 {
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+/* Skeleton animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}

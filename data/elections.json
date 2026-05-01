@@ -1,0 +1,20 @@
+[
+  {
+    "id": "registration-deadline",
+    "title": "Registration Deadline",
+    "date": "2026-05-15T00:00:00Z",
+    "type": "Deadline"
+  },
+  {
+    "id": "voting-day",
+    "title": "Election Day",
+    "date": "2026-06-01T00:00:00Z",
+    "type": "Event"
+  },
+  {
+    "id": "results-day",
+    "title": "Results Day",
+    "date": "2026-06-05T00:00:00Z",
+    "type": "Event"
+  }
+]

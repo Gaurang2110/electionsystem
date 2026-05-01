@@ -1,0 +1,22 @@
+[
+  {
+    "id": "aadhar",
+    "icon": "CreditCard",
+    "required": true
+  },
+  {
+    "id": "voter-id",
+    "icon": "User",
+    "required": true
+  },
+  {
+    "id": "address-proof",
+    "icon": "Home",
+    "required": true
+  },
+  {
+    "id": "pan-card",
+    "icon": "FileText",
+    "required": false
+  }
+]

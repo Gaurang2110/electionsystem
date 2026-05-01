@@ -1,0 +1,267 @@
+{
+  "onboarding": {
+    "title_part1": "Your Vote,",
+    "title_part2": "Your Future.",
+    "subtitle": "Master the Indian election process with your personal AI assistant.",
+    "features": {
+      "multilingual": {
+        "title": "Multilingual Support",
+        "desc": "Available in 12+ Indian languages"
+      },
+      "verified": {
+        "title": "Verified Info",
+        "desc": "Sourced directly from ECI guidelines"
+      }
+    },
+    "cta": "Start Your Voting Journey",
+    "login": "Already have an account? Login",
+    "voter_selection": {
+      "title": "Is this your first time voting?",
+      "subtitle": "We'll tailor your experience to make it simple and stress-free.",
+      "yes_title": "Yes, I'm a First-Timer",
+      "yes_desc": "I need help with everything from registration to the booth.",
+      "no_title": "No, I've Voted Before",
+      "no_desc": "I just need a quick status check and booth info.",
+      "button": "Confirm Choice"
+    }
+  },
+  "dashboard": {
+    "readiness": "Voting Readiness",
+    "complete_profile": "Complete your profile to be 100% ready",
+    "progress_status": "You are {progress}% ready to vote",
+    "next_step": "Next Step",
+    "verify_id": "Verify Voter ID",
+    "actions": {
+      "journey": "Voting Journey",
+      "assistant": "Ask AI Assistant",
+      "eligibility": "Eligibility Check",
+      "documents": "My Documents",
+      "fact_check": "Fact Check",
+      "map": "Booth Finder"
+    },
+    "deadlines": {
+      "title": "Upcoming Deadlines",
+      "view_all": "View All",
+      "item1": {
+        "title": "Last Day to Register",
+        "type": "Urgent"
+      },
+      "item2": {
+        "title": "Document Verification",
+        "type": "Normal"
+      }
+    },
+    "first_timer_guidance": "Since it's your first time, we've highlighted the most critical steps for you. Don't worry, it's simpler than it looks!"
+  },
+  "journey": {
+    "title": "Your Journey",
+    "subtitle": "Follow these steps to ensure you're ready.",
+    "steps": {
+      "registration": {
+        "title": "Voter Registration",
+        "desc": "Fill Form 6 on NVSP portal to register as a new voter.",
+        "time": "5 min"
+      },
+      "verification": {
+        "title": "Document Verification",
+        "desc": "Your local BLO will visit for physical verification of your documents.",
+        "time": "2 min"
+      },
+      "booth": {
+        "title": "Find Polling Booth",
+        "desc": "Locate your designated polling station on the ECI website.",
+        "time": "1 min"
+      },
+      "vote": {
+        "title": "Cast Your Vote",
+        "desc": "Head to your booth with your EPIC card and cast your vote.",
+        "time": "15 min"
+      }
+    },
+    "mark_complete": "Mark as Complete",
+    "tips": {
+      "registration": "FIRST-TIMER TIP: Keep your Aadhaar and a clear passport-size photo ready before starting Form 6.",
+      "verification": "FIRST-TIMER TIP: The BLO will call you before visiting. Keep your originals handy for quick verification.",
+      "booth": "FIRST-TIMER TIP: Booths are usually in schools or community halls nearby. Check the map a day before.",
+      "vote": "FIRST-TIMER TIP: Don't forget your ink mark! It's a badge of honor for every citizen."
+    }
+  },
+  "documents": {
+    "title": "Document Checklist",
+    "subtitle": "Ensure you have these documents ready for verification.",
+    "status_label": "Readiness Status",
+    "complete": "Complete",
+    "of": "of",
+    "documents_ready": "documents ready",
+    "kcy_alert": "Make sure your mobile number is linked with your Aadhaar for faster e-KYC during verification.",
+    "items": {
+      "aadhar": {
+        "title": "Aadhaar Card",
+        "desc": "Required for identity and age proof."
+      },
+      "voter-id": {
+        "title": "Voter ID (if any)",
+        "desc": "Existing EPIC card if you are already registered."
+      },
+      "address-proof": {
+        "title": "Address Proof",
+        "desc": "Electricity bill, Gas connection, or Bank passbook."
+      }
+    }
+  },
+  "eligibility": {
+    "title": "Eligibility Check",
+    "subtitle": "Let's see if you can vote in the next election.",
+    "age_question": "What is your age?",
+    "age_placeholder": "Enter your age",
+    "citizen_question": "Are you an Indian citizen?",
+    "state_question": "Which state are you from?",
+    "registered_question": "Are you already registered to vote?",
+    "yes": "Yes",
+    "no": "No",
+    "check_result": "Check Result",
+    "result_eligible": "You Are Eligible!",
+    "result_not_eligible": "Not Eligible Yet",
+    "desc_eligible": "Congratulations! You are eligible to vote in the upcoming elections.",
+    "desc_not_eligible": "Unfortunately, you do not meet the criteria to vote yet.",
+    "reason_age": "You must be at least 18 years old to vote.",
+    "reason_citizen": "Only Indian citizens are eligible to vote.",
+    "next_steps_title": "Next Steps",
+    "next_step_register": "Register on the NVSP portal (Form 6)",
+    "next_step_documents": "Keep your Aadhaar and address proof ready",
+    "what_to_do_next": "What should you do next?",
+    "start_over": "Start Over",
+    "next": "Next Step"
+  },
+  "timeline": {
+    "title": "Election Timeline",
+    "subtitle": "Key dates for the 2026 General Elections",
+    "remind_me": "Remind Me",
+    "details": "Details",
+    "events": {
+      "registration_open": { "title": "Registration Opens" },
+      "registration_deadline": { "title": "Registration Deadline", "countdown": "14 days left" },
+      "voter_list": { "title": "Voter List Update" },
+      "election_day": { "title": "Election Day", "countdown": "40 days left" }
+    },
+    "status": {
+      "completed": "Completed",
+      "active": "Active",
+      "upcoming": "Upcoming"
+    }
+  },
+  "chat": {
+    "welcome": "Hello! I am your Civic AI assistant. How can I help you today?",
+    "mock_response": "I'm a mock AI assistant. Soon I'll be powered by Gemini to provide real-time election information!",
+    "placeholder": "Ask anything...",
+    "suggestions": {
+      "next": "What should I do next?",
+      "register": "How do I register to vote?",
+      "polling": "Check my polling station",
+      "docs": "Documents required for registration"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "journey": "Journey",
+    "assistant": "AI Assistant",
+    "eligibility": "Eligibility",
+    "map": "Booth Finder"
+  },
+  "booth_finder": {
+    "title": "Find My Booth",
+    "subtitle": "Enter your PIN code to locate your designated polling station.",
+    "placeholder": "Enter PIN Code (e.g. 400001)",
+    "search": "Search",
+    "searching": "Searching...",
+    "distance_away": "{distance} away",
+    "get_directions": "Get Directions",
+    "no_results": "No booths found for this PIN code.",
+    "empty_state": "Your results will appear here.",
+    "map_title": "Interactive Map",
+    "map_desc": "Coming soon with real-time navigation."
+  },
+  "myth_fact": {
+    "title": "Myth vs Fact",
+    "subtitle": "Busting common election rumors with verified facts.",
+    "myth_label": "Myth",
+    "fact_label": "Fact",
+    "items": {
+      "item1": {
+        "myth": "I have a Voter ID card, so I can definitely vote.",
+        "fact": "Having an EPIC card is not enough. Your name MUST be present in the official Electoral Roll to vote."
+      },
+      "item2": {
+        "myth": "I can vote from any polling station in my city.",
+        "fact": "No. You can only vote at the specific polling booth assigned to you in the voter list."
+      },
+      "item3": {
+        "myth": "Registered voters can vote online from home.",
+        "fact": "Currently, the ECI does not provide an online voting facility for general citizens. You must visit your booth."
+      }
+    }
+  },
+  "help_others": {
+    "title": "Help Someone Vote",
+    "subtitle": "Share the simple 4-step process with friends and family to ensure everyone's voice is heard.",
+    "button": "Help Someone",
+    "modal_title": "Help Someone Vote",
+    "modal_subtitle": "Empower your community by sharing essential voting information.",
+    "copy_text": "Copy Steps",
+    "copy_link": "Copy Link",
+    "copied": "Copied!",
+    "people_helped": "People Helped",
+    "option_checklist": "Share Checklist",
+    "option_progress": "Share Progress",
+    "option_guide": "Share Simple Guide",
+    "share_message": "🗳️ *Voting Guide 2026*\n\n1. Register: Fill Form 6 at voters.eci.gov.in\n2. Verify: Keep documents ready for BLO visit\n3. Locate: Find your booth via EPIC number\n4. Vote: Visit booth on election day!\n\nHelp your community vote: {link}",
+    "share_checklist_msg": "🗳️ *My Voting Checklist*\n\nI've prepared my documents for the 2026 Elections. Prepare yours and get ready to vote: {link}",
+    "share_progress_msg": "📈 I am {progress}% ready for the 2026 Elections! Check your voting readiness here: {link}",
+    "share_guide_msg": "📘 Here is a simple step-by-step guide to voting in the 2026 Elections. Share it with anyone who needs help: {link}"
+  },
+  "common": {
+    "hi": "Hi",
+    "election_year": "India Election 2026"
+  },
+  "profile": {
+    "title": "Voter Profile",
+    "edit": "Edit Profile",
+    "save": "Save Profile",
+    "readiness": "Readiness Snapshot",
+    "impact_score": "Impact Score",
+    "completion": "Completion",
+    "basic_info": "Basic Information",
+    "full_name": "Full Name",
+    "age": "Age",
+    "state": "State",
+    "district": "District",
+    "voting_status": "Voting Status",
+    "registered_voter": "Registered Voter",
+    "voter_id_available": "Voter ID Available",
+    "first_time_voter": "First-Time Voter",
+    "preferences": "Preferences",
+    "app_language": "App Language"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No new notifications",
+    "mark_all_read": "Mark all as read",
+    "notif_deadline_registration": "Registration closes in 2 days. Complete your Form 6 today!",
+    "notif_incomplete_profile": "Your profile is incomplete. Finish it to see your voting readiness.",
+    "notif_voting_day": "Election Day is approaching on May 20th. Don't forget to vote!",
+    "notif_eligible_now": "Congratulations! Based on your age, you are now eligible to vote.",
+    "notif_document_pending": "You have {count} documents pending in your checklist."
+  },
+  "updates": {
+    "title": "Election Updates",
+    "subtitle": "Latest official news and voter tips",
+    "filter_all": "All",
+    "filter_official": "Official",
+    "filter_tip": "Tips",
+    "filter_process": "Process",
+    "read_more": "Read More",
+    "type_official": "OFFICIAL",
+    "type_tip": "VOTER TIP",
+    "type_process": "PROCESS CHANGE"
+  }
+}

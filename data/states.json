@@ -1,0 +1,12 @@
+[
+  {"id": "gj", "name": "Gujarat", "icon": "🦁"},
+  {"id": "mh", "name": "Maharashtra", "icon": "🚩"},
+  {"id": "rj", "name": "Rajasthan", "icon": "🏰"},
+  {"id": "ka", "name": "Karnataka", "icon": "🛕"},
+  {"id": "tn", "name": "Tamil Nadu", "icon": "🏛️"},
+  {"id": "up", "name": "Uttar Pradesh", "icon": "🪔"},
+  {"id": "pb", "name": "Punjab", "icon": "🌾"},
+  {"id": "wb", "name": "West Bengal", "icon": "🐯"},
+  {"id": "kl", "name": "Kerala", "icon": "⛵"},
+  {"id": "br", "name": "Bihar", "icon": "🏮"}
+]

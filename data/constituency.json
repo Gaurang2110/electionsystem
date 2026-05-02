@@ -1,63 +1,346 @@
 [
   {
-    "state": "Gujarat",
+    "state": "Maharashtra",
     "constituencies": [
       {
-        "id": "guj-surat",
-        "area": "Surat",
-        "representative": "Sample Leader A",
+        "id": "mah-mumbai-south",
+        "area": "Mumbai South",
+        "representative": "Dr. Arvind Sawant",
         "term": "2024–2029",
         "promises": [
-          { "title": "Metro Connectivity", "status": "completed" },
-          { "title": "Smart Drainage", "status": "in-progress" },
-          { "title": "New Public Hospital", "status": "pending" }
+          {
+            "title": "Coastal Road Phase 2",
+            "status": "in-progress"
+          },
+          {
+            "title": "Marine Drive Restoration",
+            "status": "completed"
+          },
+          {
+            "title": "Slum Rehabilitation",
+            "status": "in-progress"
+          }
         ],
         "budget": {
-          "allocated": 500,
-          "used": 320
+          "allocated": 2500,
+          "used": 1850
         },
         "projects": [
-          { "name": "Surat Metro Phase 1", "desc": "Expanding connectivity across industrial zones." },
-          { "name": "Tapi Riverfront Development", "desc": "Beautification and flood management project." }
+          {
+            "name": "Coastal Road Tunnel",
+            "desc": "India's first undersea road tunnel connecting south Mumbai."
+          },
+          {
+            "name": "MTHL Connectivity",
+            "desc": "Linking the Mumbai Trans Harbour Link to the island city."
+          }
         ]
       },
       {
-        "id": "guj-ahmedabad",
-        "area": "Ahmedabad",
-        "representative": "Sample Leader B",
+        "id": "mah-pune",
+        "area": "Pune City",
+        "representative": "Murlidhar Mohol",
         "term": "2024–2029",
         "promises": [
-          { "title": "Solar Street Lights", "status": "completed" },
-          { "title": "IT Park Phase 2", "status": "in-progress" }
+          {
+            "title": "Pune Metro Extension",
+            "status": "in-progress"
+          },
+          {
+            "title": "River Rejuvenation",
+            "status": "in-progress"
+          },
+          {
+            "title": "EV Bus Fleet",
+            "status": "completed"
+          }
         ],
         "budget": {
-          "allocated": 750,
-          "used": 450
+          "allocated": 1800,
+          "used": 920
         },
         "projects": [
-          { "name": "Gift City Expansion", "desc": "New residential and commercial infrastructure." }
+          {
+            "name": "Pune Ring Road",
+            "desc": "128km circular highway to decongest the city traffic."
+          },
+          {
+            "name": "Hinjewadi-Shivajinagar Metro",
+            "desc": "Elevated metro line for the IT workforce."
+          }
         ]
       }
     ]
   },
   {
-    "state": "Maharashtra",
+    "state": "Delhi",
     "constituencies": [
       {
-        "id": "mah-mumbai",
-        "area": "Mumbai South",
-        "representative": "Sample Leader C",
+        "id": "del-new-delhi",
+        "area": "New Delhi",
+        "representative": "Bansuri Swaraj",
         "term": "2024–2029",
         "promises": [
-          { "title": "Coastal Road", "status": "completed" },
-          { "title": "Slum Redevelopment", "status": "in-progress" }
+          {
+            "title": "Central Vista Revamp",
+            "status": "completed"
+          },
+          {
+            "title": "Pollution Control AI",
+            "status": "in-progress"
+          },
+          {
+            "title": "Smart Schools 2.0",
+            "status": "completed"
+          }
         ],
         "budget": {
-          "allocated": 1200,
-          "used": 890
+          "allocated": 3200,
+          "used": 2800
         },
         "projects": [
-          { "name": "Marine Drive Refurbishment", "desc": "Upgrading public amenities along the coast." }
+          {
+            "name": "Bharat Vandana Park",
+            "desc": "A 200-acre mini-India theme park in Dwarka."
+          },
+          {
+            "name": "RRTS Phase 1",
+            "desc": "Rapid Rail connectivity to the National Capital Region."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Gujarat",
+    "constituencies": [
+      {
+        "id": "guj-gandhinagar",
+        "area": "Gandhinagar",
+        "representative": "Amit Shah",
+        "term": "2024–2029",
+        "promises": [
+          {
+            "title": "GIFT City Expansion",
+            "status": "in-progress"
+          },
+          {
+            "title": "Bullet Train Terminal",
+            "status": "in-progress"
+          },
+          {
+            "title": "Dholera SIR Connectivity",
+            "status": "completed"
+          }
+        ],
+        "budget": {
+          "allocated": 5200,
+          "used": 3100
+        },
+        "projects": [
+          {
+            "name": "Sabarmati Bullet Train Hub",
+            "desc": "A multi-modal transport hub for the High-Speed Rail."
+          },
+          {
+            "name": "Semicon City",
+            "desc": "India's first semiconductor fabrication facility."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Karnataka",
+    "constituencies": [
+      {
+        "id": "kar-bangalore-south",
+        "area": "Bangalore South",
+        "representative": "Tejasvi Surya",
+        "term": "2024–2029",
+        "promises": [
+          {
+            "title": "Suburban Rail",
+            "status": "in-progress"
+          },
+          {
+            "title": "Cauvery Stage 5",
+            "status": "completed"
+          },
+          {
+            "title": "Global Tech Hub",
+            "status": "completed"
+          }
+        ],
+        "budget": {
+          "allocated": 2800,
+          "used": 1950
+        },
+        "projects": [
+          {
+            "name": "Skydeck Bangalore",
+            "desc": "The tallest public viewing tower in South Asia."
+          },
+          {
+            "name": "Bengaluru-Mysuru Expressway",
+            "desc": "Enhanced connectivity for the industrial corridor."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Telangana",
+    "constituencies": [
+      {
+        "id": "tel-hyderabad",
+        "area": "Hyderabad",
+        "representative": "Asaduddin Owaisi",
+        "term": "2024–2029",
+        "promises": [
+          {
+            "title": "Old City Metro",
+            "status": "in-progress"
+          },
+          {
+            "title": "Musiriver Cleaning",
+            "status": "in-progress"
+          },
+          {
+            "title": "IT Cluster Phase 3",
+            "status": "completed"
+          }
+        ],
+        "budget": {
+          "allocated": 1500,
+          "used": 850
+        },
+        "projects": [
+          {
+            "name": "Regional Ring Road",
+            "desc": "A 340km access-controlled expressway for Telangana."
+          },
+          {
+            "name": "Pharma City",
+            "desc": "World's largest integrated pharmaceutical cluster."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Tamil Nadu",
+    "constituencies": [
+      {
+        "id": "tn-chennai-south",
+        "area": "Chennai South",
+        "representative": "Dr. Thamizhachi Thangapandian",
+        "term": "2024–2029",
+        "promises": [
+          {
+            "title": "Metro Phase 2",
+            "status": "in-progress"
+          },
+          {
+            "title": "Desalination Plant 3",
+            "status": "completed"
+          },
+          {
+            "title": "Adyar Riverfront",
+            "status": "in-progress"
+          }
+        ],
+        "budget": {
+          "allocated": 2300,
+          "used": 1600
+        },
+        "projects": [
+          {
+            "name": "Kilambakkam Terminus",
+            "desc": "A state-of-the-art multi-modal bus terminus."
+          },
+          {
+            "name": "Fintech City Chennai",
+            "desc": "A global hub for financial technology firms."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "West Bengal",
+    "constituencies": [
+      {
+        "id": "wb-kolkata-south",
+        "area": "Kolkata South",
+        "representative": "Mala Roy",
+        "term": "2024–2029",
+        "promises": [
+          {
+            "title": "Underwater Metro",
+            "status": "completed"
+          },
+          {
+            "title": "Ganga Riverfront",
+            "status": "in-progress"
+          },
+          {
+            "title": "New IT Township",
+            "status": "in-progress"
+          }
+        ],
+        "budget": {
+          "allocated": 1900,
+          "used": 1400
+        },
+        "projects": [
+          {
+            "name": "East-West Metro",
+            "desc": "India's first underwater metro tunnel under the Hooghly river."
+          },
+          {
+            "name": "Maa Flyover Extension",
+            "desc": "Enhancing East-West connectivity in the city."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Uttar Pradesh",
+    "constituencies": [
+      {
+        "id": "up-varanasi",
+        "area": "Varanasi",
+        "representative": "Narendra Modi",
+        "term": "2024–2029",
+        "promises": [
+          {
+            "title": "Kashi Corridor P2",
+            "status": "completed"
+          },
+          {
+            "title": "Ganga Ropeway",
+            "status": "in-progress"
+          },
+          {
+            "title": "Varanasi AIIMS",
+            "status": "in-progress"
+          }
+        ],
+        "budget": {
+          "allocated": 4800,
+          "used": 4100
+        },
+        "projects": [
+          {
+            "name": "Namo Ghat Revamp",
+            "desc": "World-class sustainable riverfront development."
+          },
+          {
+            "name": "Varanasi Smart Grid",
+            "desc": "Complete underground cabling for the ancient city."
+          }
         ]
       }
     ]

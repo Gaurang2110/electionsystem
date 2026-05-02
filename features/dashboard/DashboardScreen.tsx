@@ -56,6 +56,11 @@ import { Gauge } from "@/components/ui/Gauge";
 export const DashboardScreen: React.FC = () => {
   const { profile, progress, notifications, getNextBestAction } = useAppStore();
   const nextBestAction = getNextBestAction();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <motion.div
@@ -133,11 +138,13 @@ export const DashboardScreen: React.FC = () => {
 
                   <div className="bg-slate-50/80 rounded-2xl p-5 border border-slate-100/50 flex items-center gap-5">
                     <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-3xl group-hover:rotate-3 transition-transform">
-                      {nextBestAction.id === 'eligibility' ? '📋' :
-                        nextBestAction.id === 'registration' ? '📝' :
-                          nextBestAction.id === 'locate' ? '🗺️' :
-                            nextBestAction.id === 'documents' ? '📂' :
-                              nextBestAction.id === 'quiz' ? '🧠' : '✅'}
+                      {!mounted ? '📋' : (
+                        nextBestAction.id === 'eligibility' ? '📋' :
+                          nextBestAction.id === 'registration' ? '📝' :
+                            nextBestAction.id === 'locate' ? '🗺️' :
+                              nextBestAction.id === 'documents' ? '📂' :
+                                nextBestAction.id === 'quiz' ? '🧠' : '✅'
+                      )}
                     </div>
                     <div>
                       <h4 className="font-black text-slate-900 text-base leading-tight">{nextBestAction.label}</h4>
@@ -163,7 +170,7 @@ export const DashboardScreen: React.FC = () => {
               {[
                 { id: "map", label: "Booth Map", icon: MapIcon, color: "text-emerald-500 bg-emerald-50 border-emerald-100", desc: "Find area" },
                 { id: "docs", label: "Documents", icon: FileText, color: "text-orange-500 bg-orange-50 border-orange-100", desc: "Verify docs" },
-                { id: "ai", label: "AI Assistant", icon: MessageSquare, color: "text-indigo-500 bg-indigo-50 border-indigo-100", desc: "Ask anything" },
+                { id: "assistant", label: "AI Assistant", icon: MessageSquare, color: "text-indigo-500 bg-indigo-50 border-indigo-100", desc: "Ask anything" },
                 { id: "journey", label: "Journey", icon: Sparkles, color: "text-purple-500 bg-purple-50 border-purple-100", desc: "Track path" },
                 { id: "myth", label: "Myth vs Fact", icon: ShieldCheck, color: "text-blue-500 bg-blue-50 border-blue-100", desc: "Know truth" },
                 { id: "timeline", label: "Timeline", icon: Clock, color: "text-rose-500 bg-rose-50 border-rose-100", desc: "Key dates" },

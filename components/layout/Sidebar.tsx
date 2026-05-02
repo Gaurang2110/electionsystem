@@ -27,8 +27,6 @@ const MENU_ITEMS = [
   { id: "eligibility", label: "Eligibility", icon: ShieldCheck, href: "/eligibility" },
   { id: "documents", label: "Documents", icon: FileText, href: "/documents" },
   { id: "insights", label: "Insights", icon: BarChart3, href: "/insights" },
-  { id: "stickers", label: "Stickers", icon: Sticker, href: "/profile" },
-  { id: "leaderboard", label: "Leaderboard", icon: Trophy, href: "/profile" },
   { id: "profile", label: "Profile", icon: User, href: "/profile" },
 ];
 

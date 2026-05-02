@@ -57,12 +57,19 @@ export const DocumentChecklist: React.FC = () => {
           <p className="text-slate-500 font-bold text-xs max-w-lg">{t('subtitle')}</p>
         </div>
 
-        <div className="relative w-120   md:h-40 opacity-40">
-          <img
-            src="/eligibity_header.png"
-            alt="Illustration"
-            className="w-full h-full object-contain object-right"
-          />
+        <div className="flex items-center gap-3 relative z-20">
+          <Link href="/assistant">
+            <button className="h-10 px-5 bg-indigo-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-indigo-100 flex items-center gap-2 hover:bg-indigo-700 transition-all">
+              <MessageSquare size={14} /> Ask Help
+            </button>
+          </Link>
+          <div className="hidden md:block relative w-48 h-40 opacity-40">
+            <img
+              src="/eligibity_header.png"
+              alt="Illustration"
+              className="w-full h-full object-contain object-right"
+            />
+          </div>
         </div>
       </div>
 

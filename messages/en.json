@@ -106,6 +106,10 @@
       "address-proof": {
         "title": "Address Proof",
         "desc": "Electricity bill, Gas connection, or Bank passbook."
+      },
+      "pan-card": {
+        "title": "PAN Card",
+        "desc": "Optional identity proof for additional verification."
       }
     }
   },

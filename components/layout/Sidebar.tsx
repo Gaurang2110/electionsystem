@@ -16,8 +16,9 @@ import {
 } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/utils/cn";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
+
 const MENU_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/" },
   { id: "journey", label: "Journey", icon: Compass, href: "/journey" },
@@ -25,16 +26,36 @@ const MENU_ITEMS = [
   { id: "assistant", label: "AI Assistant", icon: MessageSquare, href: "/assistant" },
   { id: "eligibility", label: "Eligibility", icon: ShieldCheck, href: "/eligibility" },
   { id: "documents", label: "Documents", icon: FileText, href: "/documents" },
-  { id: "laboratory", label: "Laboratory", icon: FlaskConical, href: "/#mock-ballot" },
   { id: "insights", label: "Insights", icon: BarChart3, href: "/insights" },
   { id: "stickers", label: "Stickers", icon: Sticker, href: "/profile" },
   { id: "leaderboard", label: "Leaderboard", icon: Trophy, href: "/profile" },
   { id: "profile", label: "Profile", icon: User, href: "/profile" },
 ];
 
+const AnimatedIcon = ({ icon: Icon, isActive, isHovered }: { icon: any, isActive: boolean, isHovered: boolean }) => {
+  return (
+    <motion.div
+      animate={{
+        scale: isActive ? 1.2 : isHovered ? 1.1 : 1,
+        rotate: isActive ? [0, -10, 10, 0] : isHovered ? [0, -5, 5, 0] : 0,
+      }}
+      transition={{
+        duration: 0.5,
+        rotate: { repeat: isActive ? Infinity : 0, duration: 2, ease: "linear" }
+      }}
+      className={cn(
+        "transition-colors duration-300",
+        isActive ? "text-primary drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]" : "text-slate-400 group-hover:text-slate-200"
+      )}
+    >
+      <Icon size={19} />
+    </motion.div>
+  );
+};
 
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
+  const [hoveredId, setHoveredId] = React.useState<string | null>(null);
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-[240px] bg-[#0A0F1D] text-white flex flex-col z-[100] shadow-2xl overflow-hidden border-r border-white/5">
@@ -43,20 +64,24 @@ export const Sidebar: React.FC = () => {
 
       {/* Layer 2: Silhouette Illustration (Faded Parliament) */}
       <div className="absolute bottom-0 left-0 right-0 h-64 opacity-20 pointer-events-none mix-blend-screen overflow-hidden">
-        <img 
-          src="/header_civic_illustration_1777628116893.png" 
-          alt="Illustration" 
-          className="w-full h-full object-cover object-bottom grayscale brightness-[0.2] scale-150" 
+        <img
+          src="/header_civic_illustration_1777628116893.png"
+          alt="Illustration"
+          className="w-full h-full object-cover object-bottom grayscale brightness-[0.2] scale-150"
         />
       </div>
 
       <div className="p-6 pb-4 relative z-20">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20 border border-white/10 group">
-            <LayoutDashboard size={20} className="text-white group-hover:scale-110 transition-transform" />
-          </div>
+          <motion.div
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.8 }}
+            className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20 border border-white/10 group"
+          >
+            <LayoutDashboard size={20} className="text-white" />
+          </motion.div>
           <div>
-            <h1 className="font-black text-xl font-display tracking-tight leading-none text-white">CIVIC AI</h1>
+            <h1 className="font-black text-xl tracking-tight leading-none text-white font-display">CIVIC AI</h1>
             <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-1.5">Election Assistant</p>
           </div>
         </div>
@@ -66,7 +91,12 @@ export const Sidebar: React.FC = () => {
         {MENU_ITEMS.map((item) => {
           const isActive = pathname === item.href || (item.href === "/" && pathname === "/");
           return (
-            <Link key={item.id} href={item.href}>
+            <Link
+              key={item.id}
+              href={item.href}
+              onMouseEnter={() => setHoveredId(item.id)}
+              onMouseLeave={() => setHoveredId(null)}
+            >
               <motion.div
                 whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
                 whileTap={{ scale: 0.98 }}
@@ -78,26 +108,33 @@ export const Sidebar: React.FC = () => {
                 )}
               >
                 {isActive && (
-                  <motion.div 
+                  <motion.div
                     layoutId="active-nav"
                     className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/10 to-transparent border-l-[3px] border-primary z-0"
                   />
                 )}
-                
+
                 <div className="relative z-10">
-                  <item.icon size={19} className={cn("transition-all duration-500", isActive ? "text-primary drop-shadow-[0_0_8px_rgba(99,102,241,0.8)] scale-110" : "group-hover:text-slate-200")} />
+                  <AnimatedIcon
+                    icon={item.icon}
+                    isActive={isActive}
+                    isHovered={hoveredId === item.id}
+                  />
                 </div>
 
-                <span className={cn("relative z-10 text-[12px] font-bold uppercase tracking-[0.15em] transition-all duration-500", isActive ? "text-white" : "group-hover:translate-x-1")}>
+                <span className={cn(
+                  "relative z-10 text-[12px] font-bold uppercase tracking-[0.15em] transition-all duration-500 font-display",
+                  isActive ? "text-white" : "group-hover:translate-x-1"
+                )}>
                   {item.label}
                 </span>
 
                 {isActive && (
-                   <motion.div 
+                  <motion.div
                     animate={{ opacity: [0.2, 0.5, 0.2] }}
                     transition={{ repeat: Infinity, duration: 2 }}
                     className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(99,102,241,1)]"
-                   />
+                  />
                 )}
               </motion.div>
             </Link>
@@ -107,18 +144,21 @@ export const Sidebar: React.FC = () => {
 
       {/* Offline Mode Card - Stitch Style */}
       <div className="p-4 relative z-20 mt-auto">
-        <div className="dark-glass-card rounded-2xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-colors border border-white/5">
+        <motion.div
+          whileHover={{ y: -2 }}
+          className="dark-glass-card rounded-2xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-colors border border-white/5"
+        >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-slate-800/80 flex items-center justify-center border border-white/5 group-hover:border-secondary/30 transition-colors">
               <WifiOff size={18} className="text-secondary" />
             </div>
             <div className="text-left">
-              <p className="text-[11px] font-black text-white uppercase tracking-wider leading-tight">Offline Mode</p>
+              <p className="text-[11px] font-black text-white uppercase tracking-wider leading-tight font-display">Offline Mode</p>
               <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">You are all set!</p>
             </div>
           </div>
           <Compass size={14} className="text-slate-600 group-hover:text-white transition-colors" />
-        </div>
+        </motion.div>
       </div>
     </aside>
   );

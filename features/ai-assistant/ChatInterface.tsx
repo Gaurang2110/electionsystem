@@ -126,13 +126,13 @@ export const ChatInterface: React.FC = () => {
   return (
     <div className="flex flex-col h-full w-full max-w-5xl mx-auto relative px-4">
 
-      {/* HEADER SECTION (STATIC) */}
-      <div className="flex items-center justify-between py-4 px-2 shrink-0">
-        <div className="relative z-10">
+      {/* HEADER SECTION (COMPACT) */}
+      <div className="flex items-center justify-between py-2 px-1 shrink-0 border-b border-slate-100/50 mb-2">
+        <div className="relative z-10 py-1">
           <motion.h1
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-2xl md:text-3xl font-black text-slate-900 font-display tracking-tight"
+            className="text-xl md:text-2xl font-black text-slate-900 font-display tracking-tight"
           >
             Hello {profile.name || "Aarav"}! 👋
           </motion.h1>
@@ -140,32 +140,32 @@ export const ChatInterface: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-slate-500 font-medium text-xs mt-1 leading-relaxed"
+            className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-0.5"
           >
-            Your Civic AI assistant is ready.
+            Civic AI Election Assistant
           </motion.p>
         </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="relative w-full  h-full md:w-80"
+          className="relative h-12 w-24 md:w-32"
         >
           <img
             src="/civic_ai_assistant_mascot.png"
             alt="Civic AI Mascot"
-            className="w-full h-full object-contain relative z-10"
+            className="w-full h-full object-contain relative z-10 grayscale opacity-40 hover:opacity-100 hover:grayscale-0 transition-all cursor-help"
           />
         </motion.div>
       </div>
 
       {/* MESSAGES AREA (SCROLLABLE) */}
-      <div className="flex-1 overflow-y-auto px-2 space-y-6 pb-10 scroll-smooth no-scrollbar">
+      <div className="flex-1 overflow-y-auto px-1 space-y-4 pb-6 scroll-smooth no-scrollbar">
         <AnimatePresence initial={false}>
           {messages.map((msg, idx) => (
             <motion.div
               key={msg.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className={cn(
                 "flex w-full group",
@@ -173,59 +173,59 @@ export const ChatInterface: React.FC = () => {
               )}
             >
               <div className={cn(
-                "flex max-w-[90%] md:max-w-[75%] gap-3",
+                "flex max-w-[92%] md:max-w-[80%] gap-2.5",
                 msg.sender === "user" ? "flex-row-reverse" : "flex-row"
               )}>
                 {/* Avatar (Smaller) */}
                 <div className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-md border-2 border-white",
+                  "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm border border-white/50 mt-1",
                   msg.sender === "user"
-                    ? "bg-primary text-white"
+                    ? "bg-slate-900 text-white"
                     : "bg-gradient-to-br from-indigo-600 to-purple-600 text-white"
                 )}>
-                  {msg.sender === "user" ? <User size={20} /> : <Sparkles size={20} />}
+                  {msg.sender === "user" ? <User size={14} /> : <Sparkles size={14} />}
                 </div>
 
-                {/* Content Card (Smaller Padding) */}
-                <div className="flex flex-col gap-1">
+                {/* Content Card (Tight Padding) */}
+                <div className="flex flex-col gap-0.5">
                   <div className={cn(
                     "flex items-center gap-2 px-1",
                     msg.sender === "user" ? "flex-row-reverse" : "flex-row"
                   )}>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
                       {msg.sender === "ai" ? "Civic AI" : "You"}
                     </span>
-                    <span className="text-[9px] font-medium text-slate-300">
+                    <span className="text-[8px] font-bold text-slate-300">
                       {msg.timestamp.toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit', hour12: true })}
                     </span>
                   </div>
 
                   <div className={cn(
-                    "px-5 py-3.5 rounded-2xl text-[15px] font-medium leading-relaxed shadow-lg relative",
+                    "px-4 py-3 rounded-2xl text-[14px] font-bold leading-relaxed shadow-sm relative border",
                     msg.sender === "user"
-                      ? "bg-primary/10 text-slate-800 border border-primary/20 rounded-tr-none"
-                      : "bg-white text-slate-700 rounded-tl-none border border-slate-100"
+                      ? "bg-slate-50 text-slate-700 border-slate-100 rounded-tr-none"
+                      : "bg-white text-slate-700 rounded-tl-none border-slate-100 shadow-slate-100"
                   )}>
                     {msg.text}
 
-                    {/* AI Feedback / Tools (Tighter) */}
+                    {/* AI Feedback / Tools (Very Compact) */}
                     {msg.sender === "ai" && (
-                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-50">
+                      <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-50">
                         <div className="flex items-center gap-0.5">
-                          <button className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors">
-                            <ThumbsUp size={14} />
+                          <button className="p-1 hover:bg-slate-50 rounded text-slate-300 hover:text-indigo-600 transition-colors">
+                            <ThumbsUp size={12} />
                           </button>
-                          <button className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors">
-                            <ThumbsDown size={14} />
+                          <button className="p-1 hover:bg-slate-50 rounded text-slate-300 hover:text-indigo-600 transition-colors">
+                            <ThumbsDown size={12} />
                           </button>
                         </div>
                         <div className="flex items-center gap-0.5">
-                          <button className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors">
-                            <Copy size={14} />
+                          <button className="p-1 hover:bg-slate-50 rounded text-slate-300 hover:text-indigo-600 transition-colors">
+                            <Copy size={12} />
                           </button>
                           <SpeakerButton
                             text={msg.text}
-                            className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors"
+                            className="p-1 hover:bg-slate-50 rounded text-slate-300 hover:text-indigo-600 transition-colors"
                           />
                         </div>
                       </div>
@@ -240,62 +240,62 @@ export const ChatInterface: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex justify-start gap-3"
+              className="flex justify-start gap-2.5"
             >
-              <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center animate-pulse">
-                <Sparkles size={20} className="text-slate-400" />
+              <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center animate-pulse border border-slate-100">
+                <Sparkles size={14} className="text-slate-300" />
               </div>
-              <div className="px-5 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                <Loader2 size={16} className="animate-spin text-primary" />
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest animate-pulse">Civic AI is thinking...</span>
+              <div className="px-4 py-3 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-2.5">
+                <Loader2 size={14} className="animate-spin text-indigo-600" />
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest animate-pulse">Analyzing...</span>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-        <div ref={scrollRef} className="h-4" />
+        <div ref={scrollRef} className="h-2" />
       </div>
 
-      {/* INPUT STICKY BAR (FIXED HEIGHT) */}
-      <div className="shrink-0 pt-4 pb-2 bg-slate-50/50 backdrop-blur-sm">
-        <div className="max-w-3xl mx-auto space-y-3 px-2">
+      {/* INPUT STICKY BAR (COMPACT) */}
+      <div className="shrink-0 pt-2 pb-4 bg-white/40 backdrop-blur-md">
+        <div className="max-w-3xl mx-auto space-y-2.5 px-1">
 
-          {/* QUICK ACTION SUGGESTIONS (SMALLER) */}
+          {/* QUICK ACTION SUGGESTIONS (X-SMALL) */}
           {!isLoading && (
-            <div className="flex gap-2  pb-1 no-scrollbar justify-center">
+            <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar justify-center">
               {QUICK_ACTIONS.map((action) => (
                 <motion.button
                   key={action.id}
-                  whileHover={{ y: -2, backgroundColor: "rgba(255,255,255,1)" }}
+                  whileHover={{ y: -1, backgroundColor: "rgba(255,255,255,1)" }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleSend(t(`suggestions.${action.key}`))}
-                  className="flex items-center gap-2 px-3.5 py-2 bg-white/90 backdrop-blur-xl border border-slate-100 rounded-xl shadow-sm group transition-all shrink-0"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-100 rounded-xl shadow-sm group transition-all shrink-0"
                 >
-                  <div className="w-5 h-5 bg-primary/5 rounded-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                    <action.icon size={12} />
+                  <div className="w-4 h-4 bg-indigo-50 rounded flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                    <action.icon size={10} />
                   </div>
-                  <span className="text-[11px] font-bold text-slate-600 whitespace-nowrap">{t(`suggestions.${action.key}`)}</span>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 whitespace-nowrap">{t(`suggestions.${action.key}`)}</span>
                 </motion.button>
               ))}
             </div>
           )}
 
-          {/* MAIN INPUT BOX (COMPACT) */}
-          <div className="relative group mb-10">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-purple-500/10 to-accent/10 rounded-3xl blur opacity-0 group-focus-within:opacity-100 transition-opacity" />
-            <div className="relative bg-white/95 backdrop-blur-2xl border border-slate-200 group-focus-within:border-primary/40 rounded-3xl px-3 py-2 flex items-center gap-2 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)]">
-              <div className="flex-1 px-3">
+          {/* MAIN INPUT BOX (SLEEK) */}
+          <div className="relative group mb-4">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur-sm opacity-0 group-focus-within:opacity-20 transition-opacity" />
+            <div className="relative bg-white border border-slate-200 group-focus-within:border-indigo-300 rounded-2xl px-2 py-1.5 flex items-center gap-1 shadow-lg shadow-slate-200/50">
+              <div className="flex-1 px-2">
                 <input
                   type="text"
                   value={input}
                   disabled={isLoading}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleSend(input)}
-                  placeholder="Ask anything..."
-                  className="w-full bg-transparent border-none focus:outline-none py-1.5 text-[15px] font-medium text-slate-700 placeholder:text-slate-400"
+                  placeholder="Ask your query..."
+                  className="w-full bg-transparent border-none focus:outline-none py-1.5 text-[14px] font-bold text-slate-700 placeholder:text-slate-300"
                 />
               </div>
 
-              <div className="flex items-center gap-1.5 pr-1">
+              <div className="flex items-center gap-1 pr-0.5">
                 <VoiceInput
                   locale={locale}
                   onTranscript={(text) => setInput(text)}
@@ -304,9 +304,9 @@ export const ChatInterface: React.FC = () => {
                 <button
                   onClick={() => handleSend(input)}
                   disabled={isLoading || !input.trim()}
-                  className="p-2.5 bg-primary text-white rounded-2xl shadow-lg shadow-primary/20 active:scale-95 transition-all disabled:opacity-50 hover:brightness-105 flex items-center justify-center"
+                  className="w-10 h-10 bg-slate-900 text-white rounded-xl shadow-lg active:scale-95 transition-all disabled:opacity-30 flex items-center justify-center group-hover:bg-indigo-600"
                 >
-                  <Send size={18} strokeWidth={2.5} />
+                  <Send size={16} strokeWidth={3} />
                 </button>
               </div>
             </div>

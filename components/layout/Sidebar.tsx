@@ -56,8 +56,8 @@ export const Sidebar: React.FC = () => {
             <LayoutDashboard size={20} className="text-white group-hover:scale-110 transition-transform" />
           </div>
           <div>
-            <h1 className="font-black text-lg font-display tracking-tight leading-none">CIVIC AI</h1>
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Election Assistant</p>
+            <h1 className="font-black text-xl font-display tracking-tight leading-none text-white">CIVIC AI</h1>
+            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-1.5">Election Assistant</p>
           </div>
         </div>
       </div>
@@ -85,10 +85,10 @@ export const Sidebar: React.FC = () => {
                 )}
                 
                 <div className="relative z-10">
-                  <item.icon size={20} className={cn("transition-all duration-500", isActive ? "text-primary drop-shadow-[0_0_8px_rgba(99,102,241,0.8)] scale-110" : "group-hover:text-slate-200")} />
+                  <item.icon size={19} className={cn("transition-all duration-500", isActive ? "text-primary drop-shadow-[0_0_8px_rgba(99,102,241,0.8)] scale-110" : "group-hover:text-slate-200")} />
                 </div>
 
-                <span className={cn("relative z-10 text-[13px] font-black uppercase tracking-widest transition-all duration-500", isActive ? "text-white" : "group-hover:translate-x-1")}>
+                <span className={cn("relative z-10 text-[12px] font-bold uppercase tracking-[0.15em] transition-all duration-500", isActive ? "text-white" : "group-hover:translate-x-1")}>
                   {item.label}
                 </span>
 
@@ -107,14 +107,14 @@ export const Sidebar: React.FC = () => {
 
       {/* Offline Mode Card - Stitch Style */}
       <div className="p-4 relative z-20 mt-auto">
-        <div className="dark-glass-card rounded-2xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-colors">
+        <div className="dark-glass-card rounded-2xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-colors border border-white/5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-slate-800/80 flex items-center justify-center border border-white/5 group-hover:border-secondary/30 transition-colors">
               <WifiOff size={18} className="text-secondary" />
             </div>
             <div className="text-left">
-              <p className="text-xs font-bold text-white leading-tight">Offline Mode</p>
-              <p className="text-[10px] font-medium text-slate-500">You are all set!</p>
+              <p className="text-[11px] font-black text-white uppercase tracking-wider leading-tight">Offline Mode</p>
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">You are all set!</p>
             </div>
           </div>
           <Compass size={14} className="text-slate-600 group-hover:text-white transition-colors" />

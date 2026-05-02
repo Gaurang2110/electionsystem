@@ -158,7 +158,8 @@
       "next": "What should I do next?",
       "register": "How do I register to vote?",
       "polling": "Check my polling station",
-      "docs": "Documents required for registration"
+      "docs": "Documents required for registration",
+      "eligibility": "Am I eligible to vote?"
     }
   },
   "nav": {

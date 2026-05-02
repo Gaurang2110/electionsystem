@@ -14,25 +14,29 @@ export const TopHeader: React.FC = () => {
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <header className="h-[72px] flex items-center justify-between px-8 relative z-40 bg-white/40 backdrop-blur-xl border-b border-white/20">
+    <header className="h-[72px] flex items-center justify-between px-8 relative z-40 bg-white/60 backdrop-blur-xl border-b border-white/10 shadow-[0_1px_10px_rgba(0,0,0,0.02)]">
       <div className="flex-1 max-w-2xl">
         <div className="relative group">
           <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" />
           <input 
             type="text" 
-            placeholder="Ask anything about elections..."
-            className="w-full bg-white/80 border border-slate-200/50 rounded-full py-3 pl-12 pr-28 text-[13px] font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400 shadow-sm"
+            placeholder="Search elections..."
+            className="w-full bg-slate-50/50 border border-slate-200/50 rounded-full py-3 pl-12 pr-28 text-[13px] font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400 shadow-sm"
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-1 px-2 py-1 bg-slate-100/50 border border-slate-200/50 rounded-lg text-[10px] font-bold text-slate-400 mr-2">
+            <div className="hidden sm:flex items-center gap-1 px-2 py-1 bg-white border border-slate-200/50 rounded-lg text-[10px] font-black text-slate-400 mr-2 shadow-xs">
                <span>⌘</span>
                <span>K</span>
             </div>
             <Link href="/assistant">
-              <button className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 hover:bg-primary/20 transition-colors shadow-sm">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 hover:bg-primary/20 transition-all shadow-sm border border-primary/20"
+              >
                 <Sparkles size={12} className="animate-pulse" />
-                <span>Ask AI</span>
-              </button>
+                <span className="uppercase tracking-widest text-[10px]">Ask AI</span>
+              </motion.button>
             </Link>
           </div>
         </div>

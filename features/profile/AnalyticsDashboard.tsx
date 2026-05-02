@@ -31,29 +31,29 @@ export const AnalyticsDashboard: React.FC = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((stat, idx) => (
-          <Card key={stat.label} className="p-4 bg-slate-900 border-white/5 relative overflow-hidden group">
-             <div className="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity">
+          <Card key={stat.label} className="p-4 bg-white border-none shadow-md shadow-slate-200/30 relative overflow-hidden group">
+             <div className="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity text-slate-900">
                <stat.icon size={48} />
              </div>
              <div className="relative z-10">
-               <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
+               <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
                <h4 className={cn("text-2xl font-black font-display", stat.color)}>{stat.value}</h4>
              </div>
           </Card>
         ))}
       </div>
 
-      <Card className="p-6 bg-slate-900 border-white/5">
+      <Card className="p-6 bg-white border-none shadow-lg shadow-slate-200/40">
         <div className="flex items-center justify-between mb-6">
-          <h4 className="text-xs font-black text-white uppercase tracking-widest">Recent Activity Log</h4>
-          <span className="text-[9px] font-black text-slate-500 uppercase">Last 100 events</span>
+          <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Recent Activity Log</h4>
+          <span className="text-[9px] font-black text-slate-400 uppercase">Last 100 events</span>
         </div>
         <div className="space-y-3 max-h-[300px] overflow-y-auto no-scrollbar">
           {analytics.length === 0 ? (
-            <p className="text-center py-10 text-slate-600 text-xs font-bold uppercase italic">No interaction data yet</p>
+            <p className="text-center py-10 text-slate-400 text-xs font-bold uppercase italic">No interaction data yet</p>
           ) : (
             analytics.map((log, i) => (
-              <div key={i} className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+              <div key={i} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <div className="flex items-center gap-3">
                   <div className={cn(
                     "w-1.5 h-1.5 rounded-full",
@@ -61,11 +61,11 @@ export const AnalyticsDashboard: React.FC = () => {
                     log.event.includes('map') ? "bg-emerald-500" : 
                     log.event.includes('step') ? "bg-amber-500" : "bg-slate-500"
                   )} />
-                  <span className="text-[10px] font-bold text-slate-300 uppercase tracking-tight truncate max-w-[180px]">
+                  <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight truncate max-w-[180px]">
                     {log.event.replace(/_/g, ' ')}
                   </span>
                 </div>
-                <span className="text-[8px] font-black text-slate-500 uppercase">
+                <span className="text-[8px] font-black text-slate-400 uppercase">
                   {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </span>
               </div>

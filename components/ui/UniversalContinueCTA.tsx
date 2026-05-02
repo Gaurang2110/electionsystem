@@ -11,17 +11,25 @@ export const UniversalContinueCTA: React.FC = () => {
   const { getNextBestAction, progress } = useAppStore();
   const { speak } = useVoiceGuidance();
   const pathname = usePathname();
+  const [hasMounted, setHasMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   const nextAction = getNextBestAction();
 
   React.useEffect(() => {
-    if (nextAction && pathname !== nextAction.link && progress < 100) {
+    if (hasMounted && nextAction && pathname !== nextAction.link && progress < 100) {
       // Small delay to ensure page load is settled
       const timer = setTimeout(() => {
         speak(`Your next recommended step is ${nextAction.label}. Tap the button at the bottom to continue.`);
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [nextAction.label, pathname, progress, speak]);
+  }, [hasMounted, nextAction.label, pathname, progress, speak]);
+
+  if (!hasMounted) return null;
 
   // Don't show if all steps are completed (100% progress)
   if (progress >= 100) return null;

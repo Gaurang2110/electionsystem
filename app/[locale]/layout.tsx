@@ -3,6 +3,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales, Locale } from "@/i18n/request";
 import "./globals.css";
+import 'leaflet/dist/leaflet.css';
 import { Inter, Outfit, Noto_Sans_Devanagari, Noto_Sans_Gujarati, Noto_Sans_Bengali } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -53,8 +54,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${outfit.variable} ${hiFont.variable} ${guFont.variable} ${bnFont.variable}`}>
-      <body className="antialiased selection:bg-primary/30 selection:text-white min-h-screen bg-background">
+    <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${hiFont.variable} ${guFont.variable} ${bnFont.variable}`}>
+      <body suppressHydrationWarning className="antialiased selection:bg-primary/30 selection:text-white min-h-screen bg-background">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <PersistentProgressBar />
           <LanguageOnboarding />

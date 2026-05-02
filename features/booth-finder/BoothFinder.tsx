@@ -21,7 +21,7 @@ export const BoothFinder: React.FC = () => {
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!search) return;
-    
+
     setIsSearching(true);
     try {
       const response = await fetch(`/api/booth?pincode=${search}`);
@@ -54,8 +54,8 @@ export const BoothFinder: React.FC = () => {
         <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder={t('placeholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -82,8 +82,8 @@ export const BoothFinder: React.FC = () => {
                 >
                   <Card className={cn(
                     "p-6 transition-all duration-500 group relative overflow-hidden",
-                    selectedBoothId === booth.id 
-                      ? "bg-primary/10 border-primary/50 shadow-2xl shadow-primary/20" 
+                    selectedBoothId === booth.id
+                      ? "bg-primary/10 border-primary/50 shadow-2xl shadow-primary/20"
                       : "bg-slate-900/40 border-white/5 hover:bg-slate-900/60"
                   )}>
                     {selectedBoothId === booth.id && (
@@ -105,7 +105,7 @@ export const BoothFinder: React.FC = () => {
                     <h3 className="text-xl font-bold text-white font-display mb-1">{booth.name}</h3>
                     <p className="text-slate-500 text-sm font-medium mb-6">{booth.address}</p>
                     <div className="flex gap-2">
-                      <Button 
+                      <Button
                         onClick={() => setSelectedBoothId(booth.id)}
                         variant={selectedBoothId === booth.id ? "default" : "secondary"}
                         className={cn(
@@ -123,8 +123,8 @@ export const BoothFinder: React.FC = () => {
                 </motion.div>
               ))
             ) : search && !isSearching ? (
-              <motion.div 
-                initial={{ opacity: 0 }} 
+              <motion.div
+                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="p-12 text-center bg-slate-900/20 rounded-[2.5rem] border border-dashed border-white/10"
               >
@@ -155,7 +155,7 @@ export const BoothFinder: React.FC = () => {
           </div>
 
           {selectedBoothId && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="p-8 bg-slate-900 border-2 border-primary/30 rounded-[2.5rem] shadow-2xl shadow-primary/10 relative overflow-hidden group"
@@ -175,7 +175,7 @@ export const BoothFinder: React.FC = () => {
                 Great! You've identified your polling station. Completing this milestone earns you the <span className="text-white">Booth Explorer</span> badge and points.
               </p>
 
-              <button 
+              <button
                 onClick={handleComplete}
                 className="w-full py-5 bg-white text-slate-900 rounded-3xl text-sm font-black uppercase tracking-[0.1em] flex items-center justify-center gap-3 hover:bg-slate-100 transition-all shadow-xl shadow-white/10"
               >

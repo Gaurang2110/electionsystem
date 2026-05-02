@@ -76,8 +76,72 @@ export const JourneySteps: React.FC = () => {
           </motion.p>
         </div>
 
+        {/* Floating Readiness Widget - Ultra Premium Dashboard Style */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
+          className="absolute right-8 bottom-8 hidden lg:flex items-center justify-center p-2 rounded-[2.5rem] bg-[#0A0F1D]/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group overflow-hidden"
+        >
+          <div className="relative w-24 h-24 flex items-center justify-center">
+            {/* Dynamic Background Glow */}
+            <div className="absolute inset-0 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors duration-700" />
+            
+            <svg className="w-full h-full transform -rotate-90 relative z-10 p-2">
+              <defs>
+                <linearGradient id="readyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#6366F1" />
+                  <stop offset="100%" stopColor="#A855F7" />
+                </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
 
+              {/* Background Track */}
+              <circle cx="48" cy="48" r="38" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-white/[0.03]" />
+              
+              {/* Progress Glow (Behind) */}
+              <motion.circle
+                cx="48" cy="48" r="38" stroke="#6366F1" strokeWidth="6" fill="transparent"
+                strokeDasharray={238.7}
+                strokeDashoffset={238.7 - (238.7 * progress) / 100}
+                strokeLinecap="round"
+                className="opacity-20 blur-[4px]"
+              />
+              
+              {/* Main Progress Circle */}
+              <motion.circle
+                cx="48" cy="48" r="38" stroke="url(#readyGradient)" strokeWidth="6" fill="transparent"
+                strokeDasharray={238.7}
+                strokeDashoffset={238.7 - (238.7 * progress) / 100}
+                strokeLinecap="round"
+                filter="url(#glow)"
+                initial={{ strokeDashoffset: 238.7 }}
+                animate={{ strokeDashoffset: 238.7 - (238.7 * progress) / 100 }}
+                transition={{ duration: 2, ease: "easeOut" }}
+              />
 
+              {/* Inner Decorative Dial */}
+              <circle cx="48" cy="48" r="30" stroke="currentColor" strokeWidth="1" strokeDasharray="2 4" fill="transparent" className="text-white/10" />
+            </svg>
+            
+            <div className="absolute flex flex-col items-center justify-center z-20">
+              <motion.span 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-2xl font-black text-white leading-none tracking-tighter tabular-nums"
+              >
+                {progress}%
+              </motion.span>
+              <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em] mt-1.5 opacity-80">Ready</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* COMPACT NEXT STEP CARD */}

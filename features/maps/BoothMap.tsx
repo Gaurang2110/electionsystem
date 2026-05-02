@@ -1,215 +1,224 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useId } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { Card } from '@/components/ui/Card';
 import { useAppStore } from '@/store/useAppStore';
 import districtsData from '@/data/maps/india-districts.json';
 import boothsData from '@/data/maps/booths.json';
-import { MapPin, Navigation, Info } from 'lucide-react';
+import { 
+  MapPin, 
+  Navigation, 
+  Sparkles, 
+  Map as MapIcon,
+  Layers,
+} from 'lucide-react';
 import { systemOrchestrator } from '@/lib/systemOrchestrator';
-import { Link } from '@/i18n/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/utils/cn';
 
-// Fix for Leaflet default icon issue
-const DefaultIcon = L.icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
+// --- Constants ---
+const STATE_ID_MAP: Record<string, string> = {
+  'Gujarat': 'gj', 'Maharashtra': 'mh', 'Rajasthan': 'rj', 'Karnataka': 'ka',
+  'Tamil Nadu': 'tn', 'Uttar Pradesh': 'up', 'Punjab': 'pb', 'West Bengal': 'wb',
+  'Kerala': 'kl', 'Bihar': 'br'
+};
+
+// --- Custom Components ---
+
+const MapInvalidator = () => {
+  const map = useMap();
+  useEffect(() => {
+    const timers = [100, 500, 1000, 2000].map(delay => 
+      setTimeout(() => {
+        map.invalidateSize();
+      }, delay)
+    );
+    return () => timers.forEach(t => clearTimeout(t));
+  }, [map]);
+  return null;
+};
+
+const ZoomManager = ({ selectedDistrict }: { selectedDistrict: string | null }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (selectedDistrict) {
+      const district = (districtsData as any).features.find((f: any) => f.properties.name === selectedDistrict);
+      if (district) {
+        const coords = district.geometry.coordinates[0];
+        if (coords && coords[0]) {
+          const firstCoord = coords[0];
+          const latLng = Array.isArray(firstCoord[0]) ? [firstCoord[0][1], firstCoord[0][0]] : [firstCoord[1], firstCoord[0]];
+          map.flyTo(latLng as any, 8, { duration: 1.5 });
+        }
+      }
+    }
+  }, [selectedDistrict, map]);
+  return null;
+};
+
+const createCustomIcon = (color: string, isActive: boolean = false) => L.divIcon({
+  html: `
+    <div class="relative flex items-center justify-center">
+      ${isActive ? `<div class="absolute w-12 h-12 bg-${color}-500/30 rounded-full animate-ping"></div>` : ''}
+      <div class="absolute w-8 h-8 bg-${color}-500/20 rounded-full blur-sm"></div>
+      <div class="relative w-5 h-5 bg-${color}-600 border-2 border-slate-900 rounded-full shadow-2xl">
+        <div class="w-1.5 h-1.5 bg-white rounded-full m-auto mt-1.5"></div>
+      </div>
+    </div>
+  `,
+  className: 'custom-marker-icon',
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
 });
-L.Marker.prototype.options.icon = DefaultIcon;
+
+const emeraldIcon = createCustomIcon('emerald', true);
 
 export const BoothMap: React.FC = () => {
-  const { toggleStep, incrementEngagement, logEvent } = useAppStore();
+  const mapId = useId();
+  const { logEvent } = useAppStore();
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+  const [mapMode, setMapMode] = useState<'light' | 'dark'>('light');
 
-  const STATE_ID_MAP: Record<string, string> = {
-    'Gujarat': 'gj',
-    'Maharashtra': 'mh',
-    'Rajasthan': 'rj',
-    'Karnataka': 'ka',
-    'Tamil Nadu': 'tn',
-    'Uttar Pradesh': 'up',
-    'Punjab': 'pb',
-    'West Bengal': 'wb',
-    'Kerala': 'kl',
-    'Bihar': 'br'
-  };
+  // Filtered Booths
+  const filteredBooths = useMemo(() => {
+    if (!selectedDistrict) return [];
+    return (boothsData || []).filter(b => b.district === selectedDistrict);
+  }, [selectedDistrict]);
 
-  const districtStyle = (feature: any) => ({
-    fillColor: feature.properties.name === selectedDistrict ? '#3b82f6' : '#f8fafc',
-    weight: 2,
-    opacity: 1,
-    color: feature.properties.name === selectedDistrict ? '#2563eb' : '#cbd5e1',
-    fillOpacity: feature.properties.name === selectedDistrict ? 0.3 : 1,
-    className: 'district-polygon' // For CSS pointer
-  });
+  const handleDistrictSelection = useCallback((name: string, state: string) => {
+    setSelectedDistrict(name);
+    const stateId = STATE_ID_MAP[state];
+    if (stateId) systemOrchestrator.onMapInteraction({ type: 'district', id: stateId, name: state });
+    logEvent(`map_district_select_${name}`);
+  }, [logEvent]);
+
+  const selectionRef = React.useRef(handleDistrictSelection);
+  useEffect(() => { selectionRef.current = handleDistrictSelection; }, [handleDistrictSelection]);
+
+  const districtStyle = useCallback((feature: any) => {
+    const isSelected = feature.properties.name === selectedDistrict;
+    return {
+      fillColor: isSelected ? '#6366F1' : 'transparent',
+      weight: isSelected ? 3 : 1.5,
+      opacity: 1,
+      color: isSelected ? '#4F46E5' : '#64748B',
+      fillOpacity: isSelected ? 0.35 : 0,
+      className: 'transition-all duration-300 cursor-pointer'
+    };
+  }, [selectedDistrict]);
 
   const onDistrictClick = (e: any) => {
-    const layer = e.target;
-    const districtName = layer.feature.properties.name;
-    const stateName = layer.feature.properties.state;
-    logEvent(`map_click_${districtName}_${stateName}`);
-    
-    setSelectedDistrict(districtName);
-    
-    // Orchestrate state unlock and engagement via central system
-    const stateId = STATE_ID_MAP[stateName];
-    if (stateId) {
-      systemOrchestrator.onMapInteraction({ type: 'district', id: stateId, name: stateName });
-    }
-
-    // Animation feedback
-    layer.setStyle({
-      fillColor: '#10b981', // Success green
-      fillOpacity: 0.5,
-      weight: 3
-    });
-    
-    setTimeout(() => {
-      layer.setStyle(districtStyle(layer.feature));
-    }, 1000);
-  };
-
-  const onMouseOver = (e: any) => {
-    const layer = e.target;
-    layer.setStyle({
-      fillColor: '#3b82f6',
-      fillOpacity: 0.2,
-      weight: 2,
-      color: '#2563eb'
-    });
-  };
-
-  const onMouseOut = (e: any) => {
-    const layer = e.target;
-    if (layer.feature.properties.name !== selectedDistrict) {
-      layer.setStyle(districtStyle(layer.feature));
-    }
-  };
-
-  const handleLocateBooth = (boothName: string) => {
-    systemOrchestrator.onMapInteraction({ type: 'booth', id: boothName });
+    const props = e.target.feature.properties;
+    if (props && props.name) selectionRef.current(props.name, props.state || "");
   };
 
   return (
-    <Card className="p-0 overflow-hidden border-none shadow-2xl shadow-slate-200 bg-white relative h-[500px]">
-      {/* Top Left: Selection Info */}
-      <div className="absolute top-4 left-4 z-[1000] flex flex-col gap-2">
-        <div className="px-4 py-2 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-xl">
-          <div className="flex items-center gap-3">
-            <p className="text-[11px] font-black uppercase tracking-widest text-slate-900 flex items-center gap-3">
-              <Navigation size={14} className="text-blue-600 animate-pulse" />
-              {selectedDistrict || "Select a District"}
-            </p>
-            {selectedDistrict && (
-              <Link 
-                href="/insights" 
-                className="ml-2 pl-3 border-l border-slate-200 text-[10px] font-black text-primary uppercase tracking-wider hover:text-blue-700 transition-colors"
-              >
-                View Insights
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Center: Guide/Instruction */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] w-[90%] max-w-[320px]">
-        <div className="px-5 py-3 bg-slate-900/90 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl flex items-center gap-4">
-          <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center shrink-0">
-            <Info size={20} className="text-emerald-500" />
-          </div>
-          <div>
-            <p className="text-white text-[10px] font-black uppercase tracking-widest leading-none mb-1">State Collectibles</p>
-            <p className="text-slate-400 text-[9px] font-bold leading-tight">Tap any region boundary to collect its exclusive state sticker.</p>
-          </div>
-        </div>
-      </div>
-
-      <MapContainer 
-        center={[23.0225, 72.5714]} 
-        zoom={5} 
-        style={{ height: '100%', width: '100%', background: '#f1f5f9' }}
-        zoomControl={false}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        />
+    <div className="relative w-full h-[650px] group/container">
+      <div className="absolute -inset-0.5 bg-gradient-to-br from-indigo-500/20 to-emerald-500/10 rounded-[2.5rem] blur opacity-50 -z-10" />
+      
+      <Card className="p-0 overflow-hidden border-white/40 bg-white/70 backdrop-blur-3xl relative h-full rounded-[2.5rem] shadow-2xl">
         
-        <GeoJSON 
-          data={districtsData as any} 
-          style={districtStyle}
-          onEachFeature={(feature, layer) => {
-            layer.on({
-              click: onDistrictClick,
-              mouseover: onMouseOver,
-              mouseout: onMouseOut
-            });
-            layer.bindTooltip(`
-              <div class="space-y-0.5">
-                <p class="text-[8px] opacity-60 font-black uppercase">${feature.properties.state}</p>
-                <p class="text-[10px] font-black uppercase tracking-wider">${feature.properties.name}</p>
-                <p class="text-[7px] text-emerald-400 font-bold uppercase mt-1">Click to Collect Sticker</p>
-              </div>
-            `, { sticky: true, className: 'custom-tooltip' });
-          }}
-        />
-
-        {boothsData.map((booth) => (
-          <Marker 
-            key={booth.id} 
-            position={[booth.lat, booth.lng]}
+        {/* MAP CONTAINER - FIXED HEIGHT AT 100% OF CARD (650px) */}
+        <div className="w-full h-full relative bg-slate-100">
+          <MapContainer 
+            key={mapId + mapMode}
+            center={[23.0225, 72.5714]} 
+            zoom={5} 
+            className="full-card-map"
+            style={{ height: '650px', width: '100%' }}
+            zoomControl={false}
           >
-            <Popup className="custom-popup">
-              <div className="p-3 min-w-[180px] space-y-3">
-                <div className="space-y-1">
-                  <h4 className="font-black text-slate-900 text-sm leading-tight">{booth.name}</h4>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                    <MapPin size={10} /> {booth.district}, {booth.state}
-                  </p>
-                </div>
-                <button 
-                  onClick={() => handleLocateBooth(booth.name)}
-                  className="w-full py-2.5 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-all active:scale-95 shadow-lg shadow-slate-200"
-                >
-                  Locate & Mark Ready
-                </button>
+            <MapInvalidator />
+            <ZoomManager selectedDistrict={selectedDistrict} />
+            
+            <TileLayer 
+              url={mapMode === 'dark' 
+                ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                : "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+              } 
+              attribution='&copy; CARTO' 
+            />
+            
+            <GeoJSON 
+              data={districtsData as any} 
+              style={districtStyle} 
+              onEachFeature={(feature, layer) => {
+                layer.on({
+                  click: onDistrictClick,
+                  mouseover: (e) => e.target.setStyle({ fillOpacity: 0.6, weight: 2.5, color: '#6366F1' }),
+                  mouseout: (e) => { if (e.target.feature.properties.name !== selectedDistrict) e.target.setStyle(districtStyle(e.target.feature)); }
+                });
+                layer.bindTooltip(`<div class="px-3 py-2 bg-white/95 rounded-xl shadow-2xl border border-white"><p class="text-[11px] font-black uppercase text-slate-900">${feature.properties.name}</p></div>`, { sticky: true });
+              }} 
+            />
+
+            {filteredBooths.map((booth) => (
+              <Marker key={booth.id} position={[booth.lat, booth.lng]} icon={emeraldIcon}>
+                <Popup className="premium-popup">
+                  <div className="p-4 min-w-[200px]">
+                    <h4 className="font-black text-slate-900 text-sm mb-1">{booth.name}</h4>
+                    <p className="text-[10px] text-slate-400 uppercase mb-3">{booth.district}</p>
+                    <button onClick={() => systemOrchestrator.onMapInteraction({ type: 'booth', id: booth.name })} className="w-full py-2 bg-indigo-600 text-white rounded-lg text-[10px] font-black uppercase">Locate</button>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+
+          {/* OVERLAYS */}
+          <div className="absolute inset-0 z-[1000] p-6 pointer-events-none flex flex-col justify-between">
+            <div className="flex justify-between items-start">
+              <div className="bg-slate-900/90 px-4 py-2 rounded-full border border-white/10 shadow-2xl flex items-center gap-2 pointer-events-auto">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Explore Your Voting Area</span>
               </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
+              
+              <div className="flex flex-col gap-3 items-end pointer-events-auto">
+                <div className="bg-white/80 backdrop-blur-md p-1 rounded-xl shadow-lg border border-white flex items-center">
+                  <button onClick={() => setMapMode('light')} className={cn("p-2 rounded-lg transition-all", mapMode === 'light' ? "bg-indigo-600 text-white shadow-md" : "text-slate-400")}><Sparkles size={16} /></button>
+                  <button onClick={() => setMapMode('dark')} className={cn("p-2 rounded-lg transition-all", mapMode === 'dark' ? "bg-slate-900 text-white shadow-md" : "text-slate-400")}><Layers size={16} /></button>
+                </div>
+                
+                <AnimatePresence>
+                  {selectedDistrict && (
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="bg-white/95 p-4 rounded-2xl shadow-xl border border-white min-w-[180px]">
+                      <p className="text-[9px] font-black text-slate-400 uppercase mb-2">District HUD</p>
+                      <p className="text-xs font-black text-slate-900 uppercase truncate">{selectedDistrict}</p>
+                      <div className="w-full h-1 bg-slate-100 rounded-full mt-2"><div className="h-full bg-indigo-600 rounded-full" style={{ width: '85%' }} /></div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <AnimatePresence>
+                {!selectedDistrict && (
+                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} className="bg-white/95 px-6 py-4 rounded-2xl shadow-2xl border border-white flex items-center gap-4 pointer-events-auto">
+                    <Navigation size={20} className="text-indigo-600 animate-pulse" />
+                    <div className="text-left">
+                      <p className="text-[11px] font-black text-slate-900 uppercase">Tap any district</p>
+                      <p className="text-[9px] font-bold text-slate-400 uppercase mt-1">To view localized booth data</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </Card>
 
       <style jsx global>{`
-        .district-polygon {
-          cursor: pointer !important;
-          outline: none !important;
+        .full-card-map {
+          height: 650px !important;
+          width: 100% !important;
+          z-index: 0;
         }
-        .custom-tooltip {
-          background: #0f172a !important;
-          border: none !important;
-          color: white !important;
-          font-family: inherit !important;
-          padding: 8px 12px !important;
-          border-radius: 12px !important;
-          box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1) !important;
-        }
-        .leaflet-popup-content-wrapper {
-          border-radius: 20px !important;
-          padding: 0 !important;
-          overflow: hidden !important;
-          box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) !important;
-        }
-        .leaflet-popup-content {
-          margin: 0 !important;
-        }
-        .leaflet-container {
-          font-family: inherit !important;
-        }
+        .premium-popup .leaflet-popup-content-wrapper { border-radius: 20px !important; padding: 0 !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; background: rgba(255, 255, 255, 0.95) !important; }
+        .premium-popup .leaflet-popup-content { margin: 0 !important; }
+        .custom-marker-icon { background: transparent !important; border: none !important; }
       `}</style>
-    </Card>
+    </div>
   );
 };

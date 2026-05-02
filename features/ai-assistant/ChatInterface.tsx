@@ -1,6 +1,11 @@
 "use client";
 import * as React from "react";
-import { Send, User, Bot, Sparkles, Loader2, RefreshCw } from "lucide-react";
+import {
+  Send, User, Sparkles, Loader2, RefreshCw,
+  ThumbsUp, ThumbsDown, Copy, MapPin,
+  FileText, CheckCircle, PlayCircle, Mic,
+  ChevronRight, MoreHorizontal
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/utils/cn";
 import { useTranslations, useLocale } from "next-intl";
@@ -13,40 +18,70 @@ interface Message {
   text: string;
   sender: "user" | "ai";
   timestamp: Date;
+  status?: "sent" | "delivered" | "read";
 }
 
-const SUGGESTION_KEYS = ["next", "register", "polling", "docs"];
+const QUICK_ACTIONS = [
+  { id: "next", icon: ChevronRight, key: "next" },
+  { id: "polling", icon: MapPin, key: "polling" },
+  { id: "docs", icon: FileText, key: "docs" },
+  { id: "eligibility", icon: CheckCircle, key: "eligibility" },
+];
 
 export const ChatInterface: React.FC = () => {
   const t = useTranslations('chat');
   const locale = useLocale();
-  const [messages, setMessages] = React.useState<Message[]>([
-    { id: "1", text: t('welcome'), sender: "ai", timestamp: new Date() }
-  ]);
+  const { profile } = useAppStore();
+
+  // Use session storage for messages to keep them per session only
+  const [messages, setMessages] = React.useState<Message[]>([]);
   const [input, setInput] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
-  const msgCount = React.useRef(1);
+  const msgCount = React.useRef(0);
 
+  // Initialize and load from session storage
+  React.useEffect(() => {
+    const saved = sessionStorage.getItem("civic_ai_chat_session");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Revive dates
+      const revived = parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) }));
+      setMessages(revived);
+      msgCount.current = revived.length;
+    } else {
+      const welcomeMsg = { id: "1", text: t('welcome'), sender: "ai", timestamp: new Date() };
+      setMessages([welcomeMsg]);
+      msgCount.current = 1;
+    }
+  }, [t]);
+
+  // Save to session storage
+  React.useEffect(() => {
+    if (messages.length > 0) {
+      sessionStorage.setItem("civic_ai_chat_session", JSON.stringify(messages));
+    }
+  }, [messages]);
 
   const handleSend = async (text: string) => {
     if (!text.trim() || isLoading) return;
-    
+
     setError(null);
     msgCount.current += 1;
-    const userMsg: Message = { 
-      id: msgCount.current.toString(), 
-      text, 
+    const userMsg: Message = {
+      id: msgCount.current.toString(),
+      text,
       sender: "user",
-      timestamp: new Date()
+      timestamp: new Date(),
+      status: "read"
     };
-    
+
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
 
-    const { getReadinessScore, calculateProgress, getNextBestAction, profile } = useAppStore.getState();
+    const { getReadinessScore, getNextBestAction } = useAppStore.getState();
     const readiness = getReadinessScore();
     const nextAction = getNextBestAction();
 
@@ -54,7 +89,7 @@ export const ChatInterface: React.FC = () => {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           message: text,
           locale: locale,
           userContext: {
@@ -65,9 +100,9 @@ export const ChatInterface: React.FC = () => {
           }
         })
       });
-      
+
       const data = await response.json();
-      
+
       msgCount.current += 1;
       setMessages(prev => [...prev, {
         id: msgCount.current.toString(),
@@ -89,75 +124,130 @@ export const ChatInterface: React.FC = () => {
   }, [messages, isLoading]);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-220px)] w-full mx-auto relative">
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-4 md:px-8 space-y-8 pt-4 pb-12 no-scrollbar">
+    <div className="flex flex-col h-full w-full max-w-5xl mx-auto relative px-4">
+
+      {/* HEADER SECTION (STATIC) */}
+      <div className="flex items-center justify-between py-4 px-2 shrink-0">
+        <div className="relative z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-2xl md:text-3xl font-black text-slate-900 font-display tracking-tight"
+          >
+            Hello {profile.name || "Aarav"}! 👋
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-500 font-medium text-xs mt-1 leading-relaxed"
+          >
+            Your Civic AI assistant is ready.
+          </motion.p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative w-full  h-full md:w-80"
+        >
+          <img
+            src="/civic_ai_assistant_mascot.png"
+            alt="Civic AI Mascot"
+            className="w-full h-full object-contain relative z-10"
+          />
+        </motion.div>
+      </div>
+
+      {/* MESSAGES AREA (SCROLLABLE) */}
+      <div className="flex-1 overflow-y-auto px-2 space-y-6 pb-10 scroll-smooth no-scrollbar">
         <AnimatePresence initial={false}>
-          {messages.map((msg) => (
+          {messages.map((msg, idx) => (
             <motion.div
               key={msg.id}
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               className={cn(
-                "flex items-start gap-4",
-                msg.sender === "user" ? "flex-row-reverse" : "flex-row"
+                "flex w-full group",
+                msg.sender === "user" ? "justify-end" : "justify-start"
               )}
             >
               <div className={cn(
-                "w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-lg border",
-                msg.sender === "user" 
-                  ? "bg-primary text-white border-primary/20" 
-                  : "bg-slate-900 text-primary border-white/5"
+                "flex max-w-[90%] md:max-w-[75%] gap-3",
+                msg.sender === "user" ? "flex-row-reverse" : "flex-row"
               )}>
-                {msg.sender === "user" ? <User size={20} /> : <Sparkles size={20} />}
-              </div>
-              <div className={cn(
-                "max-w-[85%] md:max-w-[70%] px-5 py-4 rounded-[1.5rem] text-[15px] font-medium leading-relaxed shadow-premium whitespace-pre-wrap relative group",
-                msg.sender === "user" 
-                  ? "bg-primary text-white rounded-tr-none" 
-                  : "bg-slate-900/50 backdrop-blur-md text-slate-100 rounded-tl-none border border-white/5"
-              )}>
-                {msg.text}
-                {msg.sender === "ai" && (
-                  <SpeakerButton 
-                    text={msg.text} 
-                    className="absolute -right-10 top-0 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 border border-white/10" 
-                  />
-                )}
+                {/* Avatar (Smaller) */}
+                <div className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-md border-2 border-white",
+                  msg.sender === "user"
+                    ? "bg-primary text-white"
+                    : "bg-gradient-to-br from-indigo-600 to-purple-600 text-white"
+                )}>
+                  {msg.sender === "user" ? <User size={20} /> : <Sparkles size={20} />}
+                </div>
+
+                {/* Content Card (Smaller Padding) */}
+                <div className="flex flex-col gap-1">
+                  <div className={cn(
+                    "flex items-center gap-2 px-1",
+                    msg.sender === "user" ? "flex-row-reverse" : "flex-row"
+                  )}>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      {msg.sender === "ai" ? "Civic AI" : "You"}
+                    </span>
+                    <span className="text-[9px] font-medium text-slate-300">
+                      {msg.timestamp.toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit', hour12: true })}
+                    </span>
+                  </div>
+
+                  <div className={cn(
+                    "px-5 py-3.5 rounded-2xl text-[15px] font-medium leading-relaxed shadow-lg relative",
+                    msg.sender === "user"
+                      ? "bg-primary/10 text-slate-800 border border-primary/20 rounded-tr-none"
+                      : "bg-white text-slate-700 rounded-tl-none border border-slate-100"
+                  )}>
+                    {msg.text}
+
+                    {/* AI Feedback / Tools (Tighter) */}
+                    {msg.sender === "ai" && (
+                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-50">
+                        <div className="flex items-center gap-0.5">
+                          <button className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors">
+                            <ThumbsUp size={14} />
+                          </button>
+                          <button className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors">
+                            <ThumbsDown size={14} />
+                          </button>
+                        </div>
+                        <div className="flex items-center gap-0.5">
+                          <button className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors">
+                            <Copy size={14} />
+                          </button>
+                          <SpeakerButton
+                            text={msg.text}
+                            className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary transition-colors"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
-          
+
           {isLoading && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-4"
+              className="flex justify-start gap-3"
             >
-              <div className="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center border border-white/5 text-primary">
-                <Loader2 size={20} className="animate-spin" />
+              <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center animate-pulse">
+                <Sparkles size={20} className="text-slate-400" />
               </div>
-              <div className="bg-slate-900/30 px-5 py-4 rounded-[1.5rem] rounded-tl-none border border-white/5">
-                <div className="flex gap-1">
-                  <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-primary rounded-full" />
-                  <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-primary rounded-full" />
-                  <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1.5 h-1.5 bg-primary rounded-full" />
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {error && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex justify-center p-4"
-            >
-              <div className="bg-rose-500/10 text-rose-400 px-4 py-2 rounded-xl text-xs font-bold border border-rose-500/20 flex items-center gap-2">
-                <span>{error}</span>
-                <button onClick={() => handleSend(messages[messages.length-1].text)} className="hover:rotate-180 transition-transform">
-                  <RefreshCw size={14} />
-                </button>
+              <div className="px-5 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
+                <Loader2 size={16} className="animate-spin text-primary" />
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest animate-pulse">Civic AI is thinking...</span>
               </div>
             </motion.div>
           )}
@@ -165,51 +255,74 @@ export const ChatInterface: React.FC = () => {
         <div ref={scrollRef} className="h-4" />
       </div>
 
-      {/* Input Area */}
-      <div className="sticky bottom-0 left-0 right-0 px-4 md:px-8 py-8 bg-slate-950/80 backdrop-blur-2xl border-t border-white/5 space-y-6">
-        {messages.length < 5 && !isLoading && (
-          <div className="flex gap-2.5 overflow-x-auto pb-2 no-scrollbar px-1">
-            {SUGGESTION_KEYS.map((key) => (
-              <motion.button
-                key={key}
-                whileHover={{ scale: 1.02, backgroundColor: "rgba(99, 102, 241, 0.1)" }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleSend(t(`suggestions.${key}`))}
-                className="whitespace-nowrap px-6 py-3 bg-slate-900/50 text-slate-300 text-xs font-bold rounded-2xl border border-white/5 hover:text-primary transition-all shadow-sm"
-              >
-                {t(`suggestions.${key}`)}
-              </motion.button>
-            ))}
-          </div>
-        )}
+      {/* INPUT STICKY BAR (FIXED HEIGHT) */}
+      <div className="shrink-0 pt-4 pb-2 bg-slate-50/50 backdrop-blur-sm">
+        <div className="max-w-3xl mx-auto space-y-3 px-2">
 
-        <div className="relative group max-w-4xl mx-auto">
-          <input
-            type="text"
-            value={input}
-            disabled={isLoading}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && handleSend(input)}
-            placeholder={t('placeholder')}
-            className="w-full bg-slate-900/60 border border-white/5 rounded-[2.5rem] px-7 py-5 text-[15px] font-medium text-white focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-2xl transition-all disabled:opacity-50 placeholder:text-slate-500"
-          />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-            <VoiceInput 
-              locale={locale} 
-              onTranscript={(text) => setInput(text)}
-              disabled={isLoading}
-            />
-            <button 
-              onClick={() => handleSend(input)}
-              disabled={isLoading || !input.trim()}
-              className="p-3.5 bg-primary text-white rounded-2xl shadow-lg shadow-primary/30 active:scale-95 transition-all disabled:opacity-50 disabled:grayscale hover:brightness-110"
-            >
-              <Send size={18} strokeWidth={3} />
-            </button>
+          {/* QUICK ACTION SUGGESTIONS (SMALLER) */}
+          {!isLoading && (
+            <div className="flex gap-2  pb-1 no-scrollbar justify-center">
+              {QUICK_ACTIONS.map((action) => (
+                <motion.button
+                  key={action.id}
+                  whileHover={{ y: -2, backgroundColor: "rgba(255,255,255,1)" }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleSend(t(`suggestions.${action.key}`))}
+                  className="flex items-center gap-2 px-3.5 py-2 bg-white/90 backdrop-blur-xl border border-slate-100 rounded-xl shadow-sm group transition-all shrink-0"
+                >
+                  <div className="w-5 h-5 bg-primary/5 rounded-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <action.icon size={12} />
+                  </div>
+                  <span className="text-[11px] font-bold text-slate-600 whitespace-nowrap">{t(`suggestions.${action.key}`)}</span>
+                </motion.button>
+              ))}
+            </div>
+          )}
+
+          {/* MAIN INPUT BOX (COMPACT) */}
+          <div className="relative group mb-10">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 via-purple-500/10 to-accent/10 rounded-3xl blur opacity-0 group-focus-within:opacity-100 transition-opacity" />
+            <div className="relative bg-white/95 backdrop-blur-2xl border border-slate-200 group-focus-within:border-primary/40 rounded-3xl px-3 py-2 flex items-center gap-2 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)]">
+              <div className="flex-1 px-3">
+                <input
+                  type="text"
+                  value={input}
+                  disabled={isLoading}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === "Enter" && handleSend(input)}
+                  placeholder="Ask anything..."
+                  className="w-full bg-transparent border-none focus:outline-none py-1.5 text-[15px] font-medium text-slate-700 placeholder:text-slate-400"
+                />
+              </div>
+
+              <div className="flex items-center gap-1.5 pr-1">
+                <VoiceInput
+                  locale={locale}
+                  onTranscript={(text) => setInput(text)}
+                  disabled={isLoading}
+                />
+                <button
+                  onClick={() => handleSend(input)}
+                  disabled={isLoading || !input.trim()}
+                  className="p-2.5 bg-primary text-white rounded-2xl shadow-lg shadow-primary/20 active:scale-95 transition-all disabled:opacity-50 hover:brightness-105 flex items-center justify-center"
+                >
+                  <Send size={18} strokeWidth={2.5} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        <p className="text-[10px] text-center text-slate-500 font-bold uppercase tracking-widest opacity-50">Powered by Civic AI 1.0</p>
       </div>
+
+      {/* COMPACT FLOATING MIC */}
+      {/* <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center shadow-2xl z-[100] border border-white/10"
+      >
+        <Mic size={24} />
+      </motion.button> */}
+
     </div>
   );
 };

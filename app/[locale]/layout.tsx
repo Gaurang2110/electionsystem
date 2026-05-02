@@ -25,6 +25,7 @@ import { VoiceNavigator } from "@/components/ui/VoiceNavigator";
 import { SWRegistration } from "@/components/pwa/SWRegistration";
 import { PrivacyConsent } from "@/components/ui/PrivacyConsent";
 import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";
+import { ClientLayoutWrapper } from "@/components/layout/ClientLayoutWrapper";
 
 export const metadata = {
   manifest: "/manifest.json",
@@ -67,16 +68,9 @@ export default async function LocaleLayout({
 
           <div className="w-full min-h-screen flex relative bg-slate-50/30">
             <Sidebar />
-            <div className="flex-1 ml-[240px] flex flex-col min-h-screen">
-              <TopHeader />
-              <main className="flex-1 p-6 max-w-[1600px] mx-auto w-full">
-                <PageTransition>
-                  {children}
-                </PageTransition>
-                <TrustBadges variant="minimal" className="mt-20 mb-10" />
-                <LegalDisclaimer className="mb-10 opacity-50" />
-              </main>
-            </div>
+            <ClientLayoutWrapper>
+              {children}
+            </ClientLayoutWrapper>
             <UniversalContinueCTA />
             <DemoModeOverlay />
             <GuidedTourOverlay />

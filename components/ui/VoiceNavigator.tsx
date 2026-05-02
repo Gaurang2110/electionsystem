@@ -4,15 +4,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Mic, MicOff, MessageSquare } from "lucide-react";
 import { useVoiceControl } from "@/hooks/useVoiceControl";
 import { cn } from "@/utils/cn";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 export const VoiceNavigator: React.FC = () => {
   const { isListening, transcript, toggleListening, hasSupport } = useVoiceControl();
   const router = useRouter();
+  const pathname = usePathname();
   const [showTooltip, setShowTooltip] = React.useState(false);
   const longPressTimer = React.useRef<NodeJS.Timeout | null>(null);
 
   if (!hasSupport) return null;
+  if (pathname.includes('/assistant')) return null;
 
   const handlePointerDown = () => {
     longPressTimer.current = setTimeout(() => {

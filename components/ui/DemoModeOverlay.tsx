@@ -5,7 +5,10 @@ import { CheckCircle2, Play, Zap, MapPin, FileText, ShieldCheck, X } from "lucid
 import { ProgressBar } from "./ProgressBar";
 import { cn } from "@/utils/cn";
 
+import { usePathname } from "@/i18n/navigation";
+
 export const DemoModeOverlay: React.FC = () => {
+  const pathname = usePathname();
   const [isActive, setIsActive] = React.useState(false);
   const [demoProgress, setDemoProgress] = React.useState(0);
   const [activeStep, setActiveStep] = React.useState<string | null>(null);
@@ -43,6 +46,8 @@ export const DemoModeOverlay: React.FC = () => {
     setDemoProgress(0);
     setActiveStep(null);
   };
+
+  if (pathname.includes('/assistant')) return null;
 
   return (
     <>

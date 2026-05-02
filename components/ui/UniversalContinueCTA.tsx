@@ -26,6 +26,9 @@ export const UniversalContinueCTA: React.FC = () => {
   // Don't show if all steps are completed (100% progress)
   if (progress >= 100) return null;
 
+  // Don't show on assistant page
+  if (pathname.includes('/assistant')) return null;
+
   // Don't show if we are already on the target page
   // (Assuming nextAction.link is the relative path)
   if (pathname === nextAction.link) return null;

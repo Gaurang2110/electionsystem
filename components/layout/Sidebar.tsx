@@ -41,9 +41,13 @@ export const Sidebar: React.FC = () => {
       {/* Layer 1: Dark Navy Gradient Base */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-[#0A0F1D] to-[#080C14] pointer-events-none" />
 
-      {/* Layer 2: Silhouette Illustration */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 opacity-15 pointer-events-none mix-blend-screen overflow-hidden">
-
+      {/* Layer 2: Silhouette Illustration (Faded Parliament) */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 opacity-20 pointer-events-none mix-blend-screen overflow-hidden">
+        <img 
+          src="/header_civic_illustration_1777628116893.png" 
+          alt="Illustration" 
+          className="w-full h-full object-cover object-bottom grayscale brightness-[0.2] scale-150" 
+        />
       </div>
 
       <div className="p-6 pb-4 relative z-20">
@@ -64,22 +68,37 @@ export const Sidebar: React.FC = () => {
           return (
             <Link key={item.id} href={item.href}>
               <motion.div
-                whileHover={{ x: 5 }}
+                whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
-                  "relative group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 overflow-hidden",
+                  "relative group flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 overflow-hidden",
                   isActive
-                    ? "text-white bg-gradient-to-r from-primary/20 to-transparent border-l-2 border-primary"
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                    ? "text-white bg-white/10 border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                    : "text-slate-400 hover:text-white"
                 )}
               >
+                {isActive && (
+                  <motion.div 
+                    layoutId="active-nav"
+                    className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/10 to-transparent border-l-[3px] border-primary z-0"
+                  />
+                )}
+                
                 <div className="relative z-10">
-                  <item.icon size={18} className={cn("transition-all", isActive ? "text-primary drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]" : "group-hover:text-slate-200")} />
+                  <item.icon size={20} className={cn("transition-all duration-500", isActive ? "text-primary drop-shadow-[0_0_8px_rgba(99,102,241,0.8)] scale-110" : "group-hover:text-slate-200")} />
                 </div>
 
-                <span className={cn("relative z-10 text-sm font-medium transition-all", isActive ? "text-white" : "group-hover:translate-x-1")}>
+                <span className={cn("relative z-10 text-[13px] font-black uppercase tracking-widest transition-all duration-500", isActive ? "text-white" : "group-hover:translate-x-1")}>
                   {item.label}
                 </span>
+
+                {isActive && (
+                   <motion.div 
+                    animate={{ opacity: [0.2, 0.5, 0.2] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(99,102,241,1)]"
+                   />
+                )}
               </motion.div>
             </Link>
           );

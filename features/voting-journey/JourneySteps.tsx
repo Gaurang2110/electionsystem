@@ -31,230 +31,224 @@ export const JourneySteps: React.FC = () => {
   return (
     <div className="flex flex-col gap-6 pb-32 max-w-[1200px] mx-auto px-4 md:px-8 ">
 
-      {/* ULTRA-COMPACT PREMIUM HEADER SECTION */}
-      <div className="relative w-full rounded-[2.5rem] overflow-hidden bg-[#0A0F1D] shadow-2xl min-h-[180px] flex items-center p-5 md:p-8 border border-white/5">
-        {/* User Provided Background Image */}
-        <div className="absolute inset-0 z-0">
+      {/* PREMIUM HERO HEADER SECTION (REFINED LAYOUT) */}
+      <div className="relative w-full rounded-[2.5rem] overflow-hidden bg-slate-950  min-h-[160px] flex flex-col md:flex-row items-start md:items-center justify-between p-6 md:p-10 border border-white/10 group">
+        {/* Parliament Illustration Background (Right-Aligned, Small) */}
+        <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/3 z-0 pointer-events-none">
           <img
-            src="/parliment_illustaration.png"
+            src="/header_civic_illustration_1777628116893.png"
             alt="Parliament Illustration"
-            className="w-full h-full object-cover object-center opacity-30"
+            className="w-full h-full object-contain object-cover object-center opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0F1D] via-[#0A0F1D]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-xl">
           <motion.div
-            initial={{ opacity: 0, x: -15 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2 mb-3"
           >
-            <div className="px-2 py-0.5 bg-primary/20 border border-primary/30 rounded-full text-[8px] font-black text-primary uppercase tracking-[0.2em]">
-              Active Journey
-            </div>
-            <div className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-[8px] font-black text-white/60 uppercase tracking-[0.2em] flex items-center gap-1.5">
-              <ShieldCheck size={9} />
-              Verified
+            <div className="px-3 py-0.5 bg-primary/20 border border-primary/30 rounded-full text-[9px] font-black text-primary uppercase tracking-[0.2em] backdrop-blur-md">
+              72% Ready
             </div>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-2xl md:text-3xl font-black text-white font-display tracking-tight leading-none"
+            initial={{ opacity: 0, x: -15 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-3xl md:text-4xl font-black text-white font-display tracking-tight leading-[1.1]"
           >
-            Your Voting Journey, <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">{profile.name || "Aarav"}</span>!
+            Your Voting Journey, <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-indigo-400">
+              {profile.name || "Aarav"} 👋
+            </span>
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-slate-400 font-medium text-sm mt-3 max-w-sm leading-relaxed"
-          >
-            Your vote is your power. You are <span className="text-white font-black">{progress}%</span> prepared. <span className="text-primary font-black">Almost there!</span>
-          </motion.p>
+          <p className="mt-3 text-slate-400 font-medium text-sm leading-relaxed max-w-sm">
+            You are <span className="text-white font-black">72% ready</span> to become a <span className="text-indigo-400 font-black">Responsible Citizen</span>.
+          </p>
         </div>
 
-        {/* Floating Readiness Widget - Ultra Premium Dashboard Style */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="absolute right-8 bottom-8 hidden lg:flex items-center justify-center p-2 rounded-[2.5rem] bg-[#0A0F1D]/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group overflow-hidden"
-        >
-          <div className="relative w-24 h-24 flex items-center justify-center">
-            {/* Dynamic Background Glow */}
-            <div className="absolute inset-0 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors duration-700" />
-            
-            <svg className="w-full h-full transform -rotate-90 relative z-10 p-2">
-              <defs>
-                <linearGradient id="readyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#6366F1" />
-                  <stop offset="100%" stopColor="#A855F7" />
-                </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
+        {/* Continue Button (Right-Aligned) */}
+        <div className="relative z-20 mt-20 md:mt-30">
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(99,102,241,0.4)" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push(nextAction.link as any)}
+            className="px-6 py-4 bg-gradient-to-r from-primary to-accent text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-2xl shadow-primary/20 flex items-center gap-3"
+          >
+            Continue Journey <ArrowRight size={16} />
+          </motion.button>
+        </div>
 
-              {/* Background Track */}
-              <circle cx="48" cy="48" r="38" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-white/[0.03]" />
-              
-              {/* Progress Glow (Behind) */}
-              <motion.circle
-                cx="48" cy="48" r="38" stroke="#6366F1" strokeWidth="6" fill="transparent"
-                strokeDasharray={238.7}
-                strokeDashoffset={238.7 - (238.7 * progress) / 100}
-                strokeLinecap="round"
-                className="opacity-20 blur-[4px]"
-              />
-              
-              {/* Main Progress Circle */}
-              <motion.circle
-                cx="48" cy="48" r="38" stroke="url(#readyGradient)" strokeWidth="6" fill="transparent"
-                strokeDasharray={238.7}
-                strokeDashoffset={238.7 - (238.7 * progress) / 100}
-                strokeLinecap="round"
-                filter="url(#glow)"
-                initial={{ strokeDashoffset: 238.7 }}
-                animate={{ strokeDashoffset: 238.7 - (238.7 * progress) / 100 }}
-                transition={{ duration: 2, ease: "easeOut" }}
-              />
-
-              {/* Inner Decorative Dial */}
-              <circle cx="48" cy="48" r="30" stroke="currentColor" strokeWidth="1" strokeDasharray="2 4" fill="transparent" className="text-white/10" />
-            </svg>
-            
-            <div className="absolute flex flex-col items-center justify-center z-20">
-              <motion.span 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-2xl font-black text-white leading-none tracking-tighter tabular-nums"
-              >
-                {progress}%
-              </motion.span>
-              <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em] mt-1.5 opacity-80">Ready</span>
-            </div>
-          </div>
-        </motion.div>
+        {/* Decorative Floating Particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[1, 2].map((i) => (
+            <motion.div
+              key={i}
+              animate={{
+                y: [0, -10, 0],
+                opacity: [0.1, 0.3, 0.1]
+              }}
+              transition={{ repeat: Infinity, duration: 4 + i, delay: i }}
+              className={cn(
+                "absolute rounded-full bg-white/10 blur-lg",
+                i === 1 ? "top-1/4 left-1/3 w-8 h-8" :
+                  "bottom-1/3 left-1/4 w-6 h-6"
+              )}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* COMPACT NEXT STEP CARD */}
+      {/* COMPACT RECOMMENDED STEP BANNER */}
       {nextAction.id !== 'ready' && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="relative group"
+          transition={{ delay: 0.3 }}
+          className="relative group mt-2"
         >
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent rounded-[1.5rem] blur opacity-10 group-hover:opacity-20 transition duration-1000" />
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-400 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-700 animate-pulse" />
           <Card
-            variant="glass"
-            className="relative bg-white border-white p-4 md:p-5 rounded-[1.5rem] flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden shadow-xl"
+            className="relative bg-gradient-to-r from-emerald-600 to-teal-500 border-none p-4 md:p-5 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden shadow-xl"
           >
+            {/* Subtle Background Pattern */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none" />
+
             <div className="flex items-center gap-4 relative z-10">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/10 rotate-2 group-hover:rotate-0 transition-transform">
-                <Zap size={20} fill="currentColor" />
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-xl flex items-center justify-center text-white shadow-lg rotate-2 group-hover:rotate-0 transition-transform duration-300">
+                <Sparkles size={24} className="animate-pulse" />
               </div>
-              <div>
-                <p className="text-[8px] font-black text-primary uppercase tracking-[0.3em] mb-1 flex items-center gap-2">
-                  <Sparkles size={10} fill="currentColor" />
-                  Next Step
-                </p>
-                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight font-display">{nextAction.label}</h3>
-                <p className="text-slate-500 font-medium text-[10px] mt-0.5">Boost readiness by 15%</p>
+              <div className="text-left">
+                <p className="text-[8px] font-black text-emerald-100 uppercase tracking-[0.3em] mb-1">Recommended Next Step</p>
+                <h3 className="text-xl md:text-2xl font-black text-white tracking-tight leading-none uppercase font-display">
+                  {nextAction.label}
+                </h3>
+                <p className="text-emerald-50 font-medium text-[10px] mt-1 opacity-90">Boost your voter readiness by <span className="font-black text-white">15%</span></p>
               </div>
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0,0,0,0.15)" }}
               whileTap={{ scale: 0.98 }}
               onClick={() => router.push(nextAction.link as any)}
-              className="w-full md:w-auto px-6 py-2.5 bg-slate-900 text-white font-black text-[9px] uppercase tracking-[0.2em] rounded-lg flex items-center justify-center gap-2 shadow-xl shadow-slate-900/10 hover:bg-slate-800 transition-all"
+              className="w-full md:w-auto px-6 py-2.5 bg-white text-emerald-600 font-black text-[9px] uppercase tracking-[0.2em] rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all mt-4"
             >
-              Start {nextAction.label} <ArrowRight size={12} />
+              Start Now <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </Card>
         </motion.div>
       )}
 
-      {/* COMPACT TIMELINE SECTION */}
-      <div className="relative py-8 space-y-8 px-1 md:px-6">
-        {/* Animated Progress Line */}
-        <div className="absolute left-[29px] md:left-[53px] top-16 bottom-16 w-0.5 bg-slate-100 rounded-full -z-0 overflow-hidden">
-          <motion.div
-            style={{ scaleY }}
-            className="w-full h-full bg-gradient-to-b from-primary via-accent to-emerald-500 origin-top"
-          />
-        </div>
+      {/* MAIN JOURNEY CONTENT WITH SIDE PANEL */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-10">
 
-        {journeySteps.map((step, index) => {
-          const status = completedSteps.includes(step.id) ? "complete" : (step.id === activeStepId ? "active" : "pending");
-          return (
-            <StepItem
-              key={step.id}
-              id={step.id}
-              index={index}
-              title={t(`steps.${step.id}.title`)}
-              description={t(`steps.${step.id}.desc`)}
-              time={t(`steps.${step.id}.time`)}
-              status={status}
-              onComplete={() => toggleStep(step.id)}
+        {/* LEFT: TIMELINE (8 cols) */}
+        <div className="lg:col-span-8 relative py-4 space-y-12 px-1 md:px-4">
+          {/* Vertical Progress Line (Premium) */}
+          <div className="absolute left-[29px] md:left-[53px] top-20 bottom-20 w-[3px] bg-slate-100 rounded-full -z-0 overflow-hidden">
+            <motion.div
+              style={{ scaleY }}
+              className="w-full h-full bg-gradient-to-b from-primary via-accent to-emerald-500 origin-top shadow-[0_0_10px_rgba(99,102,241,0.5)]"
             />
-          );
-        })}
-      </div>
-
-      {/* BOTTOM ROW: MOTIVATIONAL QUEST & ACHIEVEMENTS */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch pt-8">
-        <div className="lg:col-span-8 group">
-          <div className="bg-emerald-500/5 border border-emerald-500/10 p-4 md:p-5 rounded-2xl mb-5 flex items-center gap-4 transition-all hover:bg-emerald-500/[0.08]">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-              <Heart size={18} fill="currentColor" />
-            </div>
-            <p className="text-sm font-bold text-emerald-700 italic">"Every vote is a seed of democracy. You are doing a great job!"</p>
           </div>
-          <ElectionQuest />
+
+          {journeySteps.map((step, index) => {
+            const status = completedSteps.includes(step.id) ? "complete" : (step.id === activeStepId ? "active" : "pending");
+            return (
+              <StepItem
+                key={step.id}
+                id={step.id}
+                index={index}
+                title={t(`steps.${step.id}.title`)}
+                description={t(`steps.${step.id}.desc`)}
+                time={t(`steps.${step.id}.time`)}
+                status={status}
+                onComplete={() => toggleStep(step.id)}
+              />
+            );
+          })}
         </div>
-        <div className="lg:col-span-4">
-          <Card variant="glass" className="h-full bg-white border-white p-6 flex flex-col justify-between shadow-2xl rounded-[2rem] relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -z-10 group-hover:bg-primary/10 transition-colors" />
-            <div>
-              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6">Recent Achievement</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-xl shadow-emerald-500/20">
-                    <Trophy size={28} />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-black text-slate-900 uppercase tracking-tight leading-none">State Explorer</h4>
-                    <p className="text-[10px] text-slate-500 font-bold mt-1.5">Unlocked 5 States</p>
-                  </div>
+
+        {/* RIGHT: PROGRESS WIDGETS (4 cols) */}
+        <div className="lg:col-span-4 sticky top-24 space-y-6">
+
+          {/* Journey Progress Card */}
+          <Card variant="glass" className="p-8 rounded-[2.5rem] bg-white border-white shadow-2xl overflow-hidden relative group">
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl" />
+
+            <div className="relative z-10 flex flex-col items-center  bg-primary/">
+              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">Journey Progress</h3>
+
+              <div className="relative w-52 h-52 flex items-center justify-center mb-6">
+                <svg className="w-full h-full transform -rotate-90 ">
+                  <circle cx="90" cy="90" r="80" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-slate-100" />
+                  <motion.circle
+                    cx="90" cy="90" r="80" stroke="url(#journeypurple)" strokeWidth="12" fill="transparent"
+                    strokeDasharray={502.4}
+                    strokeDashoffset={502.4 - (502.4 * progress) / 100}
+                    strokeLinecap="round"
+                    initial={{ strokeDashoffset: 502.4 }}
+                    animate={{ strokeDashoffset: 502.4 - (502.4 * progress) / 100 }}
+                    transition={{ duration: 2 }}
+                  />
+                  <defs>
+                    <linearGradient id="journeypurple" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#6366F1" />
+                      <stop offset="100%" stopColor="#A855F7" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute flex flex-col items-center">
+                  <span className="text-4xl font-black text-slate-900 leading-none">{progress}%</span>
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Complete</span>
                 </div>
-                <p className="text-xs text-slate-600 font-medium leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                  You've demonstrated exceptional interest in constituency demographics!
-                </p>
               </div>
-            </div>
-            <div className="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest">+25 Points Earned</span>
+
+              <div className="text-center">
+                <p className="text-lg font-black text-slate-900 uppercase tracking-tight">Almost there!</p>
+                <p className="text-[11px] text-slate-500 font-medium mt-1">Complete 2 more steps to reach 100%</p>
               </div>
-              <motion.button
-                whileHover={{ x: 3 }}
-                className="flex items-center gap-2 text-[9px] font-black text-primary uppercase tracking-widest"
-              >
-                Leaderboard <ArrowRight size={12} />
-              </motion.button>
             </div>
           </Card>
+
+          {/* Gamification achievement card moved here for better hierarchy */}
+          <Card variant="glass" className="p-8 rounded-[2.5rem] bg-slate-900 border-none text-white shadow-2xl overflow-hidden relative group h-full flex flex-col justify-between">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl -z-0" />
+
+            <div className="relative z-10">
+              <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-6">Recent Achievement</h3>
+              <div className="flex items-center gap-5 mb-6">
+                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-xl rotate-3">
+                  <Trophy size={32} className="text-white" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-black uppercase tracking-tight leading-none">State Explorer</h4>
+                  <div className="flex items-center gap-2 mt-2">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">+25 Points Earned</p>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 font-medium leading-relaxed mb-6">
+                You've demonstrated exceptional interest in constituency demographics!
+              </p>
+            </div>
+
+            <button className="w-full py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-colors">
+              View Leaderboard
+            </button>
+          </Card>
         </div>
+      </div>
+
+      {/* MINI QUEST BAR (GAMIFICATION) */}
+      <div className="mt-8">
+        <ElectionQuest />
       </div>
     </div>
   );

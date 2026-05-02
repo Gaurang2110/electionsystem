@@ -32,47 +32,51 @@ export const VoiceNavigator: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-10 right-10 z-[100] flex flex-col items-end gap-4">
-      {/* Transcript Popover */}
+    <div className="fixed bottom-12 right-12 z-[100] flex flex-col items-end gap-6">
+      {/* PREMIUM TRANSCRIPT POPOVER */}
       <AnimatePresence>
         {isListening && (
           <motion.div
-            initial={{ opacity: 0, y: 20, x: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, x: 20, scale: 0.9 }}
-            className="mb-4 px-6 py-4 bg-slate-900/95 backdrop-blur-2xl border border-primary/30 rounded-[2rem] shadow-2xl flex flex-col items-start gap-3 min-w-[240px] max-w-[320px]"
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.9 }}
+            className="mb-6 px-8 py-6 bg-slate-950/90 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] flex flex-col items-start gap-4 min-w-[280px] max-w-[360px] overflow-hidden"
           >
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1 h-3 items-center">
-                {[1, 2, 3].map((i) => (
+            {/* Decorative Glow */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -ml-16 -mt-16" />
+            
+            <div className="relative z-10 flex items-center gap-4">
+              <div className="flex gap-1.5 h-4 items-center">
+                {[1, 2, 3, 4].map((i) => (
                   <motion.div
                     key={i}
-                    animate={{ height: [6, 12, 6] }}
-                    transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.1 }}
-                    className="w-1 bg-primary rounded-full"
+                    animate={{ height: [8, 16, 8] }}
+                    transition={{ repeat: Infinity, duration: 0.5, delay: i * 0.1 }}
+                    className="w-1.5 bg-primary rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"
                   />
                 ))}
               </div>
-              <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em]">Voice Active</span>
+              <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">AI Voice Active</span>
             </div>
-            <p className="text-sm font-bold text-white italic opacity-90">
-              {transcript || "Listening for command..."}
+            <p className="relative z-10 text-base font-bold text-white leading-relaxed italic opacity-95">
+              "{transcript || "Listening for command..."}"
             </p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Main Mic Button */}
+      {/* PREMIUM FAB BUTTON */}
       <div className="relative group">
         <AnimatePresence>
           {showTooltip && !isListening && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, x: 10 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.8, x: 10 }}
-              className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-4 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest rounded-xl whitespace-nowrap shadow-xl border border-white/5"
+              initial={{ opacity: 0, x: 20, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 20, scale: 0.9 }}
+              className="absolute right-full mr-6 top-1/2 -translate-y-1/2 px-6 py-3 bg-slate-950/90 backdrop-blur-2xl text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-2xl whitespace-nowrap shadow-2xl border border-white/10"
             >
               Ask anything about elections
+              <div className="absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-2 bg-slate-950/90 border-r border-t border-white/10 rotate-45" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -84,35 +88,52 @@ export const VoiceNavigator: React.FC = () => {
           onClick={handleClick}
           onHoverStart={() => setShowTooltip(true)}
           onHoverEnd={() => setShowTooltip(false)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.95 }}
           className={cn(
-            "w-20 h-20 rounded-full flex items-center justify-center shadow-2xl transition-all relative overflow-hidden group",
+            "w-24 h-24 rounded-[2.5rem] flex items-center justify-center shadow-[0_24px_48px_-12px_rgba(0,0,0,0.4)] transition-all relative overflow-hidden group",
             isListening 
               ? "bg-rose-500 text-white" 
-              : "bg-gradient-to-br from-primary to-accent text-white shadow-primary/40"
+              : "bg-slate-900 border border-white/10 text-white"
           )}
         >
-          {/* Subtle Pulse Animation when Idle */}
-          {!isListening && (
-            <motion.div 
-              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              className="absolute inset-0 bg-white rounded-full pointer-events-none"
-            />
-          )}
+          {/* Pulsing Background Layers */}
+          <AnimatePresence>
+            {!isListening && (
+              <>
+                <motion.div 
+                  animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0, 0.2] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-primary/40 rounded-[2.5rem] pointer-events-none"
+                />
+                <motion.div 
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.1, 0.4] }}
+                  transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", delay: 0.5 }}
+                  className="absolute inset-0 bg-accent/20 rounded-[2.5rem] pointer-events-none"
+                />
+              </>
+            )}
+          </AnimatePresence>
 
-          {isListening ? (
-            <MicOff size={28} className="relative z-10" />
-          ) : (
-            <div className="relative z-10">
-               <Mic size={28} className="group-hover:hidden" />
-               <MessageSquare size={28} className="hidden group-hover:block animate-in fade-in zoom-in duration-300" />
-            </div>
-          )}
+          {/* Dynamic Content */}
+          <div className="relative z-20">
+            {isListening ? (
+              <MicOff size={32} className="text-white drop-shadow-lg" />
+            ) : (
+              <div className="relative">
+                 <Mic size={32} className="group-hover:hidden transition-all duration-300 drop-shadow-lg text-primary" />
+                 <MessageSquare size={32} className="hidden group-hover:block animate-in fade-in zoom-in duration-500 text-white drop-shadow-lg" />
+              </div>
+            )}
+          </div>
 
-          {/* Liquid background effect */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+          {/* Liquid Glass Background */}
+          <div className={cn(
+            "absolute inset-0 transition-opacity duration-500",
+            isListening ? "opacity-100 bg-rose-600" : "opacity-30 bg-gradient-to-tr from-primary via-accent to-indigo-500"
+          )} />
+          <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-[1px] bg-white/20 z-10" />
         </motion.button>
       </div>
     </div>

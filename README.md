@@ -34,6 +34,14 @@ The AI Assistant is a **context-aware mentor** that possesses "360° Vision" of 
 
 ---
 
+## 🗺️ Google Maps Integration
+The platform utilizes a **Hybrid Spatial Engine** to provide uninterrupted service across all network conditions:
+*   **Offline-First Leaflet Core**: The default mapping engine provides high-performance district exploration and booth visualization using locally cached GeoJSON data, ensuring zero downtime in low-connectivity areas.
+*   **Enhanced Google Maps View**: Users can switch to the high-fidelity Google Cloud mapping engine for precision navigation, satellite imagery, and real-time transit directions.
+*   **Precision Navigation**: One-touch "Navigate" integration launches Google Maps directions directly from the booth popup, bridging the gap between digital discovery and physical voting.
+
+---
+
 ## 🛡️ Reliability Layer
 Built for resilience in varied connectivity environments:
 *   **Deterministic Fallbacks**: If the Gemini AI service is unavailable, the system automatically transitions to a local high-fidelity FAQ engine.
@@ -89,6 +97,7 @@ Our "Zero-Regression" policy is enforced through a multi-layered testing suite:
 
 ## ☁️ Google Services Used
 *   🤖 **Google Gemini AI**: Core conversational intelligence and context-aware guidance.
+*   🗺️ **Google Maps Platform**: High-precision navigation, satellite imagery, and transit routing.
 *   🔥 **Firebase / Google Analytics**: Real-time journey tracking and milestone logging.
 *   ⚡ **Google Cloud Functions**: Server-side event processing and categorization.
 *   ☁️ **Google Cloud Run**: Secure, containerized hosting and serverless execution.

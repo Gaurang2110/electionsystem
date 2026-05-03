@@ -8,10 +8,16 @@ import { Card } from "@/components/ui/Card";
 import { useAppStore } from "@/store/useAppStore";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { getSystemBrainState, getNextBestAction as computeDecision } from "@/lib/intelligenceEngine";
 
 export const VotingReadinessCard: React.FC = () => {
   const { progress, getNextBestAction, getMissingSteps, completedSteps, engagementScore, readinessCategory, readinessNudge } = useAppStore();
   const t = useTranslations('dashboard');
+  
+  // Intelligence Overlay
+  const brain = getSystemBrainState();
+  const deterministicAction = computeDecision(brain);
+  
   const nextAction = getNextBestAction();
   const missingSteps = getMissingSteps();
 
@@ -60,9 +66,12 @@ export const VotingReadinessCard: React.FC = () => {
         <div className="mb-10">
           <ConfidenceMeter className="mb-8" />
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
-            <p className="flex-1 text-sm font-bold text-blue-100/90 tracking-tight italic">
-              "{readinessNudge}"
-            </p>
+            <div className="flex-1">
+              <p className="text-[10px] font-black uppercase text-blue-200/50 mb-1 tracking-widest">Recommended Next Step</p>
+              <p className="text-sm font-bold text-white tracking-tight">
+                "{deterministicAction || readinessNudge}"
+              </p>
+            </div>
             <Link 
               href={nextAction.link as any} 
               className="px-6 py-3 bg-white text-primary font-black text-xs uppercase tracking-widest rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/10 whitespace-nowrap flex items-center gap-2"
@@ -151,6 +160,19 @@ export const VotingReadinessCard: React.FC = () => {
                 </motion.div>
               )}
             </AnimatePresence>
+          </div>
+        </div>
+
+        {/* AI SYSTEM STATUS OVERLAY */}
+        <div className="absolute bottom-6 right-6 z-[20] flex flex-col items-end gap-1 opacity-40 hover:opacity-100 transition-opacity duration-500 pointer-events-none sm:pointer-events-auto">
+          <div className="flex items-center gap-2 px-2 py-1 bg-black/20 backdrop-blur-md rounded-lg border border-white/10 shadow-2xl">
+            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+            <span className="text-[7px] font-black uppercase tracking-widest text-emerald-400">AI System Status: Active</span>
+          </div>
+          <div className="flex flex-col gap-0.5 items-end">
+            <span className="text-[6px] font-black uppercase tracking-[0.2em] text-white/40">Readiness: {brain.readiness}%</span>
+            <span className="text-[6px] font-black uppercase tracking-[0.2em] text-white/40">Action: {deterministicAction}</span>
+            <span className="text-[6px] font-black uppercase tracking-[0.2em] text-white/40">Engagement: {brain.engagementLevel}</span>
           </div>
         </div>
       </div>

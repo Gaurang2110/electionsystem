@@ -93,6 +93,12 @@ export async function POST(request: Request) {
         const responseText = result.response.text();
 
         if (responseText) {
+          console.log(`[CLOUD_PIPELINE] [${new Date().getHours()}:00] [INFO] [AI] ai_used | Readiness: ${readiness}%`, JSON.stringify({ 
+            source: 'gemini', 
+            locale, 
+            readiness,
+            queryLength: message.length 
+          }));
           return NextResponse.json({ 
             text: responseText,
             source: 'gemini'
@@ -100,12 +106,19 @@ export async function POST(request: Request) {
         }
       } catch (geminiError) {
         console.warn("Gemini API failed or timed out, falling back to local data:", geminiError);
-        console.log('[RELIABILITY] fallback_triggered: ai_assistant');
+        console.log(`[CLOUD_PIPELINE] [${new Date().getHours()}:00] [WARNING] [AI] fallback_triggered | Readiness: ${readiness}%`, JSON.stringify({ 
+          context: 'ai_assistant',
+          reason: 'gemini_failure'
+        }));
       }
     }
 
     // 2. Fallback to local FAQ matching
-    console.log('[RELIABILITY] fallback_triggered: local_faq_activated');
+    console.log(`[CLOUD_PIPELINE] [${new Date().getHours()}:00] [INFO] [AI] ai_used | Readiness: ${readiness}%`, JSON.stringify({ 
+      source: 'local_faq', 
+      locale, 
+      readiness
+    }));
     const localResponse = getFAQResponse(message);
     
     // Simulate thinking delay for consistent UX

@@ -14,15 +14,30 @@
 ## 🇮🇳 Why This Matters
 Voting in the world's largest democracy should not be a confusing bureaucratic hurdle.
 *   **Empowering First-Time Voters**: Over 18 million new voters in India face significant information asymmetry.
-*   **Reducing Friction**: Fragmented registration and polling data often lead to voter apathy.
-*   **Building Civic Trust**: By providing transparent, AI-verified, and accessible information, we empower citizens to exercise their sovereignty with confidence.
+*   **Increasing Voter Participation**: By lowering the barrier to entry through intelligent guidance, we directly drive higher turnout among youth.
+*   **Reducing Confusion**: Simplifies complex rules (eligibility, documentation) into personalized, bite-sized tasks.
+*   **Personalized Adaptation**: Unlike static guides, the system adapts its priorities and tone based on each user's unique civic journey.
+
+---
+
+## 🧠 Civic AI Brain
+The system functions as a continuous intelligence layer that orchestrates the user experience:
+> "This system continuously senses user behavior, decides the next best action, and adapts guidance dynamically to ensure maximum voter readiness."
+
+### 🔄 Closed Loop Intelligence
+The platform operates on a real-time behavioral feedback loop:
+1.  **Sense**: Captures discrete user interactions across all modules (Map, Quiz, Assistant).
+2.  **Decision**: The **Deterministic Decision Engine** analyzes current state vs. optimal readiness markers.
+3.  **Action**: Delivers the "Next Best Action" through high-impact UI nudges and AI suggestions.
+4.  **Feedback**: Monitors user response to the recommended action.
+5.  **Adaptation**: Refines future priorities based on engagement levels and learned behavioral patterns.
 
 ---
 
 ## 🧠 System Intelligence
 The platform is powered by a proprietary **Guided Sovereignty Engine** that orchestrates user state and environmental data:
 *   **Adaptive Decision Engine**: The system analyzes 15+ readiness markers to calculate the "Next Best Action" with the highest impact on your voting readiness.
-*   **Behavioral Insights**: Tracks engagement metrics (Actions, Frequency, Feature Popularity) to generate a personalized "Citizen Impact" summary.
+*   **Behavioral Learning**: Tracks feature usage frequency to intelligently prioritize modules (e.g., suggesting Map more often if it's being avoided).
 *   **Multilingual Context**: AI responses and UI elements are dynamically localized into 8+ Indian languages, maintaining technical accuracy across cultural contexts.
 
 ---
@@ -42,19 +57,33 @@ The platform utilizes a **Hybrid Spatial Engine** to provide uninterrupted servi
 
 ---
 
-## 🛡️ Reliability Layer
-Built for resilience in varied connectivity environments:
-*   **Deterministic Fallbacks**: If the Gemini AI service is unavailable, the system automatically transitions to a local high-fidelity FAQ engine.
-*   **Data Persistence**: Offline-first state management using Zustand and LocalStorage ensures progress is never lost during transit or network drops.
-- **Fail-Safe UI**: Map and Quiz modules include built-in retry mechanisms and descriptive fallback states to ensure a crash-free experience.
+## 🛡️ Reliability
+Built for mission-critical resilience across all network environments:
+*   **Deterministic Retry Logic**: All critical async operations (AI API, Cloud Logging, Data Fetch) utilize a standardized `retryAsync` engine to handle transient network drops.
+*   **Fail-Safe Fallback Systems**:
+    -   **AI** → Transitions to a high-fidelity local FAQ engine if the Gemini service is unreachable.
+    -   **Map** → Utilizes an offline-first Leaflet core with cached GeoJSON data as a fallback to Google Maps.
+    -   **Observability** → Implements silent-failure mode to ensure that logging never blocks the user journey.
+*   **Offline-First Persistence**: Comprehensive state management via Zustand and LocalStorage ensures progress is preserved even in zero-connectivity areas.
 
 ---
 
-## ☁️ Cloud Processing Pipeline
-A high-performance observability stack ensures continuous system optimization:
-*   **Event Categorization**: Interactions are categorized server-side (Quiz, Map, Readiness) to monitor user journey friction.
-*   **Async Processing**: Event logging is handled asynchronously in batched groups of 3 to minimize main-thread blocking and network overhead.
-*   **Cloud Bridge**: Secure `/api/log-event` routes provide a reliable gateway to **Google Cloud Run** and **Cloud Logging**.
+## 🌐 Google Ecosystem
+The platform leverages the full power of the Google Cloud ecosystem for a seamless and intelligent experience:
+*   🔥 **Firebase Analytics**: Real-time tracking of journey milestones (`quiz_completed`, `journey_step_completed`) with resilient, non-blocking event logging.
+*   ☁️ **Google Cloud Functions**: Serverless processing of batched interactions, providing a secure gateway for system activity logs.
+*   🤖 **Google Gemini AI**: Provides the core conversational "360° Vision" mentor, injecting real-time user context into every civic guidance interaction.
+*   🗺️ **Google Maps Platform**: High-precision navigation, satellite imagery, and transit routing for localized booth discovery.
+
+---
+
+## 🧪 Testing
+Our "Zero-Regression" policy is enforced through rigorous reliability validation:
+*   **Unit Testing (Jest)**: Atomic verification of readiness scoring formulas, state transitions, and business logic.
+*   **Edge Case Handling**: Comprehensive testing of boundary conditions (e.g., 0% vs. 100% readiness) and resilient silent-failure behaviors.
+*   **Reliability Validation**: Automated tests for `retryAsync` behavior, ensuring successful recovery from transient service failures.
+
+**Run Reliability Suite:** `npm test tests/resilience.test.ts`
 
 ---
 
@@ -82,25 +111,6 @@ A high-performance observability stack ensures continuous system optimization:
    ├─► [ Google Cloud Run ] ─────► [ Serverless Execution Environment ]
    └─► [ Google Cloud Logging ] ──► [ Distributed Observability ]
 ```
-
----
-
-## 🧪 Testing Strategy
-Our "Zero-Regression" policy is enforced through a multi-layered testing suite:
-*   **Unit Testing**: Atomic verification of scoring logic, readiness formulas, and state transitions.
-*   **Workflow Integration**: End-to-end "User Journey Flow" tests (Onboarding -> Quiz -> Readiness) ensuring cross-module data consistency.
-*   **Cloud Reliability**: Validation of batched logging, retry logic, and fallback activation.
-
-**Run all tests:** `npm test`
-
----
-
-## ☁️ Google Services Used
-*   🤖 **Google Gemini AI**: Core conversational intelligence and context-aware guidance.
-*   🗺️ **Google Maps Platform**: High-precision navigation, satellite imagery, and transit routing.
-*   🔥 **Firebase / Google Analytics**: Real-time journey tracking and milestone logging.
-*   ⚡ **Google Cloud Functions**: Server-side event processing and categorization.
-*   ☁️ **Google Cloud Run**: Secure, containerized hosting and serverless execution.
 
 ---
 

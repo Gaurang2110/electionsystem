@@ -6,12 +6,18 @@ const BATCH_SIZE = 3;
  * Safely sends events to a remote logging endpoint.
  * Now supports event batching and automatic retries.
  */
-export async function sendEventToCloud(eventName: string, payload: any) {
+export async function sendEventToCloud(eventName: string, payload: any, readiness?: number) {
   const event = {
     event: eventName,
     payload,
     timestamp: new Date().toISOString(),
-    url: typeof window !== 'undefined' ? window.location.href : 'server',
+    readiness: readiness ?? 0,
+    severity: eventName.includes('error') ? 'ERROR' : eventName.includes('fallback') ? 'WARNING' : 'INFO',
+    serviceContext: { service: 'civic-ai-assistant', version: '1.0.0' },
+    context: typeof window !== 'undefined' ? { 
+      url: window.location.href,
+      userAgent: navigator.userAgent
+    } : { source: 'server' },
   };
 
   eventBatch.push(event);
@@ -20,27 +26,28 @@ export async function sendEventToCloud(eventName: string, payload: any) {
   if (eventBatch.length >= BATCH_SIZE) {
     const batchToSend = [...eventBatch];
     eventBatch = [];
-    performSend(batchToSend, true);
+    performSend(batchToSend);
   }
 }
 
-async function performSend(data: any, retry: boolean) {
-  try {
-    const response = await fetch('/api/log-event', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ batch: data }),
-    });
+import { retryAsync } from '@/utils/reliability';
 
-    // If failed and retry is true, try once more after a delay
-    if (!response.ok && retry) {
-      setTimeout(() => performSend(data, false), 3000);
-    }
+async function performSend(data: any) {
+  try {
+    await retryAsync(async () => {
+      const response = await fetch('/api/log-event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ batch: data }),
+      });
+      
+      if (!response.ok) throw new Error(`Logging failed: ${response.statusText}`);
+      return response;
+    }, 1); // Retry once
   } catch (error) {
-    if (retry) {
-      setTimeout(() => performSend(data, false), 3000);
-    }
+    // Logging failure is non-blocking, ignore after retry
+    console.warn('[Cloud Logging] Final failure after retries, ignoring:', error);
   }
 }

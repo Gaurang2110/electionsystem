@@ -2,8 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import documents from '@/data/documents.json';
 import * as analytics from '@/lib/analytics';
-import { logFirebaseEvent } from '@/lib/firebase';
-import { sendEventToCloud } from '@/lib/cloudLogging';
+import { telemetry } from '@/utils/telemetry';
 import { calculateReadiness, calculateQuizPoints } from '@/services/votingService';
 
 interface UserProfile {
@@ -83,6 +82,12 @@ interface UserState {
   activityLog: ActivityLogEntry[];
   leaderboardRank: number;
   isSidebarOpen: boolean;
+  featureUsage: {
+    quiz: number;
+    map: number;
+    assistant: number;
+    ballot: number;
+  };
   
   // Selectors
   getUserInsights: () => { totalActions: number; engagement: 'Low' | 'Medium' | 'High'; mostUsed: string };
@@ -172,6 +177,12 @@ export const useAppStore = create<UserState>()(
       activityLog: [],
       leaderboardRank: 42, // Default for demo
       isSidebarOpen: false,
+      featureUsage: {
+        quiz: 0,
+        map: 0,
+        assistant: 0,
+        ballot: 0
+      },
       
       getUserInsights: () => {
         const { activityLog } = get();
@@ -291,9 +302,24 @@ export const useAppStore = create<UserState>()(
       toggleHighContrast: () => set((state) => ({ isHighContrast: !state.isHighContrast })),
       
       logActivity: (entry: Omit<ActivityLogEntry, 'timestamp'>) => {
-        set((state: UserState) => ({
-          activityLog: [{ ...entry, timestamp: Date.now() } as ActivityLogEntry, ...state.activityLog].slice(0, 20)
-        }));
+        set((state: UserState) => {
+          const newUsage = { ...state.featureUsage };
+          const activityContent = JSON.stringify(entry).toLowerCase();
+          
+          if (activityContent.includes('quiz')) newUsage.quiz++;
+          if (activityContent.includes('map')) newUsage.map++;
+          if (activityContent.includes('ai_')) newUsage.assistant++;
+          if (activityContent.includes('ballot')) newUsage.ballot++;
+          
+          // --- SYSTEMIC GOOGLE INTEGRATION ---
+          // Automatically sync every activity to Firebase and Cloud Logging
+          telemetry.log(`activity_${entry.type}`, entry, state.progress);
+
+          return {
+            activityLog: [{ ...entry, timestamp: Date.now() } as ActivityLogEntry, ...state.activityLog].slice(0, 20),
+            featureUsage: newUsage
+          };
+        });
       },
 
       setOnboarded: (status: boolean) => set({ isOnboarded: status }),
@@ -351,11 +377,11 @@ export const useAppStore = create<UserState>()(
           const nextScore = state.engagementScore + points;
           
           // Cloud Logging: Engagement Level
-          sendEventToCloud('user_engagement_level', { 
+          telemetry.log('user_engagement_level', { 
             previous: state.engagementScore, 
             current: nextScore,
             level: nextScore > 100 ? 'Expert' : nextScore > 50 ? 'Active' : 'New'
-          });
+          }, nextScore);
           
           return { engagementScore: nextScore };
         });
@@ -379,18 +405,23 @@ export const useAppStore = create<UserState>()(
         });
 
         // Cloud Logging: Readiness Update
-        sendEventToCloud('readiness_score_update', { 
+        telemetry.log('readiness_score_update', { 
           score: totalProgress, 
           category 
-        });
+        }, totalProgress);
         
-        // --- FIREBASE EVENT LOGGING ---
-        if (totalProgress >= 80 && !factors.gamification.hasLoggedReadyState) {
-          logFirebaseEvent('user_ready_state', {
+          telemetry.log('readiness_updated', {
             progress: totalProgress,
             category: category,
             timestamp: Date.now()
-          });
+          }, totalProgress);
+          
+          if (totalProgress >= 80 && !factors.gamification.hasLoggedReadyState) {
+            telemetry.log('user_ready_state', {
+              progress: totalProgress,
+              category: category,
+              timestamp: Date.now()
+            }, totalProgress);
           set((state) => ({
             gamification: { ...state.gamification, hasLoggedReadyState: true }
           }));
@@ -405,6 +436,10 @@ export const useAppStore = create<UserState>()(
         
         // Intelligence Logging: Map Interaction
         if (data.state || data.district) {
+          telemetry.log('map_interaction', {
+            state: data.state || state.profile.state,
+            district: data.district || state.profile.district
+          }, state.progress);
           get().logActivity({
             type: 'map_interaction',
             state: data.state || state.profile.state,
@@ -480,7 +515,7 @@ export const useAppStore = create<UserState>()(
             label: step,
           });
           // Cloud Logging: Journey Step
-          sendEventToCloud('journey_step_completion', { step });
+          telemetry.log('journey_step_completed', { step, readiness: state.progress }, state.progress);
         }
         const newQuestSteps = { ...state.gamification.questSteps, [step]: completed };
         
@@ -522,7 +557,7 @@ export const useAppStore = create<UserState>()(
           value: score,
         });
         // Cloud Logging: Quiz Completion
-        sendEventToCloud('quiz_completion', { score, total });
+        telemetry.log('quiz_completed', { score, total, readiness: get().progress }, get().progress);
         
         // Intelligence: Quizzes now impact readiness via engagement
         get().incrementEngagement(score * 2);

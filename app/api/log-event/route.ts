@@ -16,14 +16,21 @@ export async function POST(request: Request) {
     const timeGroup = `${now.getHours()}:00`; // Simple hour-based grouping
     
     const processEvent = (event: any) => {
+      // Basic Validation: Reject empty events or missing names
+      if (!event || !event.event) {
+        console.warn('[CLOUD_PIPELINE] Rejecting invalid event:', event);
+        return;
+      }
+
       totalEventsLogged++;
-      lastEventLogged = event.event || 'Unknown';
+      lastEventLogged = event.event;
       
       // Categorization Logic
-      const category = event.event?.split('_')[0] || 'general';
+      const category = event.event.split('_')[0] || 'general';
       eventCategories[category] = (eventCategories[category] || 0) + 1;
       
-      console.log(`[CLOUD_PIPELINE] [${timeGroup}] [${category.toUpperCase()}] ${event.event}:`, JSON.stringify(event.payload));
+      const severity = event.severity || 'INFO';
+      console.log(`[CLOUD_PIPELINE] [${timeGroup}] [${severity}] [${category.toUpperCase()}] ${event.event} | Readiness: ${event.readiness || 0}%`, JSON.stringify(event.payload));
     };
 
     // Support both single events and batches
@@ -31,6 +38,9 @@ export async function POST(request: Request) {
       body.batch.forEach(processEvent);
     } else if (body.event) {
       processEvent(body);
+    } else {
+      // Reject empty payloads
+      return NextResponse.json({ status: 'ignored', reason: 'empty_payload' }, { status: 200 });
     }
 
     // Return an event summary in the response (optional/non-blocking for client)

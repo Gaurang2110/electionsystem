@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 import { systemOrchestrator } from "@/lib/systemOrchestrator";
 import { useRouter } from "@/i18n/navigation";
 import { SignLanguageGuide } from "@/components/ui/SignLanguageGuide";
+import { retryAsync } from "@/utils/reliability";
 
 export const BoothFinder: React.FC = () => {
   const [search, setSearch] = React.useState("");
@@ -24,11 +25,15 @@ export const BoothFinder: React.FC = () => {
 
     setIsSearching(true);
     try {
-      const response = await fetch(`/api/booth?pincode=${search}`);
+      const response = await retryAsync(async () => {
+        const res = await fetch(`/api/booth?pincode=${search}`);
+        if (!res.ok) throw new Error(`Search failed: ${res.statusText}`);
+        return res;
+      }, 1);
       const data = await response.json();
       setResults(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("Search failed:", error);
+      console.error("Search failed after retries:", error);
       setResults([]);
     } finally {
       setIsSearching(false);

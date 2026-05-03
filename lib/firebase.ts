@@ -11,15 +11,47 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-ABCDEF123"
 };
 
-// Initialize Firebase
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+// Helper to check if a key is a dummy or empty
+const isValidKey = (key?: string) => key && key.length > 10 && !key.includes("DummyKey");
+
+// Initialize Firebase only if we have a real-looking key
+const hasValidConfig = isValidKey(firebaseConfig.apiKey);
+
+const app = (getApps().length === 0 && hasValidConfig) 
+  ? initializeApp(firebaseConfig) 
+  : getApps()[0] || null;
+
+export const isFirebaseActive = !!app && hasValidConfig;
 
 export const logFirebaseEvent = async (eventName: string, params?: any) => {
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" && isFirebaseActive) {
     const supported = await isSupported();
-    if (supported) {
+    if (supported && app) {
       const analytics = getAnalytics(app);
       logEvent(analytics, eventName, params);
     }
   }
 };
+
+/**
+ * High-resiliency Firebase Event Logger.
+ * Wraps analytics calls in try/catch to ensure non-blocking, zero-side-effect tracking.
+ */
+export const logEventSafe = (eventName: string, params?: any) => {
+  if (typeof window === "undefined" || !isFirebaseActive) return;
+  
+  // Use a promise to ensure it doesn't block the main execution flow
+  isSupported().then(supported => {
+    if (supported && app) {
+      try {
+        const analytics = getAnalytics(app);
+        logEvent(analytics, eventName, params);
+      } catch (err) {
+        console.warn(`[Firebase Analytics] Failed to log event ${eventName}:`, err);
+      }
+    }
+  }).catch(() => {
+    // Silently fail if isSupported errors
+  });
+};
+

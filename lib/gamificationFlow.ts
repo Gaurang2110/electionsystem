@@ -19,7 +19,6 @@ export const GamificationFlow = {
     const questSteps = store.gamification.questSteps;
     if (stepId in questSteps && (questSteps as any)[stepId]) return;
 
-    console.log(`[FLOW] Completing Step: ${stepId}`);
 
     // 1. Mark step as completed & Update progress % (handled in store)
     // 2. Add points (+20 handled in updateQuestStep)
@@ -51,7 +50,6 @@ export const GamificationFlow = {
    */
   onQuizComplete: (score: number, total: number) => {
     const store = useAppStore.getState();
-    console.log(`[FLOW] Quiz Completed. Score: ${score}/${total}`);
     
     // Points added in store.finishQuiz
     store.finishQuiz(score, total);
@@ -66,7 +64,6 @@ export const GamificationFlow = {
     
     if (store.gamification.unlockedStates.includes(stateId)) return;
 
-    console.log(`[FLOW] New State Unlocked: ${stateId}`);
     store.unlockState(stateId);
   },
 
@@ -76,7 +73,6 @@ export const GamificationFlow = {
    */
   onShare: () => {
     const store = useAppStore.getState();
-    console.log(`[FLOW] Social Share Triggered`);
     
     // Share is a quest step
     GamificationFlow.onStepComplete('share');

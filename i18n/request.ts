@@ -12,7 +12,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
 
   // Force HMR reload
-  console.log(`Loading messages for locale: ${locale}`);
 
   return {
     locale: locale as string,

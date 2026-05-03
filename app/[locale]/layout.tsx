@@ -53,7 +53,6 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
-  console.log('Layout loaded messages with keys:', Object.keys(messages));
 
   return (
     <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${hiFont.variable} ${guFont.variable} ${bnFont.variable}`}>

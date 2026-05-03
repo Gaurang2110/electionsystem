@@ -53,7 +53,10 @@ const ProactiveHint = () => {
 };
 
 export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isNotificationOpen, setNotificationOpen, isSimpleMode, isHighContrast } = useAppStore();
+  const isNotificationOpen = useAppStore(s => s.isNotificationOpen);
+  const setNotificationOpen = useAppStore(s => s.setNotificationOpen);
+  const isSimpleMode = useAppStore(s => s.isSimpleMode);
+  const isHighContrast = useAppStore(s => s.isHighContrast);
   const pathname = usePathname();
   const router = useRouter();
   const isAssistant = pathname.includes('/assistant');

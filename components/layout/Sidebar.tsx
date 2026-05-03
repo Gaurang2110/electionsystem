@@ -102,7 +102,8 @@ export const Sidebar: React.FC = () => {
   const tNav = useTranslations("nav");
   const tSidebar = useTranslations("sidebar");
   const tChat = useTranslations("chat.suggestions");
-  const { profile, progress } = useAppStore();
+  const profile = useAppStore(s => s.profile);
+  const progress = useAppStore(s => s.progress);
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
   const [mounted, setMounted] = React.useState(false);
 
@@ -112,7 +113,6 @@ export const Sidebar: React.FC = () => {
 
   const handleVoiceTrigger = () => {
     // In a real app, this would trigger the system orchestrator
-    console.log("Voice Assistant Triggered");
     if ((window as any).systemOrchestrator) {
       (window as any).systemOrchestrator.startVoice();
     }

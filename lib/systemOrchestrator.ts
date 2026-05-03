@@ -14,7 +14,6 @@ export const systemOrchestrator = {
    */
   onStepComplete: (stepId: string) => {
     const store = useAppStore.getState();
-    console.log(`[ORCHESTRATOR] Step '${stepId}' complete.`);
     
     // 1. Sync with legacy completedSteps if missing
     if (!store.completedSteps.includes(stepId)) {

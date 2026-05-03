@@ -241,7 +241,6 @@ export const useAppStore = create<UserState>()(
       toggleHighContrast: () => set((state) => ({ isHighContrast: !state.isHighContrast })),
 
       logEvent: (event: string) => {
-        console.log(`[Analytics] ${event}`);
         set((state) => ({
           analytics: [{ event, timestamp: Date.now() }, ...state.analytics].slice(0, 100)
         }));

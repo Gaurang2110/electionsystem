@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import documents from '@/data/documents.json';
+import * as analytics from '@/lib/analytics';
+import { logFirebaseEvent } from '@/lib/firebase';
 
 interface UserProfile {
   name: string | null;
@@ -37,6 +39,7 @@ interface GamificationState {
   unlockedStates: string[];
   quizScore: number;
   quizProgress: number;
+  hasLoggedReadyState: boolean;
 }
 
 interface UserState {
@@ -139,6 +142,7 @@ export const useAppStore = create<UserState>()(
         unlockedStates: [],
         quizScore: 0,
         quizProgress: 3, // Default for demo
+        hasLoggedReadyState: false,
       },
       readinessCategory: 'Low',
       readinessNudge: 'Complete registration to improve readiness',
@@ -240,9 +244,14 @@ export const useAppStore = create<UserState>()(
 
       toggleHighContrast: () => set((state) => ({ isHighContrast: !state.isHighContrast })),
 
-      logEvent: (event: string) => {
+      logEvent: (eventName: string) => {
+        analytics.event({
+          action: eventName,
+          category: 'user_action',
+          label: eventName,
+        });
         set((state) => ({
-          analytics: [{ event, timestamp: Date.now() }, ...state.analytics].slice(0, 100)
+          analytics: [{ event: eventName, timestamp: Date.now() }, ...state.analytics].slice(0, 100)
         }));
       },
 
@@ -353,6 +362,18 @@ export const useAppStore = create<UserState>()(
           readinessCategory: category,
           readinessNudge: nudge
         });
+        
+        // --- FIREBASE EVENT LOGGING ---
+        if (totalProgress >= 80 && !gamification.hasLoggedReadyState) {
+          logFirebaseEvent('user_ready_state', {
+            progress: totalProgress,
+            category: category,
+            timestamp: Date.now()
+          });
+          set((state) => ({
+            gamification: { ...state.gamification, hasLoggedReadyState: true }
+          }));
+        }
 
         // Trigger dynamic notifications
         get().checkTriggers();
@@ -414,7 +435,14 @@ export const useAppStore = create<UserState>()(
       updateQuestStep: (step, completed) => {
         const state = get();
         const isNewCompletion = !state.gamification.questSteps[step] && completed;
-        if (isNewCompletion) get().logEvent(`step_complete_${step}`);
+        if (isNewCompletion) {
+          get().logEvent(`journey_step_${step}_complete`);
+          analytics.event({
+            action: 'journey_step_complete',
+            category: 'journey',
+            label: step,
+          });
+        }
         const newQuestSteps = { ...state.gamification.questSteps, [step]: completed };
         
         set((state) => ({
@@ -441,6 +469,12 @@ export const useAppStore = create<UserState>()(
 
       finishQuiz: (score, total) => {
         get().logEvent(`quiz_complete_score_${score}`);
+        analytics.event({
+          action: 'quiz_complete',
+          category: 'gamification',
+          label: `score_${score}_of_${total}`,
+          value: score,
+        });
         set((state) => ({
           gamification: {
             ...state.gamification,

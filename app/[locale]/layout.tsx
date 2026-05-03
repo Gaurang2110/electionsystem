@@ -26,6 +26,8 @@ import { SWRegistration } from "@/components/pwa/SWRegistration";
 import { PrivacyConsent } from "@/components/ui/PrivacyConsent";
 import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";
 import { ClientLayoutWrapper } from "@/components/layout/ClientLayoutWrapper";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import { Suspense } from 'react';
 
 export const metadata = {
   manifest: "/manifest.json",
@@ -58,6 +60,9 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${hiFont.variable} ${guFont.variable} ${bnFont.variable}`}>
       <body suppressHydrationWarning className="antialiased selection:bg-primary/30 selection:text-white min-h-screen bg-background">
         <NextIntlClientProvider messages={messages} locale={locale}>
+          <Suspense>
+            <GoogleAnalytics />
+          </Suspense>
           <PersistentProgressBar />
           <LanguageOnboarding />
           {/* Background Decorative Elements */}

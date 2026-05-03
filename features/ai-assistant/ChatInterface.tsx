@@ -14,6 +14,7 @@ import { SpeakerButton } from "@/components/ui/SpeakerButton";
 import { useAppStore } from "@/store/useAppStore";
 import { useSearchParams } from "next/navigation";
 import { useRouter, usePathname } from "@/i18n/navigation";
+import { sendEventToCloud } from "@/lib/cloudLogging";
 
 interface Message {
   id: string;
@@ -105,9 +106,11 @@ export const ChatInterface: React.FC = () => {
     setInput("");
     setIsLoading(true);
 
-    const { getReadinessScore, getNextBestAction } = useAppStore.getState();
+    const { getReadinessScore, getNextBestAction, activityLog, eligibility } = useAppStore.getState();
     const readiness = getReadinessScore();
     const nextAction = getNextBestAction();
+    const lastActivity = activityLog[0]?.type || "none";
+    const currentScreen = pathname.split('/').pop() || "dashboard";
 
     try {
       console.log("Sending message to AI:", text);
@@ -122,13 +125,23 @@ export const ChatInterface: React.FC = () => {
             readiness,
             userName: profile.name,
             nextRecommendedAction: nextAction.label,
-            isEligible: useAppStore.getState().eligibility.status === 'eligible'
+            isEligible: eligibility.status === 'eligible',
+            lastActivity,
+            currentScreen
           }
         })
       });
 
       const data = await response.json();
       console.log("AI Response received:", data);
+      
+      // Cloud Logging: AI Interaction
+      sendEventToCloud('ai_interaction', {
+        query: text,
+        source: data.source || 'unknown',
+        readiness: readiness
+      });
+
       const aiMsg: Message = {
         id: `ai-${crypto.randomUUID()}`,
         text: data.text || data.error || "I'm sorry, I couldn't process that.",

@@ -21,6 +21,8 @@ USER CONTEXT:
 - Readiness Score: {readiness}%
 - Next Step in App: {nextAction}
 - Eligibility: {eligibilityStatus}
+- Last Activity: {lastActivity}
+- Current Screen: {currentScreen}
 
 Style Guidelines:
 - Tone: Extremely simple, friendly, and non-technical. Use everyday language.
@@ -44,13 +46,17 @@ export async function POST(request: Request) {
     const userName = userContext?.userName || 'Citizen';
     const nextAction = userContext?.nextRecommendedAction || 'Complete your profile';
     const eligibilityStatus = userContext?.isEligible ? 'Eligible' : 'Check pending';
+    const lastActivity = userContext?.lastActivity || 'None';
+    const currentScreen = userContext?.currentScreen || 'Dashboard';
 
     const dynamicPrompt = SYSTEM_PROMPT
       .replace('{locale}', locale)
       .replace('{userName}', userName)
       .replace('{readiness}', readiness.toString())
       .replace('{nextAction}', nextAction)
-      .replace('{eligibilityStatus}', eligibilityStatus);
+      .replace('{eligibilityStatus}', eligibilityStatus)
+      .replace('{lastActivity}', lastActivity)
+      .replace('{currentScreen}', currentScreen);
     
     // 0. Simple Rate Limiting
     const ip = request.headers.get('x-forwarded-for') || 'anonymous';
@@ -94,10 +100,12 @@ export async function POST(request: Request) {
         }
       } catch (geminiError) {
         console.warn("Gemini API failed or timed out, falling back to local data:", geminiError);
+        console.log('[RELIABILITY] fallback_triggered: ai_assistant');
       }
     }
 
     // 2. Fallback to local FAQ matching
+    console.log('[RELIABILITY] fallback_triggered: local_faq_activated');
     const localResponse = getFAQResponse(message);
     
     // Simulate thinking delay for consistent UX

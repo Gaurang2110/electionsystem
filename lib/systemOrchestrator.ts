@@ -46,7 +46,7 @@ export const systemOrchestrator = {
       systemOrchestrator.onStepComplete('register');
     }
     
-    store.logEvent('eligibility_checked');
+    store.logActivity({ type: 'eligibility_checked' });
   },
 
   /**
@@ -63,7 +63,12 @@ export const systemOrchestrator = {
     }
 
     store.calculateProgress();
-    store.logEvent(`map_${data.type}_${data.id}`);
+    store.logActivity({ 
+      type: 'map_interaction', 
+      subType: data.type, 
+      target: data.id,
+      name: data.name 
+    });
   },
 
   /**
@@ -79,7 +84,7 @@ export const systemOrchestrator = {
       store.unlockBadge('badge_quiz_master');
     }
     
-    store.logEvent(`quiz_completed_${score}/${total}`);
+    store.logActivity({ type: 'quiz_completed', score, total });
   },
 
   /**
@@ -97,7 +102,7 @@ export const systemOrchestrator = {
     store.incrementEngagement(20);
     
     store.calculateProgress();
-    store.logEvent(`ballot_submitted_${candidateId}`);
+    store.logActivity({ type: 'ballot_submitted', candidateId });
   },
 
   /**
@@ -115,7 +120,7 @@ export const systemOrchestrator = {
     store.incrementEngagement(30);
     
     store.calculateProgress();
-    store.logEvent('community_share_complete');
+    store.logActivity({ type: 'community_share_complete' });
   },
 
   /**
@@ -145,7 +150,7 @@ export const systemOrchestrator = {
     });
     window.dispatchEvent(event);
     
-    store.logEvent('assistant_opened');
+    store.logActivity({ type: 'assistant_opened', page: context?.page || router });
   },
 
   /**
@@ -154,7 +159,7 @@ export const systemOrchestrator = {
   onConstituencyView: () => {
     const store = useAppStore.getState();
     store.incrementEngagement(10);
-    store.logEvent('constituency_insights_viewed');
+    store.logActivity({ type: 'constituency_insights_viewed' });
   },
 
   /**
@@ -166,6 +171,6 @@ export const systemOrchestrator = {
     store.addPoints(40);
     store.unlockBadge('badge_issue_informed');
     store.calculateProgress();
-    store.logEvent('candidate_match_complete');
+    store.logActivity({ type: 'candidate_match_complete' });
   }
 };

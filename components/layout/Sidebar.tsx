@@ -231,7 +231,10 @@ export const Sidebar: React.FC = () => {
           <MoreVertical size={14} className="text-slate-300 group-hover:text-slate-600" />
         </motion.div>
 
-
+        {/* Powered by Google */}
+        <div className="pt-2 text-center">
+          <p className="text-[8px] font-black text-slate-300 uppercase tracking-[0.2em]">Powered by Google AI & Cloud</p>
+        </div>
       </div>
     </aside>
     </>

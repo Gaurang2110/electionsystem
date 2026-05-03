@@ -12,6 +12,7 @@ import {
   Sparkles, 
   Map as MapIcon,
   Layers,
+  XCircle,
 } from 'lucide-react';
 import { systemOrchestrator } from '@/lib/systemOrchestrator';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -83,7 +84,7 @@ const emeraldIcon = createCustomIcon('emerald', true);
 
 export const BoothMap: React.FC = () => {
   const mapId = useId();
-  const { logEvent } = useAppStore();
+  const { logActivity } = useAppStore();
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
   const [mapMode, setMapMode] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
@@ -92,18 +93,31 @@ export const BoothMap: React.FC = () => {
     setMounted(true);
   }, []);
 
+  const [error, setError] = useState<string | null>(null);
+
   // Filtered Booths
   const filteredBooths = useMemo(() => {
-    if (!selectedDistrict) return [];
-    return (boothsData || []).filter(b => b.district === selectedDistrict);
-  }, [selectedDistrict]);
+    try {
+      if (!selectedDistrict) return [];
+      const booths = (boothsData || []).filter(b => b.district === selectedDistrict);
+      if (booths.length === 0 && selectedDistrict) {
+        // Not necessarily an error, but good to know
+      }
+      return booths;
+    } catch (e) {
+      console.error("Map Data Error:", e);
+      setError("Limited availability for localized booth data.");
+      logActivity({ type: 'fallback_triggered', context: 'map_data_load' });
+      return [];
+    }
+  }, [selectedDistrict, logActivity]);
 
   const handleDistrictSelection = useCallback((name: string, state: string) => {
     setSelectedDistrict(name);
     const stateId = STATE_ID_MAP[state];
     if (stateId) systemOrchestrator.onMapInteraction({ type: 'district', id: stateId, name: state });
-    logEvent(`map_district_select_${name}`);
-  }, [logEvent]);
+    logActivity({ type: 'map_interaction', subType: 'district_select', name });
+  }, [logActivity]);
 
   const selectionRef = React.useRef(handleDistrictSelection);
   useEffect(() => { selectionRef.current = handleDistrictSelection; }, [handleDistrictSelection]);
@@ -141,6 +155,15 @@ export const BoothMap: React.FC = () => {
       <div className="absolute -inset-0.5 bg-gradient-to-br from-indigo-500/20 to-emerald-500/10 rounded-[2.5rem] blur opacity-50 -z-10" />
       
       <Card className="p-0 overflow-hidden border-white/40 bg-white/70 backdrop-blur-3xl relative h-full rounded-[2.5rem] shadow-2xl">
+        {error && (
+          <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[2000] bg-rose-50 border border-rose-100 px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3">
+            <XCircle size={16} className="text-rose-500" />
+            <div>
+              <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{error}</p>
+              <p className="text-[8px] text-slate-400 font-bold uppercase mt-0.5">Displaying basic region info only</p>
+            </div>
+          </div>
+        )}
         
         {/* MAP CONTAINER - FIXED HEIGHT AT 100% OF CARD (650px) */}
         <div className="w-full h-full relative bg-slate-100">

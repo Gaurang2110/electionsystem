@@ -3,6 +3,8 @@ import { persist } from 'zustand/middleware';
 import documents from '@/data/documents.json';
 import * as analytics from '@/lib/analytics';
 import { logFirebaseEvent } from '@/lib/firebase';
+import { sendEventToCloud } from '@/lib/cloudLogging';
+import { calculateReadiness, calculateQuizPoints } from '@/services/votingService';
 
 interface UserProfile {
   name: string | null;
@@ -24,6 +26,17 @@ interface Notification {
   timestamp: number;
   link?: string;
   data?: Record<string, string | number>;
+}
+
+interface ActivityLogEntry {
+  type: string;
+  timestamp: number;
+  score?: number;
+  readiness?: number;
+  step?: string;
+  state?: string;
+  district?: string;
+  [key: string]: any;
 }
 
 interface GamificationState {
@@ -67,9 +80,12 @@ interface UserState {
   isSimpleMode: boolean;
   isHighContrast: boolean;
   isNotificationOpen: boolean;
-  analytics: { event: string; timestamp: number }[];
+  activityLog: ActivityLogEntry[];
   leaderboardRank: number;
   isSidebarOpen: boolean;
+  
+  // Selectors
+  getUserInsights: () => { totalActions: number; engagement: 'Low' | 'Medium' | 'High'; mostUsed: string };
   
   // Actions
   setSidebarOpen: (open: boolean) => void;
@@ -97,7 +113,7 @@ interface UserState {
   recordHelpAction: () => void;
   toggleSimpleMode: () => void;
   toggleHighContrast: () => void;
-  logEvent: (event: string) => void;
+  logActivity: (entry: Omit<ActivityLogEntry, 'timestamp'>) => void;
   finishQuiz: (score: number, total: number) => void;
   unlockState: (stateId: string) => void;
 }
@@ -153,9 +169,34 @@ export const useAppStore = create<UserState>()(
       isSimpleMode: false,
       isHighContrast: false,
       isNotificationOpen: false,
-      analytics: [],
+      activityLog: [],
       leaderboardRank: 42, // Default for demo
       isSidebarOpen: false,
+      
+      getUserInsights: () => {
+        const { activityLog } = get();
+        const totalActions = activityLog.length;
+        
+        let engagement: 'Low' | 'Medium' | 'High' = 'Low';
+        if (totalActions > 15) engagement = 'High';
+        else if (totalActions >= 5) engagement = 'Medium';
+        
+        const typeCounts: Record<string, number> = {};
+        activityLog.forEach(log => {
+          typeCounts[log.type] = (typeCounts[log.type] || 0) + 1;
+        });
+        
+        let mostUsed = 'None';
+        let maxCount = 0;
+        for (const [type, count] of Object.entries(typeCounts)) {
+          if (count > maxCount) {
+            maxCount = count;
+            mostUsed = type.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+          }
+        }
+        
+        return { totalActions, engagement, mostUsed };
+      },
 
       setSidebarOpen: (open) => set({ isSidebarOpen: open }),
 
@@ -248,15 +289,10 @@ export const useAppStore = create<UserState>()(
       toggleSimpleMode: () => set((state) => ({ isSimpleMode: !state.isSimpleMode })),
 
       toggleHighContrast: () => set((state) => ({ isHighContrast: !state.isHighContrast })),
-
-      logEvent: (eventName: string) => {
-        analytics.event({
-          action: eventName,
-          category: 'user_action',
-          label: eventName,
-        });
-        set((state) => ({
-          analytics: [{ event: eventName, timestamp: Date.now() }, ...state.analytics].slice(0, 100)
+      
+      logActivity: (entry: Omit<ActivityLogEntry, 'timestamp'>) => {
+        set((state: UserState) => ({
+          activityLog: [{ ...entry, timestamp: Date.now() } as ActivityLogEntry, ...state.activityLog].slice(0, 20)
         }));
       },
 
@@ -311,65 +347,45 @@ export const useAppStore = create<UserState>()(
       })),
 
       incrementEngagement: (points = 5) => {
-        set((state) => ({ engagementScore: state.engagementScore + points }));
+        set((state) => {
+          const nextScore = state.engagementScore + points;
+          
+          // Cloud Logging: Engagement Level
+          sendEventToCloud('user_engagement_level', { 
+            previous: state.engagementScore, 
+            current: nextScore,
+            level: nextScore > 100 ? 'Expert' : nextScore > 50 ? 'Active' : 'New'
+          });
+          
+          return { engagementScore: nextScore };
+        });
       },
 
       calculateProgress: () => {
-        const { gamification, documentChecklist, eligibility, engagementScore, profile } = get();
-        
-        // 1. Journey Score (40% weight)
-        const questSteps = Object.values(gamification.questSteps);
-        const completedQuests = questSteps.filter(Boolean).length;
-        const totalQuests = questSteps.length;
-        const journeyScore = (completedQuests / totalQuests) * 40;
-
-        // 2. Checklist Score (20% weight)
-        const totalDocs = documentChecklist.length;
-        const completedDocs = documentChecklist.filter(d => d.completed).length;
-        const docsScore = totalDocs > 0 ? (completedDocs / totalDocs) * 20 : 0;
-
-        // 3. Eligibility Score (20% weight)
-        let eligibilityScore = 0;
-        if (eligibility.status === 'eligible') {
-          eligibilityScore = 20;
-        } else if (eligibility.status !== 'not-checked') {
-          eligibilityScore = 10;
-        }
-
-        // 4. Engagement Score (20% weight)
-        // Normalize: 100 engagement points = 100% of this section
-        const engagementNormalized = Math.min(100, engagementScore);
-        const sectionEngagementScore = (engagementNormalized / 100) * 20;
-
-        const totalProgress = Math.min(100, Math.round(journeyScore + docsScore + eligibilityScore + sectionEngagementScore));
-        
-        // 5. Category & Nudges
-        let category: 'Low' | 'Medium' | 'High' = 'Low';
-        let nudge = '';
-
-        if (totalProgress >= 70) {
-          category = 'High';
-          nudge = profile.isFirstTimeVoter 
-            ? "You're almost ready for your first vote! Incredible progress." 
-            : "You're almost ready to vote. Everything looks solid!";
-        } else if (totalProgress >= 40) {
-          category = 'Medium';
-          nudge = gamification.questSteps.locate 
-            ? "Find your booth next to cross the finish line." 
-            : "Keep going! You're making steady progress.";
-        } else {
-          category = 'Low';
-          nudge = "Complete your registration to improve your voting readiness.";
-        }
+        const factors = get();
+        const { progress: totalProgress, category, nudge } = calculateReadiness(factors);
 
         set({ 
           progress: totalProgress,
           readinessCategory: category,
           readinessNudge: nudge
         });
+
+        // Intelligence Logging: Readiness Updated
+        get().logActivity({
+          type: 'readiness_updated',
+          readiness: totalProgress,
+          category
+        });
+
+        // Cloud Logging: Readiness Update
+        sendEventToCloud('readiness_score_update', { 
+          score: totalProgress, 
+          category 
+        });
         
         // --- FIREBASE EVENT LOGGING ---
-        if (totalProgress >= 80 && !gamification.hasLoggedReadyState) {
+        if (totalProgress >= 80 && !factors.gamification.hasLoggedReadyState) {
           logFirebaseEvent('user_ready_state', {
             progress: totalProgress,
             category: category,
@@ -386,6 +402,16 @@ export const useAppStore = create<UserState>()(
 
       updateProfile: (data) => set((state) => {
         const newProfile = { ...state.profile, ...data };
+        
+        // Intelligence Logging: Map Interaction
+        if (data.state || data.district) {
+          get().logActivity({
+            type: 'map_interaction',
+            state: data.state || state.profile.state,
+            district: data.district || state.profile.district
+          });
+        }
+
         return {
           profile: newProfile,
           userName: data.name ?? state.userName,
@@ -441,12 +467,20 @@ export const useAppStore = create<UserState>()(
         const state = get();
         const isNewCompletion = !state.gamification.questSteps[step] && completed;
         if (isNewCompletion) {
-          get().logEvent(`journey_step_${step}_complete`);
+          // Intelligence Logging: Journey Step Completed
+          get().logActivity({
+            type: 'journey_step_completed',
+            step: step,
+            readiness: state.progress
+          });
+
           analytics.event({
             action: 'journey_step_complete',
             category: 'journey',
             label: step,
           });
+          // Cloud Logging: Journey Step
+          sendEventToCloud('journey_step_completion', { step });
         }
         const newQuestSteps = { ...state.gamification.questSteps, [step]: completed };
         
@@ -473,20 +507,36 @@ export const useAppStore = create<UserState>()(
       }),
 
       finishQuiz: (score, total) => {
-        get().logEvent(`quiz_complete_score_${score}`);
+        // Intelligence Logging: Quiz Completed
+        get().logActivity({
+          type: 'quiz_completed',
+          score,
+          total,
+          readiness: get().progress
+        });
+
         analytics.event({
           action: 'quiz_complete',
           category: 'gamification',
           label: `score_${score}_of_${total}`,
           value: score,
         });
+        // Cloud Logging: Quiz Completion
+        sendEventToCloud('quiz_completion', { score, total });
+        
+        // Intelligence: Quizzes now impact readiness via engagement
+        get().incrementEngagement(score * 2);
+
         set((state) => ({
           gamification: {
             ...state.gamification,
             quizScore: state.gamification.quizScore + score,
-            points: state.gamification.points + (score * 10)
+            points: state.gamification.points + calculateQuizPoints(score)
           }
         }));
+        
+        // Recalculate progress to reflect new engagement
+        get().calculateProgress();
       },
 
       checkTriggers: () => {

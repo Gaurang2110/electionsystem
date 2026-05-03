@@ -56,8 +56,9 @@ import { Gauge } from "@/components/ui/Gauge";
 
 export const DashboardScreen: React.FC = () => {
   const t = useTranslations('dashboard');
-  const { profile, progress, notifications, getNextBestAction } = useAppStore();
+  const { profile, progress, notifications, getNextBestAction, getUserInsights } = useAppStore();
   const nextBestAction = getNextBestAction();
+  const insights = getUserInsights();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -161,6 +162,29 @@ export const DashboardScreen: React.FC = () => {
                       </p>
                     </div>
                   </div>
+
+                  {/* Why this step? - Transparency Logic */}
+                  <div className="mt-4 px-4 py-3 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-2.5">
+                    <div className="mt-0.5 p-1 bg-white rounded-md shadow-sm">
+                      <HelpCircle size={10} className="text-slate-400" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Why this step?</p>
+                      <p className="text-[10px] font-bold text-slate-600 leading-tight">
+                        {mounted ? (
+                          nextBestAction.id === 'eligibility' ? "You haven't verified your voting eligibility yet." :
+                          nextBestAction.id === 'registration' ? "Your registration status is pending in your profile." :
+                          nextBestAction.id === 'locate' ? "You haven't identified your polling station yet." :
+                          nextBestAction.id === 'documents' ? "You have pending items in your document checklist." :
+                          nextBestAction.id === 'ballot' ? "You haven't practiced the voting process on a mock ballot." :
+                          nextBestAction.id === 'quiz' ? "Testing your knowledge helps ensure a smooth voting day." :
+                          nextBestAction.id === 'laboratory' ? "Technical familiarity with EVM machines builds confidence." :
+                          nextBestAction.id === 'ready' ? "Congratulations! You have completed all essential readiness milestones." :
+                          "This step will help you reach 100% voting readiness."
+                        ) : "Identifying your current missing requirements."}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <Link href={!mounted ? '/eligibility' : nextBestAction.link} className="w-full mt-6">
@@ -172,6 +196,45 @@ export const DashboardScreen: React.FC = () => {
               </Card>
             </motion.div>
           </div>
+
+          {/* USER INSIGHTS ROW (Minimal Addition) */}
+          <motion.div variants={itemVariants}>
+            <Card variant="glass" className="p-6 bg-white/40 border-white/40 shadow-sm flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <TrendingUp size={20} />
+                </div>
+                <div>
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">User Insights</h4>
+                  <div className="flex items-center gap-4 mt-1">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] text-slate-400 uppercase font-bold">Actions</span>
+                      <span className="text-sm font-black text-slate-900">{insights.totalActions}</span>
+                    </div>
+                    <div className="w-px h-6 bg-slate-200" />
+                    <div className="flex flex-col">
+                      <span className="text-[9px] text-slate-400 uppercase font-bold">Engagement</span>
+                      <span className={cn(
+                        "text-sm font-black uppercase tracking-tight",
+                        insights.engagement === 'High' ? "text-emerald-500" : 
+                        insights.engagement === 'Medium' ? "text-amber-500" : "text-slate-500"
+                      )}>{insights.engagement}</span>
+                    </div>
+                    <div className="w-px h-6 bg-slate-200" />
+                    <div className="flex flex-col">
+                      <span className="text-[9px] text-slate-400 uppercase font-bold">Most Used</span>
+                      <span className="text-sm font-black text-indigo-600">{insights.mostUsed}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden sm:block">
+                <div className="px-3 py-1 bg-primary/10 rounded-full">
+                  <p className="text-[8px] font-black text-primary uppercase tracking-widest">Intelligence Live</p>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
 
           {/* MISSION CONTROL (QUICK ACTIONS) */}
           <motion.div variants={itemVariants} className="space-y-4">

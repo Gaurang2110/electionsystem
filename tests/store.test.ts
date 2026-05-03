@@ -79,4 +79,29 @@ describe('Election Assistant Store Logic', () => {
     
     expect(action.id).toBe('registration');
   });
+
+  // TEST 4: Readiness edge case
+  test('Readiness score is 0 when no data and zero engagement', () => {
+    useAppStore.setState({ 
+      engagementScore: 0,
+      eligibility: { age: null, isIndian: null, state: null, isRegistered: null, status: 'not-checked' }
+    });
+    const { calculateProgress } = useAppStore.getState();
+    calculateProgress();
+    expect(useAppStore.getState().progress).toBe(0);
+  });
+
+  // TEST 5: Activity log limit
+  test('Activity log maintains a maximum of 20 items', () => {
+    const { logActivity } = useAppStore.getState();
+    
+    // Log 25 items
+    for (let i = 0; i < 25; i++) {
+      logActivity({ type: `test_event_${i}` });
+    }
+    
+    const { activityLog } = useAppStore.getState();
+    expect(activityLog.length).toBe(20);
+    expect(activityLog[0].type).toBe('test_event_24'); // Newest first
+  });
 });

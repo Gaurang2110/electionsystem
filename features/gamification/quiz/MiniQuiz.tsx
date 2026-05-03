@@ -5,7 +5,7 @@ import { useAppStore } from "@/store/useAppStore";
 import quizData from "@/data/quiz.json";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
-import { Brain, ArrowRight, CheckCircle2, XCircle, Trophy, Star } from "lucide-react";
+import { Brain, ArrowRight, CheckCircle2, XCircle, Trophy, Star, RefreshCw } from "lucide-react";
 import { NextStepBar } from "@/components/ui/NextStepBar";
 
 export const MiniQuiz: React.FC = () => {
@@ -17,18 +17,35 @@ export const MiniQuiz: React.FC = () => {
   const [score, setScore] = React.useState(0);
   const [isFinished, setIsFinished] = React.useState(false);
 
+  const [error, setError] = React.useState<string | null>(null);
+  const [retryCount, setRetryCount] = React.useState(0);
+
   React.useEffect(() => {
     initializeQuiz();
   }, []);
 
   const initializeQuiz = () => {
-    const shuffled = [...quizData].sort(() => 0.5 - Math.random());
-    setSessionQuestions(shuffled.slice(0, 10));
-    setCurrentIndex(0);
-    setScore(0);
-    setIsFinished(false);
-    setSelectedOption(null);
-    setIsAnswered(false);
+    try {
+      if (!quizData || quizData.length === 0) throw new Error("Quiz data load failure");
+      
+      const shuffled = [...quizData].sort(() => 0.5 - Math.random());
+      setSessionQuestions(shuffled.slice(0, 10));
+      setCurrentIndex(0);
+      setScore(0);
+      setIsFinished(false);
+      setSelectedOption(null);
+      setIsAnswered(false);
+      setError(null);
+    } catch (e) {
+      console.error("Quiz Data Reliability Issue:", e);
+      setError("Unable to load democracy quiz data.");
+      useAppStore.getState().logActivity({ type: 'fallback_triggered', context: 'quiz_data_failure' });
+    }
+  };
+
+  const handleRetry = () => {
+    setRetryCount(prev => prev + 1);
+    initializeQuiz();
   };
 
   const currentQuestion = sessionQuestions[currentIndex];
@@ -53,6 +70,26 @@ export const MiniQuiz: React.FC = () => {
       finishQuiz(score, sessionQuestions.length);
     }
   };
+
+
+  if (error) {
+    return (
+      <Card className="p-10 bg-white border-none shadow-2xl shadow-slate-200/50 rounded-[3rem] min-h-[480px] flex flex-col items-center justify-center text-center">
+        <div className="w-16 h-16 rounded-[1.5rem] bg-rose-50 flex items-center justify-center text-rose-500 mb-6">
+          <XCircle size={32} />
+        </div>
+        <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2">Quiz Load Issue</h3>
+        <p className="text-slate-500 text-xs font-bold mb-8">{error}</p>
+        <button 
+          onClick={handleRetry}
+          className="px-8 py-4 bg-primary text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center gap-2 group transition-all"
+        >
+          <RefreshCw size={14} className={cn(retryCount > 0 && "animate-spin")} />
+          <span>Retry Loading</span>
+        </button>
+      </Card>
+    );
+  }
 
   if (!currentQuestion) return null;
 

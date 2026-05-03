@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: civic-ai-election-assistant
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/PROJECT_ID/civic-ai-election-assistant
+        ports:
+        - containerPort: 8080
+        env:
+        - name: GEMINI_API_KEY
+          value: "YOUR_API_KEY"

@@ -101,7 +101,6 @@ export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ c
 
         {!isAssistant && (
           <>
-            <NextStepBar />
             <TrustBadges variant="minimal" className="mt-16 mb-10" />
             <LegalDisclaimer className="mb-10 opacity-50" />
           </>

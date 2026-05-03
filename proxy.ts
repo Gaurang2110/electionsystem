@@ -11,7 +11,19 @@ const intlMiddleware = createMiddleware({
 });
 
 export function proxy(request: NextRequest) {
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+  
+  // Strip port from redirects in production
+  if (response.status >= 300 && response.status < 400) {
+    const location = response.headers.get('location');
+    if (location && location.includes(':8080')) {
+      const url = new URL(location);
+      url.port = '';
+      response.headers.set('location', url.toString());
+    }
+  }
+  
+  return response;
 }
 
 export const config = {

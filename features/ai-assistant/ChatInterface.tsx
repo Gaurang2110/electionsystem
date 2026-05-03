@@ -60,14 +60,18 @@ export const ChatInterface: React.FC = () => {
       const welcomeMsg: Message = { id: "1", text: t('welcome'), sender: "ai", timestamp: new Date() };
       setMessages([welcomeMsg]);
       msgCount.current = 1;
-
-      // Handle auto-prompting if it's the first time
-      if (autoPrompt && !promptAttempted.current) {
-        promptAttempted.current = true;
-        handleSend(autoPrompt);
-      }
     }
-  }, [t, autoPrompt]);
+  }, [t]);
+
+  // Handle auto-prompting separately, so it triggers even if session exists
+  React.useEffect(() => {
+    if (autoPrompt && mounted && !promptAttempted.current) {
+      promptAttempted.current = true;
+      setTimeout(() => {
+        handleSend(autoPrompt);
+      }, 100);
+    }
+  }, [autoPrompt, mounted]);
 
   // Save to session storage
   React.useEffect(() => {
@@ -158,6 +162,15 @@ export const ChatInterface: React.FC = () => {
           >
             Civic AI Election Assistant
           </motion.p>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mt-1.5 flex items-center gap-1.5 bg-indigo-50 w-fit px-2 py-0.5 rounded-full border border-indigo-100"
+          >
+            <Sparkles size={10} className="text-indigo-600" />
+            <span className="text-[9px] font-bold text-indigo-600 tracking-wider uppercase">Powered by Google AI</span>
+          </motion.div>
         </div>
 
         <motion.div
@@ -324,6 +337,11 @@ export const ChatInterface: React.FC = () => {
                 </button>
               </div>
             </div>
+          </div>
+          
+          {/* Google AI Info Section */}
+          <div className="text-center pt-1 opacity-60 flex items-center justify-center">
+            <span className="text-[9px] font-bold text-slate-400 tracking-wide">Built using Google Cloud & Gemini AI</span>
           </div>
         </div>
       </div>

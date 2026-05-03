@@ -1,67 +1,49 @@
 "use client";
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAppStore } from "@/store/useAppStore";
-import { Button } from "@/components/ui/Button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useRouter } from "@/i18n/navigation";
-import { cn } from "@/utils/cn";
+import { useAppStore } from "@/store/useAppStore";
+import { useRouter } from "next/navigation";
 
-interface NextStepBarProps {
-  className?: string;
-}
-
-export const NextStepBar: React.FC<NextStepBarProps> = ({ className }) => {
-  const { getNextBestAction } = useAppStore();
+export const NextStepBar = () => {
+  const { getNextBestAction, progress } = useAppStore();
+  const [mounted, setMounted] = React.useState(false);
   const router = useRouter();
-  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setIsMounted(true);
+    setMounted(true);
   }, []);
 
-  if (!isMounted) return null;
+  if (!mounted) return null;
 
   const nextAction = getNextBestAction();
 
+  if (!nextAction || nextAction.id === 'ready' || progress >= 100) return null;
+
   return (
-    <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className={cn(
-        "bg-slate-900 text-white p-6 rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden relative group",
-        className
-      )}
-    >
-      <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform">
-        <Sparkles size={100} />
-      </div>
-      
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-5">
-          <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary shadow-inner shrink-0">
-            <Sparkles size={24} />
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 shadow-sm"
+      >
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-200">
+            <Sparkles size={20} />
           </div>
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Guided Next Step</span>
-              <div className="px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase rounded-md border border-emerald-500/20">
-                {nextAction.impact} Readiness
-              </div>
-            </div>
-            <h4 className="text-lg font-black text-white uppercase tracking-tight">{nextAction.label}</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-600">Recommended Next Step</h4>
+            <p className="text-base font-bold text-slate-800 mt-1">{nextAction.label}</p>
           </div>
         </div>
         
-        <Button 
-          size="lg" 
+        <button 
           onClick={() => router.push(nextAction.link)}
-          className="w-full md:w-auto h-14 px-10 bg-white text-slate-900 hover:bg-slate-50 rounded-2xl font-black text-xs uppercase tracking-widest group/btn"
+          className="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 transition-all active:scale-95 flex items-center justify-center gap-2 group"
         >
-          Continue Journey
-          <ArrowRight size={18} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
-        </Button>
-      </div>
-    </motion.div>
+          Continue <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+        </button>
+      </motion.div>
+    </AnimatePresence>
   );
 };

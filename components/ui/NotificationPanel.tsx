@@ -119,7 +119,7 @@ export const NotificationPanel: React.FC<{ isOpen: boolean; onClose: () => void 
                               "text-[14px] leading-tight",
                               notif.isRead ? "text-slate-500 font-bold" : "text-slate-900 font-black"
                             )}>
-                              {t(notif.message_key)}
+                              {t(notif.message_key as any, notif.data as any)}
                             </p>
                             <div className="flex items-center gap-2">
                               <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">
@@ -135,7 +135,7 @@ export const NotificationPanel: React.FC<{ isOpen: boolean; onClose: () => void 
                         
                         <div className="pr-5 py-5 flex flex-col justify-center gap-3">
                           <SpeakerButton 
-                            text={t(notif.message_key)} 
+                            text={t(notif.message_key as any, notif.data as any)} 
                             className="w-9 h-9 rounded-2xl border border-slate-200 bg-white shadow-sm opacity-0 group-hover:opacity-100 transition-all hover:border-primary hover:text-primary"
                           />
                           <div className="w-9 h-9 rounded-2xl flex items-center justify-center text-slate-300 group-hover:text-slate-400 group-hover:translate-x-1 transition-all">

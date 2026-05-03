@@ -21,6 +21,7 @@ interface Notification {
   isRead: boolean;
   timestamp: number;
   link?: string;
+  data?: Record<string, string | number>;
 }
 
 interface GamificationState {
@@ -480,7 +481,7 @@ export const useAppStore = create<UserState>()(
 
         const pendingDocs = documentChecklist.filter(d => !d.completed).length;
         if (pendingDocs > 0 && progress > 20 && !notifications.some(n => n.type === 'document')) {
-          get().addNotification({ type: 'document', message_key: 'notif_document_pending', link: '/documents' });
+          get().addNotification({ type: 'document', message_key: 'notif_document_pending', link: '/documents', data: { count: pendingDocs } });
         }
 
         // --- GAMIFICATION QUEST TRIGGERS ---

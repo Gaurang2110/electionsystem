@@ -270,7 +270,10 @@ export const TopHeader: React.FC = () => {
           <Sparkles size={22} />
         </div>
         <div className="flex flex-col hidden sm:flex">
-          <span className="text-sm font-black text-slate-900 leading-none tracking-tight">CIVIC GUIDE</span>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-black text-slate-900 leading-none tracking-tight">CIVIC GUIDE</span>
+            <span className="text-[8px] px-1.5 py-0.5 rounded-sm bg-indigo-50 text-indigo-600 font-bold uppercase tracking-wider border border-indigo-100">Designed for First-Time Voters</span>
+          </div>
           <span className="text-[10px] font-bold text-primary uppercase tracking-widest mt-1">AI Assistant</span>
         </div>
       </div>

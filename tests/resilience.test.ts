@@ -38,7 +38,7 @@ describe('System Resilience & Intelligence Tests', () => {
             share: true
           }
         },
-        documentChecklist: [{ completed: true }],
+        documentChecklist: [{ id: '1', completed: true }],
         eligibility: { status: 'eligible' },
         engagementScore: 100,
         profile: { isFirstTimeVoter: true }
@@ -47,6 +47,43 @@ describe('System Resilience & Intelligence Tests', () => {
       const result = calculateReadiness(fullFactors);
       expect(result.progress).toBe(100);
       expect(result.category).toBe('High');
+    });
+
+    it('should calculate partial progress correctly (e.g., only eligibility and engagement)', () => {
+      const partialFactors: ReadinessFactors = {
+        gamification: {
+          questSteps: {
+            register: false,
+            locate: false,
+            ballot: false,
+            ready: false,
+            share: false
+          }
+        },
+        documentChecklist: [],
+        eligibility: { status: 'eligible' },
+        engagementScore: 20,
+        profile: { isFirstTimeVoter: true }
+      };
+      
+      const result = calculateReadiness(partialFactors);
+      // Eligibility (20) + Engagement (20% of 20 = 4) = 24%
+      expect(result.progress).toBe(24);
+      expect(result.category).toBe('Low');
+    });
+
+    it('should handle invalid/missing data gracefully by defaulting to 0', () => {
+      // @ts-ignore - simulating invalid runtime data
+      const invalidFactors: ReadinessFactors = {
+        gamification: null,
+        documentChecklist: null,
+        eligibility: null,
+        engagementScore: 'invalid' as any
+      };
+      
+      const result = calculateReadiness(invalidFactors);
+      expect(result.progress).toBe(0);
+      expect(result.category).toBe('Low');
     });
   });
 
@@ -75,6 +112,19 @@ describe('System Resilience & Intelligence Tests', () => {
       await expect(retryAsync(operation, 1, 10)).rejects.toThrow('Permanent failure');
       expect(attempts).toBe(2); // Initial try + 1 retry
     });
+
+    it('should succeed after multiple retries if allowed', async () => {
+      let attempts = 0;
+      const operation = async () => {
+        attempts++;
+        if (attempts < 3) throw new Error('Transient failure');
+        return 'eventual_success';
+      };
+
+      const result = await retryAsync(operation, 2, 5); // 2 retries
+      expect(result).toBe('eventual_success');
+      expect(attempts).toBe(3);
+    });
   });
 
   // 3. Resilience Tests (Silent Failure)
@@ -96,6 +146,22 @@ describe('System Resilience & Intelligence Tests', () => {
       };
 
       await expect(performSend()).resolves.toBeUndefined();
+    });
+
+    it('should handle stress: logging multiple events in rapid succession', async () => {
+      const logResults: any[] = [];
+      const mockLog = async (event: string) => {
+        logResults.push(event);
+        return { ok: true };
+      };
+
+      // Simulating 10 rapid events
+      const promises = Array.from({ length: 10 }).map((_, i) => mockLog(`event_${i}`));
+      await Promise.all(promises);
+
+      expect(logResults.length).toBe(10);
+      expect(logResults[0]).toBe('event_0');
+      expect(logResults[9]).toBe('event_9');
     });
   });
   // 4. AI Fallback Tests

@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
 import { Brain, ArrowRight, CheckCircle2, XCircle, Trophy, Star, RefreshCw } from "lucide-react";
 import { NextStepBar } from "@/components/ui/NextStepBar";
+import { getRandomSubset } from "@/utils/array";
 
 export const MiniQuiz: React.FC = () => {
   const { finishQuiz } = useAppStore();
@@ -28,8 +29,7 @@ export const MiniQuiz: React.FC = () => {
     try {
       if (!quizData || quizData.length === 0) throw new Error("Quiz data load failure");
       
-      const shuffled = [...quizData].sort(() => 0.5 - Math.random());
-      setSessionQuestions(shuffled.slice(0, 10));
+      setSessionQuestions(getRandomSubset(quizData, 10));
       setCurrentIndex(0);
       setScore(0);
       setIsFinished(false);

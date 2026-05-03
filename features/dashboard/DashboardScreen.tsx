@@ -19,11 +19,15 @@ import {
 import { Card } from "@/components/ui/Card";
 import { useAppStore } from "@/store/useAppStore";
 import { Link } from "@/i18n/navigation";
-import { ElectionQuest } from "@/features/gamification/quest/ElectionQuest";
-import { NeighbourhoodLeaderboard } from "@/features/gamification/leaderboard/NeighbourhoodLeaderboard";
-import { AchievementsWidget } from "@/features/gamification/achievements/AchievementsWidget";
-import { StickerGallery } from "@/features/gamification/stickers/StickerGallery";
-import { HeatmapCard } from "@/features/results/HeatmapCard";
+import dynamic from 'next/dynamic';
+
+// Lazy load non-critical dashboard modules to improve TTI
+const ElectionQuest = dynamic(() => import("@/features/gamification/quest/ElectionQuest").then(m => m.ElectionQuest));
+const NeighbourhoodLeaderboard = dynamic(() => import("@/features/gamification/leaderboard/NeighbourhoodLeaderboard").then(m => m.NeighbourhoodLeaderboard));
+const AchievementsWidget = dynamic(() => import("@/features/gamification/achievements/AchievementsWidget").then(m => m.AchievementsWidget));
+const StickerGallery = dynamic(() => import("@/features/gamification/stickers/StickerGallery").then(m => m.StickerGallery));
+const HeatmapCard = dynamic(() => import("@/features/results/HeatmapCard").then(m => m.HeatmapCard));
+
 import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";
 import { cn } from "@/utils/cn";
 import { useTranslations } from "next-intl";
@@ -57,8 +61,11 @@ import { Gauge } from "@/components/ui/Gauge";
 export const DashboardScreen: React.FC = () => {
   const t = useTranslations('dashboard');
   const { profile, progress, notifications, getNextBestAction, getUserInsights } = useAppStore();
-  const nextBestAction = getNextBestAction();
-  const insights = getUserInsights();
+  
+  // Memoize heavy calculations to prevent redundant execution on re-renders
+  const nextBestAction = React.useMemo(() => getNextBestAction(), [getNextBestAction]);
+  const insights = React.useMemo(() => getUserInsights(), [getUserInsights]);
+  
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {

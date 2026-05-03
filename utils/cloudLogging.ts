@@ -1,17 +1,17 @@
 let eventBatch: any[] = [];
 const BATCH_SIZE = 3;
+let debounceTimer: NodeJS.Timeout | null = null;
+const DEBOUNCE_MS = 2000;
 
 /**
  * Google Cloud Function Event Logging
  * Safely sends events to a remote logging endpoint.
- * Now supports event batching and automatic retries.
+ * Now supports event batching, debouncing, and automatic retries.
  */
 export async function sendEventToCloud(eventName: string, payload: any, readiness?: number) {
   const event = {
     event: eventName,
     payload,
-    timestamp: new Date().toISOString(),
-    readiness: readiness ?? 0,
     severity: eventName.includes('error') ? 'ERROR' : eventName.includes('fallback') ? 'WARNING' : 'INFO',
     serviceContext: { service: 'civic-ai-assistant', version: '1.0.0' },
     context: typeof window !== 'undefined' ? { 
@@ -22,12 +22,23 @@ export async function sendEventToCloud(eventName: string, payload: any, readines
 
   eventBatch.push(event);
 
-  // Trigger send when batch size reached
+  if (debounceTimer) clearTimeout(debounceTimer);
+
+  // Trigger send if batch size reached OR after debounce period
   if (eventBatch.length >= BATCH_SIZE) {
-    const batchToSend = [...eventBatch];
-    eventBatch = [];
-    performSend(batchToSend);
+    sendNow();
+  } else {
+    debounceTimer = setTimeout(sendNow, DEBOUNCE_MS);
   }
+}
+
+function sendNow() {
+  if (eventBatch.length === 0) return;
+  const batchToSend = [...eventBatch];
+  eventBatch = [];
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = null;
+  performSend(batchToSend);
 }
 
 import { retryAsync } from '@/utils/reliability';

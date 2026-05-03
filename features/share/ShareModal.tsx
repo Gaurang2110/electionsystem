@@ -36,53 +36,44 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
       message = t('share_guide_msg', { link: shareLink });
     }
 
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: t('modal_title'),
-          text: message,
-          url: shareLink,
-        });
-        recordHelpAction();
-      } catch (err) {
-        // Fallback to clipboard if share cancelled/failed
-        navigator.clipboard.writeText(message);
-        alert(t('copied'));
-        recordHelpAction();
-      }
-    } else {
-      navigator.clipboard.writeText(message);
-      alert(t('copied'));
+    const { shareContent } = await import('@/utils/share');
+    const success = await shareContent({
+      title: t('modal_title'),
+      text: message,
+      url: shareLink,
+    });
+    
+    if (success) {
       recordHelpAction();
+      if (!navigator.share) {
+        alert(t('copied'));
+      }
     }
   };
 
   const shareMessage = t('share_message', { link: shareLink });
 
-  const handleCopySteps = () => {
-    navigator.clipboard.writeText(shareMessage);
+  const handleCopySteps = async () => {
+    const { copyToClipboard } = await import('@/utils/share');
+    copyToClipboard(shareMessage);
     setCopiedSteps(true);
     setTimeout(() => setCopiedSteps(false), 2000);
   };
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(shareLink);
+  const handleCopyLink = async () => {
+    const { copyToClipboard } = await import('@/utils/share');
+    copyToClipboard(shareLink);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };
 
   const handleNativeShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: t('modal_title'),
-          text: shareMessage,
-          url: shareLink,
-        });
-      } catch (err) {
-        console.error("Share failed:", err);
-      }
-    }
+    const { shareContent } = await import('@/utils/share');
+    await shareContent({
+      title: t('modal_title'),
+      text: shareMessage,
+      url: shareLink,
+    });
   };
 
   return (

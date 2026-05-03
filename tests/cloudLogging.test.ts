@@ -1,4 +1,4 @@
-import { sendEventToCloud } from '@/lib/cloudLogging';
+import { sendEventToCloud } from '@/utils/cloudLogging';
 
 describe('Cloud Logging Utility', () => {
   beforeEach(() => {

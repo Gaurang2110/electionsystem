@@ -120,19 +120,24 @@ export const ShareCard: React.FC = () => {
     }
 
     try {
-      if (navigator.share) {
+      const { shareContent } = await import('@/utils/share');
+      
+      const shareOptions: any = {
+        title: "My Election Readiness",
+        text: `I'm ${progress}% ready for the upcoming elections! Join me on Civic AI and prepare for your vote.`,
+      };
+
+      if (typeof navigator !== 'undefined' && !!navigator.share) {
         const response = await fetch(dataUrl);
         const blob = await response.blob();
         const file = new File([blob], "election_readiness.png", { type: "image/png" });
+        shareOptions.files = [file];
         
-        await navigator.share({
-          title: "My Election Readiness",
-          text: `I'm ${progress}% ready for the upcoming elections! Join me on Civic AI and prepare for your vote.`,
-          files: [file],
-        });
-        
-        setIsShared(true);
-        systemOrchestrator.onShare();
+        const success = await shareContent(shareOptions);
+        if (success) {
+          setIsShared(true);
+          systemOrchestrator.onShare();
+        }
       } else {
         // Fallback to download if share not supported
         handleDownload();

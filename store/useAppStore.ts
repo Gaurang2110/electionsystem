@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import documents from '@/data/documents.json';
-import * as analytics from '@/lib/analytics';
+import * as analytics from '@/utils/analytics';
 import { telemetry } from '@/utils/telemetry';
 import { calculateReadiness, calculateQuizPoints } from '@/services/votingService';
 
@@ -285,7 +285,10 @@ export const useAppStore = create<UserState>()(
         window.location.reload();
       },
 
-      setVoted: (voted: boolean) => set({ isVoted: voted }),
+      setVoted: (voted: boolean) => {
+        set({ isVoted: voted });
+        telemetry.log('user_voted', { voted }, get().progress);
+      },
 
       recordHelpAction: () => {
         const { peopleHelpedCount, unlockBadge } = get();
@@ -295,6 +298,7 @@ export const useAppStore = create<UserState>()(
         if (newCount >= 3) {
           unlockBadge('badge_community_helper');
         }
+        telemetry.log('community_help_recorded', { totalHelped: newCount }, get().progress);
       },
 
       toggleSimpleMode: () => set((state) => ({ isSimpleMode: !state.isSimpleMode })),
@@ -334,6 +338,7 @@ export const useAppStore = create<UserState>()(
           ? completedSteps.filter((id) => id !== stepId)
           : [...completedSteps, stepId];
         set({ completedSteps: newSteps });
+        telemetry.log('step_toggled', { stepId, completed: newSteps.includes(stepId) }, get().progress);
         get().calculateProgress();
       },
 
@@ -343,6 +348,7 @@ export const useAppStore = create<UserState>()(
           doc.id === docId ? { ...doc, completed: !doc.completed } : doc
         );
         set({ documentChecklist: newChecklist });
+        telemetry.log('document_toggled', { docId, completed: newChecklist.find(d => d.id === docId)?.completed }, get().progress);
         get().calculateProgress();
       },
 
@@ -354,6 +360,7 @@ export const useAppStore = create<UserState>()(
           newEligibility.status = (newEligibility.age >= 18 && newEligibility.isIndian) 
             ? 'eligible' 
             : 'ineligible';
+          telemetry.log('eligibility_status_updated', { status: newEligibility.status }, get().progress);
         }
 
         return {

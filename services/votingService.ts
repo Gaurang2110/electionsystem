@@ -24,12 +24,17 @@ export interface ReadinessFactors {
 }
 
 export function calculateReadiness(factors: ReadinessFactors) {
-  const { gamification, documentChecklist, eligibility, engagementScore, profile } = factors;
+  // Defensive check for invalid/missing factors
+  if (!factors || !factors.gamification || !factors.eligibility) {
+    return { progress: 0, category: 'Low' as const, nudge: "Please complete your profile to see your readiness." };
+  }
+
+  const { gamification, documentChecklist = [], eligibility, engagementScore = 0, profile = { isFirstTimeVoter: true } } = factors;
   
   // 1. Journey Score (40% weight)
-  const questSteps = Object.values(gamification.questSteps);
+  const questSteps = gamification.questSteps ? Object.values(gamification.questSteps) : [];
   const completedQuests = questSteps.filter(Boolean).length;
-  const totalQuests = questSteps.length;
+  const totalQuests = questSteps.length || 1; // Avoid division by zero
   const journeyScore = (completedQuests / totalQuests) * 40;
 
   // 2. Checklist Score (20% weight)
@@ -46,7 +51,8 @@ export function calculateReadiness(factors: ReadinessFactors) {
   }
 
   // 4. Engagement Score (20% weight)
-  const engagementNormalized = Math.min(100, engagementScore);
+  const engagementVal = typeof engagementScore === 'number' ? engagementScore : 0;
+  const engagementNormalized = Math.min(100, engagementVal);
   const sectionEngagementScore = (engagementNormalized / 100) * 20;
 
   const totalProgress = Math.min(100, Math.round(journeyScore + docsScore + eligibilityScore + sectionEngagementScore));

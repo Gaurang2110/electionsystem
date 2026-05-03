@@ -3,7 +3,7 @@
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import * as analytics from '@/lib/analytics';
+import * as analytics from '@/utils/analytics';
 
 export default function GoogleAnalytics() {
   const pathname = usePathname();

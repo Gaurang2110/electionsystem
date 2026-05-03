@@ -14,12 +14,29 @@ export const ElectionTimeline: React.FC = () => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch('/api/timeline')
-      .then(res => res.json())
-      .then(data => {
+    const loadTimeline = async () => {
+      try {
+        const { retryAsync } = await import('@/utils/reliability');
+        const data = await retryAsync(async () => {
+          const res = await fetch('/api/timeline');
+          if (!res.ok) throw new Error('Timeline API failure');
+          return res.json();
+        }, 1, 500);
+        
         setEvents(data);
+      } catch (err) {
+        console.error("Timeline Load Error:", err);
+        // Fallback to empty state but log it
+        import('@/utils/telemetry').then(({ telemetry }) => {
+          const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+          telemetry.log('timeline_load_failed', { error: errorMessage });
+        });
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    
+    loadTimeline();
   }, []);
 
   if (loading) return null;

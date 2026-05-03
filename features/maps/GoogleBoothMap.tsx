@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { GoogleMap, useJsApiLoader, MarkerF, InfoWindow } from '@react-google-maps/api';
 import boothsData from '@/data/maps/booths.json';
 import { Navigation, Map as MapIcon } from 'lucide-react';
+import { safeExecuteSync } from '@/utils/reliability';
 
 const containerStyle = {
   width: '100%',
@@ -49,10 +50,12 @@ const GoogleBoothMapContent: React.FC<{ mapsKey: string }> = ({ mapsKey }) => {
   });
 
   const markers = useMemo(() => {
-    return (boothsData || []).map(booth => ({
-      ...booth,
-      position: { lat: booth.lat, lng: booth.lng },
-    }));
+    return safeExecuteSync(() => {
+      return (boothsData || []).map(booth => ({
+        ...booth,
+        position: { lat: booth.lat, lng: booth.lng },
+      }));
+    }, [], 'booth_markers_calc');
   }, []);
 
   if (!isLoaded) {

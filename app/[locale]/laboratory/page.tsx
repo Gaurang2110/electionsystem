@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/Card";
 import { VirtualEVMSim } from "@/features/laboratory/VirtualEVMSim";
 import { Button } from "@/components/ui/Button";
+import { useTranslations } from "next-intl";
 
 export default function LaboratoryPage() {
+  const t = useTranslations('laboratory');
   const [activeExp, setActiveExp] = React.useState<string | null>(null);
 
   return (
@@ -16,10 +18,10 @@ export default function LaboratoryPage() {
           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
             <FlaskConical size={20} />
           </div>
-          <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">Innovation Lab</span>
+          <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">{t('innovation_lab')}</span>
         </div>
-        <h1 className="text-4xl font-black text-slate-900 font-display uppercase tracking-tight">Experimental Simulations</h1>
-        <p className="text-slate-500 font-medium text-lg">Test upcoming civic technologies and practice democratic processes in a secure environment.</p>
+        <h1 className="text-4xl font-black text-slate-900 font-display uppercase tracking-tight">{t('experimental_sims')}</h1>
+        <p className="text-slate-500 font-medium text-lg">{t('lab_desc')}</p>
       </div>
 
       <AnimatePresence mode="wait">
@@ -36,15 +38,15 @@ export default function LaboratoryPage() {
                 <Beaker size={32} />
               </div>
               <div className="space-y-3">
-                <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Virtual EVM UNIT</h2>
+                <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">{t('title')}</h2>
                 <p className="text-slate-600 leading-relaxed font-medium">
-                  Experience the full lifecycle of a digital vote. Practice machine activation, ballot selection, and VVPAT verification to build technical confidence.
+                  {t('evm_desc')}
                 </p>
               </div>
               <div className="flex items-center justify-between pt-4">
-                <span className="px-4 py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">Active Simulation</span>
+                <span className="px-4 py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">{t('active_simulation')}</span>
                 <Button variant="ghost" className="text-primary font-black uppercase tracking-widest text-[10px]">
-                  Launch Lab
+                  {t('launch_lab')}
                 </Button>
               </div>
             </Card>
@@ -57,13 +59,13 @@ export default function LaboratoryPage() {
                 <Sparkles size={32} />
               </div>
               <div className="space-y-3">
-                <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">AI Fact-Check Hub</h2>
+                <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">{t('fact_check_title')}</h2>
                 <p className="text-slate-600 leading-relaxed font-medium">
-                  Test our real-time deepfake detection and social media rumor monitoring tools. Help us calibrate the safety engines for 2026.
+                  {t('fact_check_desc')}
                 </p>
               </div>
               <div className="flex items-center justify-between pt-4">
-                <span className="px-4 py-2 rounded-xl bg-amber-500/10 text-amber-600 text-[10px] font-black uppercase tracking-widest">In Development</span>
+                <span className="px-4 py-2 rounded-xl bg-amber-500/10 text-amber-600 text-[10px] font-black uppercase tracking-widest">{t('in_development')}</span>
               </div>
             </Card>
           </motion.div>
@@ -77,11 +79,11 @@ export default function LaboratoryPage() {
           >
             <div className="flex items-center justify-between">
               <Button variant="ghost" onClick={() => setActiveExp(null)} className="text-slate-500 hover:text-slate-900 font-black uppercase tracking-widest text-[10px]">
-                &larr; Back to Lab
+                &larr; {t('back_to_lab')}
               </Button>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Live Experiment: {activeExp === 'evm' ? 'EVM_UNIT_V3' : 'FACT_CHECK_ALPHA'}</span>
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('live_experiment')}: {activeExp === 'evm' ? 'EVM_UNIT_V3' : 'FACT_CHECK_ALPHA'}</span>
               </div>
             </div>
             {activeExp === 'evm' && <VirtualEVMSim />}
@@ -93,13 +95,13 @@ export default function LaboratoryPage() {
         <div className="p-10 rounded-[3rem] bg-slate-900 text-white flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
           <div className="flex-1 space-y-4 relative z-10">
-            <h3 className="text-2xl font-black uppercase tracking-tight">Become a Digital Volunteer</h3>
+            <h3 className="text-2xl font-black uppercase tracking-tight">{t('volunteer_title')}</h3>
             <p className="text-slate-400 font-medium max-w-xl">
-              Our Innovation Lab relies on real citizen feedback to harden democratic tools. Apply to join our beta program and get early access to voting security features.
+              {t('volunteer_desc')}
             </p>
           </div>
           <Button size="lg" className="px-10 h-16 rounded-2xl bg-white text-slate-900 font-black uppercase tracking-widest hover:bg-slate-100 shrink-0 relative z-10">
-            Apply Now
+            {t('apply_now')}
           </Button>
         </div>
       )}

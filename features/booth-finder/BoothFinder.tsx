@@ -107,13 +107,13 @@ export const BoothFinder: React.FC = () => {
                     <div className="flex gap-2">
                       <Button
                         onClick={() => setSelectedBoothId(booth.id)}
-                        variant={selectedBoothId === booth.id ? "default" : "secondary"}
+                        variant={selectedBoothId === booth.id ? "primary" : "secondary"}
                         className={cn(
                           "flex-1 gap-2 text-xs font-black uppercase tracking-widest h-12 rounded-xl",
                           selectedBoothId === booth.id ? "bg-primary" : "bg-white/5 text-white"
                         )}
                       >
-                        {selectedBoothId === booth.id ? "Selected Booth" : "Mark as My Booth"}
+                        {selectedBoothId === booth.id ? t('selected_booth') : t('mark_booth')}
                       </Button>
                       <Button variant="secondary" className="p-3 bg-white/5 border-white/5 text-white h-12 rounded-xl">
                         <Navigation size={18} />
@@ -163,23 +163,25 @@ export const BoothFinder: React.FC = () => {
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl -z-10" />
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 animate-pulse">
-                  <Sparkles size={28} />
+                   <Sparkles size={28} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-white uppercase tracking-tight">Location Locked!</h3>
-                  <p className="text-slate-500 text-xs font-black uppercase tracking-widest mt-1">Ready for Election Day</p>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tight">{t('location_locked')}</h3>
+                  <p className="text-slate-500 text-xs font-black uppercase tracking-widest mt-1">{t('ready_day')}</p>
                 </div>
               </div>
 
               <p className="text-slate-400 text-sm font-bold leading-relaxed mb-8">
-                Great! You've identified your polling station. Completing this milestone earns you the <span className="text-white">Booth Explorer</span> badge and points.
+                {t.rich('milestone_desc', {
+                  badge: (chunks) => <span className="text-white">{t('booth_explorer')}</span>
+                })}
               </p>
 
               <button
                 onClick={handleComplete}
                 className="w-full py-5 bg-white text-slate-900 rounded-3xl text-sm font-black uppercase tracking-[0.1em] flex items-center justify-center gap-3 hover:bg-slate-100 transition-all shadow-xl shadow-white/10"
               >
-                Complete Milestone <ArrowRight size={20} />
+                {t('complete_milestone')} <ArrowRight size={20} />
               </button>
             </motion.div>
           )}

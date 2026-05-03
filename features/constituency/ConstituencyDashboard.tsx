@@ -18,7 +18,10 @@ import { cn } from "@/utils/cn";
 import { systemOrchestrator } from "@/lib/systemOrchestrator";
 import { Link } from "@/i18n/navigation";
 
+import { useTranslations } from "next-intl";
+
 export const ConstituencyDashboard: React.FC = () => {
+  const t = useTranslations("constituency");
   const [selectedState, setSelectedState] = React.useState(constituencyData[0].state);
   const [selectedAreaId, setSelectedAreaId] = React.useState(constituencyData[0].constituencies[0].id);
 
@@ -37,6 +40,10 @@ export const ConstituencyDashboard: React.FC = () => {
     }
   };
 
+  const getStatusLabel = (status: string) => {
+    return status === 'completed' ? t('status.completed') : t('status.in_progress');
+  };
+
   const budgetPercent = currentArea ? (currentArea.budget.used / currentArea.budget.allocated) * 100 : 0;
 
   return (
@@ -44,8 +51,8 @@ export const ConstituencyDashboard: React.FC = () => {
       {/* Premium Header with Illustration */}
       <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 px-4 sm:px-0 mb-4">
         <div className="space-y-1 z-10">
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight font-display">Constituency Insights</h2>
-          <p className="text-slate-500 font-bold text-xs uppercase tracking-[0.2em]">Know your local development progress</p>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight font-display">{t('title')}</h2>
+          <p className="text-slate-500 font-bold text-xs uppercase tracking-[0.2em]">{t('subtitle')}</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3 z-10">
@@ -109,11 +116,11 @@ export const ConstituencyDashboard: React.FC = () => {
                     <User size={40} className="text-white" />
                   </div>
                   <h3 className="text-2xl font-black text-white font-display mb-1">{currentArea?.representative}</h3>
-                  <p className="text-indigo-100/60 text-[10px] font-black uppercase tracking-[0.2em] mb-6">Current Representative</p>
+                  <p className="text-indigo-100/60 text-[10px] font-black uppercase tracking-[0.2em] mb-6">{t('representative_title')}</p>
                   <div className="h-[1px] w-12 bg-white/30 mb-6" />
                   <div className="flex items-center gap-3">
                     <Calendar size={14} className="text-white/60" />
-                    <span className="text-[11px] font-black text-white uppercase tracking-widest">Term: {currentArea?.term}</span>
+                    <span className="text-[11px] font-black text-white uppercase tracking-widest">{t('term')}: {currentArea?.term}</span>
                   </div>
                 </div>
               </Card>
@@ -125,9 +132,9 @@ export const ConstituencyDashboard: React.FC = () => {
                     <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
                       <CheckCircle2 size={18} />
                     </div>
-                    <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">Pillar Commitments</h4>
+                    <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{t('pillar_commitments')}</h4>
                   </div>
-                  <button className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline">View All</button>
+                  <button className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline">{t('view_all')}</button>
                 </div>
 
                 <div className="space-y-4 flex-1">
@@ -150,7 +157,7 @@ export const ConstituencyDashboard: React.FC = () => {
                           "text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-lg",
                           getStatusColor(promise.status)
                         )}>
-                          {promise.status.replace('-', ' ')}
+                          {getStatusLabel(promise.status)}
                         </span>
                         <div className={cn(
                           "w-6 h-6 rounded-full flex items-center justify-center border",
@@ -162,17 +169,17 @@ export const ConstituencyDashboard: React.FC = () => {
                     </motion.div>
                   ))}
                 </div>
-                <button className="w-full py-3 mt-4 text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] border-t border-slate-50 hover:bg-slate-50 transition-colors">See All Commitments →</button>
+                <button className="w-full py-3 mt-4 text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] border-t border-slate-50 hover:bg-slate-50 transition-colors">{t('see_all_commitments')} →</button>
               </Card>
             </div>
 
             {/* Development Overview Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
-                { label: "Roads Constructed", value: "128 km", change: "+14 km this year", icon: BarChart3, color: "text-indigo-600 bg-indigo-50" },
-                { label: "Parks Developed", value: "56", change: "+6 new parks", icon: User, color: "text-emerald-600 bg-emerald-50" },
-                { label: "Water Supply", value: "92%", change: "+2% this year", icon: Info, color: "text-blue-600 bg-blue-50" },
-                { label: "School Infra", value: "78%", change: "+5% this year", icon: Briefcase, color: "text-purple-600 bg-purple-50" }
+                { label: t('stats.roads'), value: "128 km", change: t('stats.growth', { change: "+14 km" }), icon: BarChart3, color: "text-indigo-600 bg-indigo-50" },
+                { label: t('stats.parks'), value: "56", change: t('stats.growth', { change: "+6" }), icon: User, color: "text-emerald-600 bg-emerald-50" },
+                { label: t('stats.water'), value: "92%", change: t('stats.growth', { change: "+2%" }), icon: Info, color: "text-blue-600 bg-blue-50" },
+                { label: t('stats.schools'), value: "78%", change: t('stats.growth', { change: "+5%" }), icon: Briefcase, color: "text-purple-600 bg-purple-50" }
               ].map((stat, i) => (
                 <Card key={i} className="p-4 bg-white border-slate-100 shadow-md shadow-slate-50 flex flex-col items-center text-center group hover:border-indigo-200 transition-all">
                   <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform", stat.color)}>
@@ -193,9 +200,9 @@ export const ConstituencyDashboard: React.FC = () => {
                   <BarChart3 size={24} />
                 </div>
                 <div>
-                  <h5 className="text-[12px] font-black text-slate-900 uppercase tracking-widest mb-1">Transparency & Accountability</h5>
+                  <h5 className="text-[12px] font-black text-slate-900 uppercase tracking-widest mb-1">{t('transparency_title')}</h5>
                   <p className="text-[10px] font-bold text-slate-500 leading-relaxed max-w-md">
-                    We collect data from official government sources to ensure transparency. All insights are updated regularly for accuracy.
+                    {t('transparency_desc')}
                   </p>
                 </div>
               </div>
@@ -212,9 +219,9 @@ export const ConstituencyDashboard: React.FC = () => {
                   <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
                     <BarChart3 size={18} />
                   </div>
-                  <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">Fund Utilization</h4>
+                  <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{t('fund_utilization')}</h4>
                 </div>
-                <button className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline">Details</button>
+                <button className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline">{t('details')}</button>
               </div>
 
               <div className="flex flex-col items-center">
@@ -232,27 +239,27 @@ export const ConstituencyDashboard: React.FC = () => {
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="text-3xl font-black text-slate-900">{Math.round(budgetPercent)}%</span>
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Utilized</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">{t('utilized')}</span>
                   </div>
                 </div>
 
                 <div className="w-full space-y-4">
                   <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                     <div>
-                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Allocated Budget</p>
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">{t('allocated_budget')}</p>
                       <p className="text-lg font-black text-slate-900 font-display">₹{currentArea?.budget.allocated} Cr</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-emerald-50 rounded-xl border border-emerald-100">
                     <div>
-                      <p className="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-1">Utilized Budget</p>
+                      <p className="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-1">{t('utilized_budget')}</p>
                       <p className="text-lg font-black text-emerald-700 font-display">₹{currentArea?.budget.used} Cr</p>
                     </div>
                   </div>
                 </div>
               </div>
               <p className="text-[9px] font-bold text-slate-400 text-center mt-6 flex items-center justify-center gap-2">
-                <Clock size={10} /> Last updated: 20 May 2024
+                <Clock size={10} /> {t('last_updated')}: 20 May 2024
               </p>
             </Card>
 
@@ -263,9 +270,9 @@ export const ConstituencyDashboard: React.FC = () => {
                   <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
                     <Briefcase size={18} />
                   </div>
-                  <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">Active Projects</h4>
+                  <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{t('active_projects')}</h4>
                 </div>
-                <button className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline">View All</button>
+                <button className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline">{t('view_all')}</button>
               </div>
 
               <div className="space-y-8">
@@ -293,7 +300,7 @@ export const ConstituencyDashboard: React.FC = () => {
                   </motion.div>
                 ))}
               </div>
-              <button className="w-full py-3 mt-8 text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] border-t border-slate-50 hover:bg-slate-50 transition-colors">See All Projects →</button>
+              <button className="w-full py-3 mt-8 text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] border-t border-slate-50 hover:bg-slate-50 transition-colors">{t('see_all_projects')} →</button>
             </Card>
           </div>
         </motion.div>

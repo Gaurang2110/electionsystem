@@ -22,18 +22,19 @@ import { useAppStore } from "@/store/useAppStore";
 import { EngagementSection } from "./sidebar/EngagementSection";
 
 const MENU_ITEMS = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/" },
-  { id: "journey", label: "Journey", icon: Compass, href: "/journey" },
-  { id: "map", label: "Booth Map", icon: MapIcon, href: "/map" },
-  { id: "assistant", label: "AI Assistant", icon: HelpCircle, href: "/assistant" },
-  { id: "eligibility", label: "Eligibility", icon: ShieldCheck, href: "/eligibility" },
-  { id: "documents", label: "Documents", icon: FileText, href: "/documents" },
-  { id: "laboratory", label: "Laboratory", icon: FlaskConical, href: "/laboratory" },
-  { id: "insights", label: "Insights", icon: BarChart3, href: "/insights" },
+  { id: "home", icon: LayoutDashboard, href: "/" },
+  { id: "journey", icon: Compass, href: "/journey" },
+  { id: "map", icon: MapIcon, href: "/map" },
+  { id: "assistant", icon: HelpCircle, href: "/assistant" },
+  { id: "eligibility", icon: ShieldCheck, href: "/eligibility" },
+  { id: "documents", icon: FileText, href: "/documents" },
+  { id: "laboratory", icon: FlaskConical, href: "/laboratory" },
+  { id: "insights", icon: BarChart3, href: "/insights" },
 ];
 
-const NavItem = ({ item, isActive, isHovered, onHover }: {
+const NavItem = ({ item, label, isActive, isHovered, onHover }: {
   item: typeof MENU_ITEMS[0],
+  label: string,
   isActive: boolean,
   isHovered: boolean,
   onHover: (id: string | null) => void
@@ -77,7 +78,7 @@ const NavItem = ({ item, isActive, isHovered, onHover }: {
           "relative z-10 text-[13px] font-black uppercase tracking-widest transition-all duration-300 font-display",
           isActive ? "text-slate-900" : "text-slate-500"
         )}>
-          {item.label}
+          {label}
         </span>
 
         {isActive && (
@@ -92,9 +93,13 @@ const NavItem = ({ item, isActive, isHovered, onHover }: {
   );
 };
 
+import { useTranslations } from "next-intl";
+
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const tNav = useTranslations("nav");
+  const tSidebar = useTranslations("sidebar");
   const { profile, progress } = useAppStore();
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
   const [mounted, setMounted] = React.useState(false);
@@ -135,8 +140,8 @@ export const Sidebar: React.FC = () => {
             <Vote size={24} className="text-white" />
           </motion.div>
           <div>
-            <h1 className="font-black text-2xl tracking-tighter leading-none text-slate-900 font-display">CIVIC AI</h1>
-            <p className="text-[10px] font-black text-primary uppercase tracking-[0.25em] mt-1 opacity-70">Empowering Democracy</p>
+            <h1 className="font-black text-2xl tracking-tighter leading-none text-slate-900 font-display">{tSidebar('app_title')}</h1>
+            <p className="text-[10px] font-black text-primary uppercase tracking-[0.25em] mt-1 opacity-70">{tSidebar('app_tagline')}</p>
           </div>
         </div>
       </div>
@@ -156,13 +161,13 @@ export const Sidebar: React.FC = () => {
               <User size={24} className="text-primary" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-0.5">Active Citizen</p>
+              <p className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-0.5">{tSidebar('active_citizen')}</p>
               <h4 className="font-black text-sm truncate uppercase tracking-tight">
-                {(!mounted) ? "..." : (profile.name || "Citizen")}
+                {(!mounted) ? "..." : (profile.name || tSidebar('default_citizen'))}
               </h4>
               <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{!mounted ? 0 : progress}% Ready</span>
+                <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{!mounted ? 0 : progress}% {tSidebar('ready')}</span>
               </div>
             </div>
           </div>
@@ -172,12 +177,13 @@ export const Sidebar: React.FC = () => {
       {/* Main Navigation */}
       <nav className="px-4 space-y-1 overflow-y-auto no-scrollbar relative z-20 pt-4 max-h-[40vh]">
         <div className="px-2 mb-2">
-          <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Menu</h3>
+          <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{tSidebar('menu')}</h3>
         </div>
         {MENU_ITEMS.map((item) => (
           <NavItem
             key={item.id}
             item={item}
+            label={tNav(item.id)}
             isActive={pathname === item.href || (item.href === "/" && pathname === "/")}
             isHovered={hoveredId === item.id}
             onHover={setHoveredId}
@@ -202,8 +208,8 @@ export const Sidebar: React.FC = () => {
               <WifiOff size={14} className="text-emerald-600" />
             </div>
             <div>
-              <p className="text-[10px] font-black text-slate-900 uppercase tracking-wider leading-tight">Offline Sync</p>
-              <p className="text-[8px] font-bold text-emerald-500 uppercase tracking-widest mt-0.5">Ready</p>
+              <p className="text-[10px] font-black text-slate-900 uppercase tracking-wider leading-tight">{tSidebar('offline_sync')}</p>
+              <p className="text-[8px] font-bold text-emerald-500 uppercase tracking-widest mt-0.5">{tSidebar('ready')}</p>
             </div>
           </div>
           <MoreVertical size={14} className="text-slate-300 group-hover:text-slate-600" />

@@ -38,9 +38,16 @@ const DOCUMENT_METADATA = {
 export const DocumentChecklist: React.FC = () => {
   const { documentChecklist, toggleDocument, progress } = useAppStore();
   const t = useTranslations('documents');
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const completedCount = documentChecklist.filter(d => d.completed).length;
   const percentage = Math.round((completedCount / documentChecklist.length) * 100);
+
+  if (!mounted) return null;
 
   return (
     <div className="max-w-[1200px] pb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -50,7 +57,7 @@ export const DocumentChecklist: React.FC = () => {
           <div className="flex items-center justify-center md:justify-start gap-3">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight font-display">{t('title')}</h2>
             <div className="px-2 py-0.5 bg-indigo-600 text-white text-[9px] font-black rounded-full uppercase tracking-widest shadow-lg shadow-indigo-200">
-              Official
+              {t('official')}
             </div>
           </div>
           <p className="text-slate-500 font-bold text-xs max-w-lg">{t('subtitle')}</p>
@@ -95,14 +102,14 @@ export const DocumentChecklist: React.FC = () => {
                 </div>
 
                 <div className="space-y-1">
-                  <span className="text-indigo-100 text-[9px] font-black uppercase tracking-[0.2em] opacity-80">Document Readiness</span>
-                  <h3 className="text-2xl font-black text-white font-display leading-tight">{percentage}% Complete</h3>
+                  <span className="text-indigo-100 text-[9px] font-black uppercase tracking-[0.2em] opacity-80">{t('hero.label')}</span>
+                  <h3 className="text-2xl font-black text-white font-display leading-tight">{percentage}% {t('hero.complete')}</h3>
                   <p className="text-indigo-100/60 text-[10px] font-bold uppercase tracking-wider">
-                    {completedCount} of {documentChecklist.length} documents verified
+                    {t('hero.verified_count', { count: completedCount, total: documentChecklist.length })}
                   </p>
                   <div className="flex items-center gap-2 mt-1">
                     <div className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-[9px] font-black text-emerald-300 uppercase tracking-widest">On Track</span>
+                    <span className="text-[9px] font-black text-emerald-300 uppercase tracking-widest">{t('hero.on_track')}</span>
                   </div>
                 </div>
               </div>
@@ -116,8 +123,27 @@ export const DocumentChecklist: React.FC = () => {
           {/* Document List */}
           <div className="space-y-3">
             {documentChecklist.map((doc, i) => {
-              const meta = DOCUMENT_METADATA[doc.id as keyof typeof DOCUMENT_METADATA] || { icon: FileText, color: 'bg-slate-50 text-slate-400', badge: 'Required', date: 'Action required' };
+              const meta = DOCUMENT_METADATA[doc.id as keyof typeof DOCUMENT_METADATA] || { 
+                icon: FileText, 
+                color: 'bg-slate-50 text-slate-400', 
+                badge: t('status.required'), 
+                date: t('status.action_required') 
+              };
               const Icon = meta.icon;
+
+              const badgeText = doc.completed 
+                ? t('status.verified') 
+                : (doc.id === 'aadhar' ? t('status.verified') 
+                  : (doc.id === 'voter-id' ? t('status.optional')
+                    : (doc.id === 'address-proof' ? t('status.in_progress')
+                      : (doc.id === 'pan-card' ? t('status.optional') : t('status.required')))));
+
+              const dateText = doc.completed
+                ? t('status.verified_on')
+                : (doc.id === 'aadhar' ? t('status.verified_on')
+                  : (doc.id === 'voter-id' ? t('status.link_epic')
+                    : (doc.id === 'address-proof' ? t('status.takes_time')
+                      : (doc.id === 'pan-card' ? t('status.recommended') : t('status.action_required')))));
 
               return (
                 <motion.div
@@ -147,14 +173,14 @@ export const DocumentChecklist: React.FC = () => {
                             "px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest",
                             doc.completed ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-500"
                           )}>
-                            {doc.completed ? 'Verified' : meta.badge}
+                            {badgeText}
                           </span>
                         </div>
                         <p className="text-slate-400 text-xs font-bold leading-tight">{t(`items.${doc.id}.desc`)}</p>
                         <div className="flex items-center gap-1.5 pt-0.5">
                           <div className="w-1 h-1 rounded-full bg-slate-200" />
                           <span className="text-[9px] font-black text-slate-350 uppercase tracking-widest">
-                            {doc.completed ? 'Verified on 12 May 2024' : meta.date}
+                            {dateText}
                           </span>
                         </div>
 
@@ -169,7 +195,7 @@ export const DocumentChecklist: React.FC = () => {
                                 : "bg-indigo-600 text-white shadow-md shadow-indigo-100 hover:bg-indigo-700"
                             )}
                           >
-                            {doc.completed ? <><Eye size={12} /> View Details</> : <><UploadCloud size={12} /> Upload Now</>}
+                            {doc.completed ? <><Eye size={12} /> {t('actions.view_details')}</> : <><UploadCloud size={12} /> {t('actions.upload_now')}</>}
                           </button>
                           {/* {!doc.completed && (
                             <button className="h-8 px-4 bg-slate-50 text-slate-500 rounded-lg font-black text-[9px] uppercase tracking-widest hover:bg-slate-100 transition-colors">
@@ -196,12 +222,12 @@ export const DocumentChecklist: React.FC = () => {
                   <AlertCircle size={18} />
                 </div>
                 <div>
-                  <h5 className="text-[10px] font-black text-red-900 uppercase tracking-widest leading-none">Verification Incomplete</h5>
-                  <p className="text-[9px] font-bold text-red-900/40 mt-1">Missing mandatory documents. This may delay approval.</p>
+                  <h5 className="text-[10px] font-black text-red-900 uppercase tracking-widest leading-none">{t('alert.title')}</h5>
+                  <p className="text-[9px] font-bold text-red-900/40 mt-1">{t('alert.desc')}</p>
                 </div>
               </div>
               <button className="h-8 px-3 bg-white border border-red-100 rounded-lg text-red-500 font-black text-[9px] uppercase tracking-widest hover:bg-red-50 transition-colors">
-                Complete Now
+                {t('actions.complete_now')}
               </button>
             </div>
           )}
@@ -214,15 +240,15 @@ export const DocumentChecklist: React.FC = () => {
               <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-100">
                 <ShieldCheck size={18} />
               </div>
-              <h4 className="text-base font-black text-slate-900 font-display">Why these documents?</h4>
+              <h4 className="text-base font-black text-slate-900 font-display">{t('sidebar.why_title')}</h4>
             </div>
 
             <div className="space-y-5 pt-1">
               {[
-                { title: "Prevent Fraud", desc: "Prevents duplicate voting.", icon: UserCheck },
-                { title: "ECI Guidelines", desc: "Official requirement for all voters.", icon: Info },
-                { title: "Secure & Private", desc: "Data is encrypted and safe.", icon: Lock },
-                { title: "Faster Approval", desc: "Speeds up the verification.", icon: Sparkles }
+                { title: t('sidebar.reason1_title'), desc: t('sidebar.reason1_desc'), icon: UserCheck },
+                { title: t('sidebar.reason2_title'), desc: t('sidebar.reason2_desc'), icon: Info },
+                { title: t('sidebar.reason3_title'), desc: t('sidebar.reason3_desc'), icon: Lock },
+                { title: t('sidebar.reason4_title'), desc: t('sidebar.reason4_desc'), icon: Sparkles }
               ].map((item, idx) => (
                 <div key={idx} className="flex gap-3 group">
                   <div className="w-8 h-8 rounded-lg bg-white text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm shrink-0 border border-indigo-50">
@@ -242,17 +268,15 @@ export const DocumentChecklist: React.FC = () => {
               <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-emerald-600 shadow-sm">
                 <Lock size={16} />
               </div>
-              <h4 className="text-[11px] font-black text-emerald-900 uppercase tracking-widest pt-1">Data Safety</h4>
+              <h4 className="text-[11px] font-black text-emerald-900 uppercase tracking-widest pt-1">{t('sidebar.safety_title')}</h4>
             </div>
             <p className="text-[10px] font-bold text-emerald-900/50 leading-relaxed mb-4">
-              Documents are used only for verification and then securely deleted.
+              {t('sidebar.safety_desc')}
             </p>
             <button className="flex items-center gap-2 text-emerald-700 font-black text-[9px] uppercase tracking-widest hover:underline group">
-              Privacy Policy <ExternalLink size={10} className="group-hover:translate-x-0.5 transition-transform" />
+              {t('sidebar.privacy_policy')} <ExternalLink size={10} className="group-hover:translate-x-0.5 transition-transform" />
             </button>
           </Card>
-
-
         </div>
       </div>
     </div>

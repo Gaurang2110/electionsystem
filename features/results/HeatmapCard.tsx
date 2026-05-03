@@ -5,21 +5,31 @@ import { Card } from "@/components/ui/Card";
 import turnoutData from "@/data/turnout.json";
 import { Info, TrendingUp } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 export const HeatmapCard: React.FC = () => {
+  const t = useTranslations('results');
   const [hoveredState, setHoveredState] = React.useState<string | null>(null);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getStatus = (val: number) => {
-    if (val < 50) return { label: 'Low', color: 'bg-rose-500', text: 'text-rose-400', glow: 'shadow-[0_0_15px_rgba(244,63,94,0.3)]' };
-    if (val <= 70) return { label: 'Medium', color: 'bg-amber-500', text: 'text-amber-400', glow: 'shadow-[0_0_15px_rgba(245,158,11,0.3)]' };
-    return { label: 'High', color: 'bg-emerald-500', text: 'text-emerald-400', glow: 'shadow-[0_0_15px_rgba(16,185,129,0.3)]' };
+    if (val < 50) return { label: t('low_density'), color: 'bg-rose-500', text: 'text-rose-400', glow: 'shadow-[0_0_15px_rgba(244,63,94,0.3)]' };
+    if (val <= 70) return { label: t('medium_density'), color: 'bg-amber-500', text: 'text-amber-400', glow: 'shadow-[0_0_15px_rgba(245,158,11,0.3)]' };
+    return { label: t('high_density'), color: 'bg-emerald-500', text: 'text-emerald-400', glow: 'shadow-[0_0_15px_rgba(16,185,129,0.3)]' };
   };
+
+  if (!mounted) return null;
 
   return (
     <Card className="p-8 bg-slate-900/40 backdrop-blur-3xl border-white/5 relative overflow-hidden group">
       <div className="flex items-center justify-between mb-10">
         <div>
-          <h3 className="text-xl font-black text-white font-display uppercase tracking-wider mb-1">Turnout Forecast</h3>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">Expected Voter Engagement • 2026</p>
+          <h3 className="text-xl font-black text-white font-display uppercase tracking-wider mb-1">{t('heatmap_title')}</h3>
+          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">{t('heatmap_desc')}</p>
         </div>
         <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
           <TrendingUp className="text-primary" size={24} />
@@ -48,7 +58,7 @@ export const HeatmapCard: React.FC = () => {
                         animate={{ opacity: 1, x: 0 }}
                         className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md ${status.color} text-white`}
                       >
-                        {status.label} Focus
+                        {status.label} {t('focus')}
                       </motion.span>
                     )}
                   </AnimatePresence>
@@ -75,20 +85,20 @@ export const HeatmapCard: React.FC = () => {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-rose-500" />
-            <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Low</span>
+            <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">{t('low_density')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-amber-500" />
-            <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Med</span>
+            <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">{t('medium_density')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">High</span>
+            <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">{t('high_density')}</span>
           </div>
         </div>
         <div className="flex items-center gap-2 text-slate-500 group-hover:text-primary transition-colors">
           <Info size={14} />
-          <span className="text-[9px] font-bold uppercase tracking-widest">Mock Forecast Data</span>
+          <span className="text-[9px] font-bold uppercase tracking-widest">{t('mock_forecast')}</span>
         </div>
       </div>
 

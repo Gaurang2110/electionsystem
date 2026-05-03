@@ -16,8 +16,15 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
   const { progress, peopleHelpedCount, recordHelpAction } = useAppStore();
   const [copiedSteps, setCopiedSteps] = React.useState(false);
   const [copiedLink, setCopiedLink] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const shareLink = "https://civic-ai-2026.vercel.app";
+
+  if (!mounted) return null;
   
   const handleShare = async (type: 'checklist' | 'progress' | 'guide') => {
     let message = "";
@@ -117,7 +124,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-black text-white uppercase tracking-tight">{t('option_checklist')}</h4>
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Share document guide</p>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t('desc_checklist')}</p>
                   </div>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
@@ -136,7 +143,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-black text-white uppercase tracking-tight">{t('option_progress')}</h4>
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Share your readiness</p>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t('desc_progress')}</p>
                   </div>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
@@ -155,7 +162,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-black text-white uppercase tracking-tight">{t('option_guide')}</h4>
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Share 4-step voting link</p>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t('desc_guide')}</p>
                   </div>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">

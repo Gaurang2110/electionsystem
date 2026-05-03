@@ -5,11 +5,19 @@ import { Users, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { useTranslations } from "next-intl";
 import { ShareModal } from "./ShareModal";
+import { useAppStore } from "@/store/useAppStore";
 
 export const HelpOthersCard: React.FC = () => {
   const { peopleHelpedCount } = useAppStore();
   const t = useTranslations('help_others');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <>

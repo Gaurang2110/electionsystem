@@ -51,9 +51,9 @@ export const EligibilityForm: React.FC = () => {
   };
 
   const steps = [
-    { label: "Age", icon: GraduationCap },
-    { label: "Nationality", icon: ShieldCheck },
-    { label: "Residence", icon: MapPin }
+    { label: t('stepper.age'), icon: GraduationCap },
+    { label: t('stepper.nationality'), icon: ShieldCheck },
+    { label: t('stepper.residence'), icon: MapPin }
   ];
 
   return (
@@ -63,7 +63,7 @@ export const EligibilityForm: React.FC = () => {
         <div className="space-y-3 relative z-10 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-3">
             <h2 className="text-4xl font-black text-slate-900 tracking-tight">{t('title')}</h2>
-            <div className="px-2.5 py-1 bg-indigo-100 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-md border border-indigo-200">Official</div>
+            <div className="px-2.5 py-1 bg-indigo-100 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-md border border-indigo-200">{t('official')}</div>
           </div>
           <p className="text-slate-500 font-bold text-sm max-w-lg">{t('subtitle')}</p>
         </div>
@@ -134,9 +134,9 @@ export const EligibilityForm: React.FC = () => {
                       {step === 0 && (
                         <div className="space-y-6">
                           <h3 className="text-3xl font-black text-slate-900 tracking-tight">{t('age_question')}</h3>
-                          <p className="text-slate-400 font-bold text-sm">You must be 18 years or older to be eligible to vote.</p>
+                          <p className="text-slate-400 font-bold text-sm">{t('age_desc')}</p>
                           <div className="relative group bg-slate-50/50 rounded-2xl border-2 border-slate-100 p-6 focus-within:border-indigo-600 focus-within:bg-white transition-all">
-                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left mb-1">Enter your age</div>
+                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left mb-1">{t('age_placeholder')}</div>
                             <div className="flex items-end gap-2">
                               <input
                                 type="number"
@@ -146,7 +146,7 @@ export const EligibilityForm: React.FC = () => {
                                 value={eligibility.age || ""}
                                 autoFocus
                               />
-                              <span className="text-indigo-400 font-black text-xs uppercase mb-2">Years</span>
+                              <span className="text-indigo-400 font-black text-xs uppercase mb-2">{t('years')}</span>
                             </div>
                           </div>
                         </div>
@@ -185,7 +185,7 @@ export const EligibilityForm: React.FC = () => {
                               value={eligibility.state || ""}
                               onChange={(e) => setEligibility({ state: e.target.value })}
                             >
-                              <option value="" disabled>Select your state</option>
+                              <option value="" disabled>{t('select_state')}</option>
                               {INDIAN_STATES.map(s => <option key={s} value={s}>{s}</option>)}
                             </select>
                             <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
@@ -221,7 +221,7 @@ export const EligibilityForm: React.FC = () => {
                           <ShieldCheck size={16} />
                         </div>
                         <p className="text-[11px] font-bold text-indigo-900/60 leading-relaxed pt-1">
-                          Your information is only used to check your voting eligibility as per Election Commission guidelines.
+                          {t('info_guideline')}
                         </p>
                       </div>
 
@@ -232,7 +232,7 @@ export const EligibilityForm: React.FC = () => {
                             onClick={handleBack}
                             className="flex-1 h-16 rounded-2xl border-2 border-slate-100 text-slate-400 font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-colors"
                           >
-                            Back
+                            {t('back')}
                           </button>
                         )}
                         <motion.button
@@ -246,7 +246,7 @@ export const EligibilityForm: React.FC = () => {
                           }
                           className="flex-[2] h-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:shadow-none"
                         >
-                          {step === 2 ? "Check Result" : "Next Step"} <ArrowRight size={18} />
+                          {step === 2 ? t('check_result_btn') : t('next')} <ArrowRight size={18} />
                         </motion.button>
                       </div>
                     </motion.div>
@@ -288,13 +288,13 @@ export const EligibilityForm: React.FC = () => {
                     }}
                     className="flex-[2] h-16 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl flex items-center justify-center gap-3"
                   >
-                    Continue Journey <ArrowRight size={18} />
+                    {t('continue_journey')} <ArrowRight size={18} />
                   </button>
                   <button
                     onClick={resetForm}
                     className="flex-1 h-16 bg-slate-100 text-slate-500 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200"
                   >
-                    Start Over
+                    {t('start_over')}
                   </button>
                 </div>
               </motion.div>
@@ -310,8 +310,8 @@ export const EligibilityForm: React.FC = () => {
             >
               <div className="flex items-center gap-4 pl-4">
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Recommended Next Step</span>
-                  <span className="text-sm font-black uppercase tracking-widest">Check Documents</span>
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t('recommended_next')}</span>
+                  <span className="text-sm font-black uppercase tracking-widest">{t('check_docs')}</span>
                 </div>
               </div>
               <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -328,18 +328,18 @@ export const EligibilityForm: React.FC = () => {
               <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
                 <Sparkles size={24} />
               </div>
-              <h4 className="text-lg font-black text-slate-900">Why we ask for this?</h4>
+              <h4 className="text-lg font-black text-slate-900">{t('why_ask_title')}</h4>
             </div>
             <p className="text-slate-500 font-bold text-sm leading-relaxed pt-2">
-              We follow the guidelines set by the Election Commission of India to ensure a fair and transparent democratic process.
+              {t('why_ask_desc')}
             </p>
 
             <div className="space-y-4 pt-4 border-t border-slate-50">
               {[
-                { label: "18 years or older", desc: "As on the qualifying date", icon: GraduationCap },
-                { label: "Indian Citizen", desc: "Citizen of India", icon: ShieldCheck },
-                { label: "Ordinary Resident", desc: "Resident of the constituency", icon: MapPin },
-                { label: "Not Disqualified", desc: "Not disqualified under any law", icon: UserCheck }
+                { label: t('criteria.age_label'), desc: t('criteria.age_desc'), icon: GraduationCap },
+                { label: t('criteria.citizen_label'), desc: t('criteria.citizen_desc'), icon: ShieldCheck },
+                { label: t('criteria.resident_label'), desc: t('criteria.resident_desc'), icon: MapPin },
+                { label: t('criteria.disqualified_label'), desc: t('criteria.disqualified_desc'), icon: UserCheck }
               ].map((item, idx) => (
                 <div key={idx} className="flex gap-4 items-center group">
                   <div className="w-8 h-8 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
@@ -359,14 +359,12 @@ export const EligibilityForm: React.FC = () => {
               <UserCheck size={20} />
             </div>
             <div className="space-y-1">
-              <h5 className="text-[11px] font-black text-indigo-900 uppercase tracking-widest pt-2">Your information is safe</h5>
+              <h5 className="text-[11px] font-black text-indigo-900 uppercase tracking-widest pt-2">{t('safe_title')}</h5>
               <p className="text-[10px] font-bold text-indigo-900/50 leading-relaxed">
-                We don't store your personal data. It is only used for eligibility checking.
+                {t('safe_desc')}
               </p>
             </div>
           </Card>
-
-
         </div>
       </div>
     </div>

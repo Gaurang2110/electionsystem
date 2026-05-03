@@ -41,7 +41,11 @@ export const ElectionTimeline: React.FC = () => {
           const isCompleted = event.daysLeft < 0;
           const isActive = event.daysLeft >= 0 && event.daysLeft <= 30;
           const status = isCompleted ? 'completed' : isActive ? 'active' : 'upcoming';
-          const countdownText = event.daysLeft > 0 ? `${event.daysLeft}d left` : isCompleted ? 'Finished' : 'Today';
+          const countdownText = event.daysLeft > 0 
+            ? t('days_left', { days: event.daysLeft }) 
+            : isCompleted 
+              ? t('finished') 
+              : t('today');
 
           return (
             <motion.div

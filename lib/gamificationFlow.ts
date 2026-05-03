@@ -16,13 +16,16 @@ export const GamificationFlow = {
     const store = useAppStore.getState();
     
     // Check if already completed to avoid redundant triggers
-    if (store.gamification.questSteps[stepId]) return;
+    const questSteps = store.gamification.questSteps;
+    if (stepId in questSteps && (questSteps as any)[stepId]) return;
 
     console.log(`[FLOW] Completing Step: ${stepId}`);
 
     // 1. Mark step as completed & Update progress % (handled in store)
     // 2. Add points (+20 handled in updateQuestStep)
-    store.updateQuestStep(stepId, true);
+    if (stepId in questSteps) {
+      store.updateQuestStep(stepId as any, true);
+    }
 
     // 3. Unlock badge based on step
     const badgeMapping: Record<string, string> = {
@@ -94,7 +97,7 @@ export const GamificationFlow = {
       { id: 'share', label: 'Invite Community', link: '/share' }
     ];
 
-    return steps.find(s => !gamification.questSteps[s.id]) || null;
+    return steps.find(s => !(gamification.questSteps as any)[s.id]) || null;
   },
 
   /**

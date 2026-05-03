@@ -26,6 +26,7 @@ import { StickerGallery } from "@/features/gamification/stickers/StickerGallery"
 import { HeatmapCard } from "@/features/results/HeatmapCard";
 import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";
 import { cn } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -36,7 +37,7 @@ const containerVariants = {
       delayChildren: 0.3
     }
   }
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -49,11 +50,12 @@ const itemVariants = {
       damping: 20
     }
   }
-};
+} as const;
 
 import { Gauge } from "@/components/ui/Gauge";
 
 export const DashboardScreen: React.FC = () => {
+  const t = useTranslations('dashboard');
   const { profile, progress, notifications, getNextBestAction } = useAppStore();
   const nextBestAction = getNextBestAction();
   const [mounted, setMounted] = React.useState(false);
@@ -202,16 +204,24 @@ export const DashboardScreen: React.FC = () => {
             <ElectionQuest />
           </motion.div>
 
+          {/* HEATMAP/RESULTS PREVIEW */}
+          <motion.div variants={itemVariants}>
+            <HeatmapCard />
+          </motion.div>
         </div>
 
         {/* RIGHT COLUMN: WIDGETS (SPAN 4) */}
         <div className="lg:col-span-4 space-y-8">
+          {/* LEADERBOARD WIDGET */}
+          <motion.div variants={itemVariants}>
+            <NeighbourhoodLeaderboard />
+          </motion.div>
 
           {/* ELECTION INSIGHTS WIDGET */}
           <motion.div variants={itemVariants}>
             <Card variant="glass" className="p-6 bg-white/80 border-white/50 shadow-premium">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="font-black text-slate-900 text-sm uppercase tracking-widest">Election Insights</h3>
+                <h3 className="font-black text-slate-900 text-sm uppercase tracking-widest">{t('insights.title')}</h3>
                 <TrendingUp size={16} className="text-slate-400" />
               </div>
 
@@ -219,7 +229,7 @@ export const DashboardScreen: React.FC = () => {
                 {/* Promise Match */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-end">
-                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Promises Match</span>
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t('insights.promises')}</span>
                     <span className="text-secondary font-black text-xs">64%</span>
                   </div>
                   <div className="h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
@@ -234,7 +244,7 @@ export const DashboardScreen: React.FC = () => {
                 {/* Transparency */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-end">
-                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Transparency</span>
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t('insights.transparency')}</span>
                     <span className="text-primary font-black text-xs">82%</span>
                   </div>
                   <div className="h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
@@ -253,8 +263,8 @@ export const DashboardScreen: React.FC = () => {
                         <Zap size={18} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Active Issues</p>
-                        <p className="text-[8px] font-bold text-slate-400 uppercase mt-0.5">12 Reported Today</p>
+                        <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{t('insights.active_issues')}</p>
+                        <p className="text-[8px] font-bold text-slate-400 uppercase mt-0.5">{t('insights.reported_today', { count: 12 })}</p>
                       </div>
                     </div>
                     <ArrowRight size={14} className="text-slate-400 group-hover:translate-x-1 transition-transform" />
@@ -263,12 +273,6 @@ export const DashboardScreen: React.FC = () => {
               </div>
             </Card>
           </motion.div>
-
-          {/* LEADERBOARD WIDGET */}
-          <motion.div variants={itemVariants}>
-            <NeighbourhoodLeaderboard />
-          </motion.div>
-
 
           {/* DISCLAIMER */}
           <motion.div variants={itemVariants}>

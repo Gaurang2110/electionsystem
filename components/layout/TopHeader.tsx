@@ -25,6 +25,7 @@ import { NotificationPanel } from "@/components/ui/NotificationPanel";
 
 // --- SMART SEARCH COMPONENT ---
 const SmartSearch: React.FC = () => {
+  const t = useTranslations('search');
   const [query, setQuery] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -32,10 +33,10 @@ const SmartSearch: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const suggestions = [
-    { label: "Find Booth", path: "/map", icon: <MapPin size={14} />, keywords: ["booth", "map", "location", "where"] },
-    { label: "Check Eligibility", path: "/eligibility", icon: <ShieldCheck size={14} />, keywords: ["eligible", "vote", "can i", "age"] },
-    { label: "Open Documents", path: "/documents", icon: <FileText size={14} />, keywords: ["id", "aadhaar", "voter card", "docs"] },
-    { label: "Start Journey", path: "/journey", icon: <Milestone size={14} />, keywords: ["steps", "how to", "process", "guide"] }
+    { label: t('find_booth'), path: "/map", icon: <MapPin size={14} />, keywords: ["booth", "map", "location", "where"] },
+    { label: t('check_eligibility'), path: "/eligibility", icon: <ShieldCheck size={14} />, keywords: ["eligible", "vote", "can i", "age"] },
+    { label: t('open_documents'), path: "/documents", icon: <FileText size={14} />, keywords: ["id", "aadhaar", "voter card", "docs"] },
+    { label: t('start_journey'), path: "/journey", icon: <Milestone size={14} />, keywords: ["steps", "how to", "process", "guide"] }
   ];
 
   const filteredSuggestions = query.length > 0
@@ -88,7 +89,7 @@ const SmartSearch: React.FC = () => {
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="Search elections, booth, documents..."
+          placeholder={t('placeholder')}
           className="flex-1 bg-transparent border-none outline-none text-[14px] font-medium text-slate-700 placeholder:text-slate-400"
         />
         <div className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-200 bg-slate-50 text-[10px] font-black text-slate-400">
@@ -108,7 +109,7 @@ const SmartSearch: React.FC = () => {
               className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-200 shadow-2xl z-50 overflow-hidden py-2"
             >
               <div className="px-4 py-2">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Suggestions</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('suggestions')}</p>
               </div>
               {filteredSuggestions.map((item, index) => (
                 <button
@@ -135,7 +136,7 @@ const SmartSearch: React.FC = () => {
               ))}
               {filteredSuggestions.length === 0 && (
                 <div className="px-4 py-8 text-center">
-                  <p className="text-sm text-slate-400 font-medium">No results for "{query}"</p>
+                  <p className="text-sm text-slate-400 font-medium">{t('no_results', { query })}</p>
                 </div>
               )}
             </motion.div>
@@ -180,10 +181,12 @@ const ReadinessBadge: React.FC = () => {
 
 // --- PROFILE DROPDOWN COMPONENT ---
 const ProfileDropdown: React.FC = () => {
+  const t = useTranslations('profile');
   const [isOpen, setIsOpen] = React.useState(false);
   const profile = useAppStore(state => state.profile);
   const voterType = useAppStore(state => state.voterType);
   const resetStore = useAppStore(state => state.resetStore);
+  const router = useRouter();
 
   return (
     <div className="relative">
@@ -194,7 +197,7 @@ const ProfileDropdown: React.FC = () => {
         <div className="flex flex-col items-end hidden sm:flex">
           {/* <span className="text-[13px] font-black text-slate-900 leading-none">{profile.name || "Aarav Sharma"}</span> */}
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight mt-1">
-            {voterType === 'first-time' ? "First-time Voter" : "Active Voter"}
+            {voterType === 'first-time' ? t('first_time') : t('active_voter')}
           </span>
         </div>
         <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-slate-200 to-slate-100 border-2 border-white shadow-sm flex items-center justify-center text-slate-400 overflow-hidden">
@@ -221,7 +224,7 @@ const ProfileDropdown: React.FC = () => {
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 transition-all"
               >
                 <User size={16} />
-                <span className="text-sm font-bold">Profile Settings</span>
+                <span className="text-sm font-bold">{t('settings')}</span>
               </button>
               <button
                 onClick={() => {
@@ -231,7 +234,7 @@ const ProfileDropdown: React.FC = () => {
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 transition-all"
               >
                 <Settings size={16} />
-                <span className="text-sm font-bold">Preferences</span>
+                <span className="text-sm font-bold">{t('preferences')}</span>
               </button>
               <div className="h-px bg-slate-100 my-2" />
               <button
@@ -242,7 +245,7 @@ const ProfileDropdown: React.FC = () => {
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-rose-50 text-rose-500 transition-all"
               >
                 <LogOut size={16} />
-                <span className="text-sm font-bold">Logout / Reset</span>
+                <span className="text-sm font-bold">{t('logout')}</span>
               </button>
             </motion.div>
           </>

@@ -51,6 +51,13 @@
         "type": "Normal"
       }
     },
+    "insights": {
+      "title": "Election Insights",
+      "promises": "Promises Match",
+      "transparency": "Transparency",
+      "active_issues": "Active Issues",
+      "reported_today": "{count} Reported Today"
+    },
     "first_timer_guidance": "Since it's your first time, we've highlighted the most critical steps for you. Don't worry, it's simpler than it looks!"
   },
   "journey": {
@@ -89,11 +96,47 @@
   "documents": {
     "title": "Document Checklist",
     "subtitle": "Ensure you have these documents ready for verification.",
-    "status_label": "Readiness Status",
-    "complete": "Complete",
-    "of": "of",
-    "documents_ready": "documents ready",
-    "kcy_alert": "Make sure your mobile number is linked with your Aadhaar for faster e-KYC during verification.",
+    "official": "Official",
+    "hero": {
+      "label": "Document Readiness",
+      "complete": "Complete",
+      "verified_count": "{count} of {total} documents verified",
+      "on_track": "On Track"
+    },
+    "status": {
+      "verified": "Verified",
+      "verified_on": "Verified on 12 May 2024",
+      "optional": "Optional",
+      "link_epic": "Link your EPIC number",
+      "in_progress": "In Progress",
+      "takes_time": "Takes ~ 2 mins",
+      "recommended": "Recommended",
+      "required": "Required",
+      "action_required": "Action required"
+    },
+    "actions": {
+      "view_details": "View Details",
+      "upload_now": "Upload Now",
+      "complete_now": "Complete Now"
+    },
+    "alert": {
+      "title": "Verification Incomplete",
+      "desc": "Missing mandatory documents. This may delay approval."
+    },
+    "sidebar": {
+      "why_title": "Why these documents?",
+      "reason1_title": "Prevent Fraud",
+      "reason1_desc": "Prevents duplicate voting.",
+      "reason2_title": "ECI Guidelines",
+      "reason2_desc": "Official requirement for all voters.",
+      "reason3_title": "Secure & Private",
+      "reason3_desc": "Data is encrypted and safe.",
+      "reason4_title": "Faster Approval",
+      "reason4_desc": "Speeds up the verification.",
+      "safety_title": "Data Safety",
+      "safety_desc": "Documents are used only for verification and then securely deleted.",
+      "privacy_policy": "Privacy Policy"
+    },
     "items": {
       "aadhar": {
         "title": "Aadhaar Card",
@@ -135,7 +178,38 @@
     "next_step_documents": "Keep your Aadhaar and address proof ready",
     "what_to_do_next": "What should you do next?",
     "start_over": "Start Over",
-    "next": "Next Step"
+    "next": "Next Step",
+    "official": "Official",
+    "stepper": {
+      "age": "Age",
+      "nationality": "Nationality",
+      "residence": "Residence"
+    },
+    "age_desc": "You must be 18 years or older to be eligible to vote.",
+    "age_placeholder": "Enter your age",
+    "years": "Years",
+    "select_state": "Select your state",
+    "info_guideline": "Your information is only used to check your voting eligibility as per Election Commission guidelines.",
+    "back": "Back",
+    "check_result_btn": "Check Result",
+    "continue_journey": "Continue Journey",
+    "start_over": "Start Over",
+    "recommended_next": "Recommended Next Step",
+    "check_docs": "Check Documents",
+    "why_ask_title": "Why we ask for this?",
+    "why_ask_desc": "We follow the guidelines set by the Election Commission of India to ensure a fair and transparent democratic process.",
+    "criteria": {
+      "age_label": "18 years or older",
+      "age_desc": "As on the qualifying date",
+      "citizen_label": "Indian Citizen",
+      "citizen_desc": "Citizen of India",
+      "resident_label": "Ordinary Resident",
+      "resident_desc": "Resident of the constituency",
+      "disqualified_label": "Not Disqualified",
+      "disqualified_desc": "Not disqualified under any law"
+    },
+    "safe_title": "Your information is safe",
+    "safe_desc": "We don't store your personal data. It is only used for eligibility checking."
   },
   "timeline": {
     "title": "Election Timeline",
@@ -163,15 +237,111 @@
       "register": "How do I register to vote?",
       "polling": "Check my polling station",
       "docs": "Documents required for registration",
-      "eligibility": "Am I eligible to vote?"
+      "need_help_desc": "Ask about voting steps, booths, or required IDs.",
+      "app_title": "CIVIC AI",
+      "app_tagline": "Empowering Democracy",
+      "default_citizen": "Citizen"
     }
   },
   "nav": {
-    "home": "Home",
+    "home": "Dashboard",
     "journey": "Journey",
     "assistant": "AI Assistant",
     "eligibility": "Eligibility",
-    "map": "Booth Finder"
+    "map": "Booth Map",
+    "documents": "Documents",
+    "laboratory": "Innovation Lab",
+    "insights": "Insights"
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "active_citizen": "Active Citizen",
+    "ready": "Ready",
+    "your_activity": "Your Activity",
+    "daily_quiz": "Daily Quiz",
+    "quest_progress": "Quest Progress",
+    "stickers": "Stickers",
+    "rewards": "Rewards",
+    "total_points": "Total Points",
+    "your_rank": "Your Rank",
+    "view_all": "View All",
+    "offline_sync": "Offline Sync",
+    "voice_command": "Voice Command",
+    "total_pts": "Total Pts",
+    "pts": "Pts",
+    "leaderboard": {
+      "title": "Leaderboard",
+      "subtitle": "Your area activity",
+      "rank": "Rank #{rank}",
+      "online": "Online",
+      "motivation": "Complete <quest>Quests</quest> to climb ranks"
+    },
+    "milestone_reached": "Milestone Reached!",
+    "explorer": "Explorer",
+    "steps": "Steps",
+    "states_unlocked": "States Unlocked",
+    "completed": "Completed"
+  },
+  "constituency": {
+    "title": "Constituency Insights",
+    "subtitle": "Know your local development progress",
+    "representative_title": "Current Representative",
+    "term": "Term",
+    "pillar_commitments": "Pillar Commitments",
+    "fund_utilization": "Fund Utilization",
+    "allocated_budget": "Allocated Budget",
+    "utilized_budget": "Utilized Budget",
+    "utilized": "Utilized",
+    "active_projects": "Active Projects",
+    "transparency_title": "Transparency & Accountability",
+    "transparency_desc": "We collect data from official government sources to ensure transparency. All insights are updated regularly for accuracy.",
+    "last_updated": "Last updated",
+    "see_all_commitments": "See All Commitments",
+    "see_all_projects": "See All Projects",
+    "details": "Details",
+    "view_all": "View All",
+    "stats": {
+      "roads": "Roads Constructed",
+      "parks": "Parks Developed",
+      "water": "Water Supply",
+      "schools": "School Infra",
+      "growth": "{change} this year"
+    },
+    "representative_title": "Local Representative",
+    "term": "Current Term",
+    "pillar_commitments": "Pillar Commitments",
+    "view_all": "View All",
+    "see_all_commitments": "See All Commitments",
+    "transparency_title": "Transparency & Accountability",
+    "transparency_desc": "All development data is verified by the State Audit Bureau and updated every quarter for full citizen oversight.",
+    "fund_utilization": "Fund Utilization",
+    "details": "Details",
+    "utilized": "Utilized",
+    "allocated_budget": "Allocated Budget",
+    "utilized_budget": "Utilized Budget",
+    "last_updated": "Last Updated",
+    "active_projects": "Active Projects",
+    "see_all_projects": "See All Projects",
+    "status": {
+      "completed": "Completed",
+      "in_progress": "In Progress"
+    }
+  },
+  "results": {
+    "title": "Constituency Insights",
+    "subtitle": "Deep dive into your local constituency's voter landscape.",
+    "heatmap_title": "Voter Density Heatmap",
+    "heatmap_desc": "Visualizing registered voter concentration across areas.",
+    "low_density": "Low Density",
+    "medium_density": "Medium Density",
+    "high_density": "High Density",
+    "focus": "Focus",
+    "mock_forecast": "Mock Forecast Data",
+    "stats": {
+      "total_voters": "Total Voters",
+      "new_registrations": "New Registrations",
+      "turnout_prediction": "Predicted Turnout"
+    }
   },
   "booth_finder": {
     "title": "Find My Booth",
@@ -184,13 +354,22 @@
     "no_results": "No booths found for this PIN code.",
     "empty_state": "Your results will appear here.",
     "map_title": "Interactive Map",
-    "map_desc": "Coming soon with real-time navigation."
+    "map_desc": "Coming soon with real-time navigation.",
+    "selected_booth": "Selected Booth",
+    "mark_booth": "Mark as My Booth",
+    "location_locked": "Location Locked!",
+    "ready_day": "Ready for Election Day",
+    "booth_explorer": "Booth Explorer",
+    "milestone_desc": "Great! You've identified your polling station. Completing this milestone earns you the {badge} badge and points.",
+    "complete_milestone": "Complete Milestone"
   },
   "myth_fact": {
     "title": "Myth vs Fact",
     "subtitle": "Busting common election rumors with verified facts.",
     "myth_label": "Myth",
     "fact_label": "Fact",
+    "verify_title": "Verify Before You Share",
+    "verify_desc": "Always check information on the official Election Commission of India website or app before believing or sharing rumors.",
     "items": {
       "item1": {
         "myth": "I have a Voter ID card, so I can definitely vote.",
@@ -214,6 +393,10 @@
     "modal_subtitle": "Empower your community by sharing essential voting information.",
     "copy_text": "Copy Steps",
     "copy_link": "Copy Link",
+    "option_progress": "Share My Progress",
+    "desc_checklist": "Share document guide",
+    "desc_progress": "Share your readiness",
+    "desc_guide": "Share 4-step voting link",
     "copied": "Copied!",
     "people_helped": "People Helped",
     "option_checklist": "Share Checklist",
@@ -245,11 +428,29 @@
     "voter_id_available": "Voter ID Available",
     "first_time_voter": "First-Time Voter",
     "preferences": "Preferences",
-    "app_language": "App Language"
+    "app_language": "App Language",
+    "settings": "Profile Settings",
+    "preferences": "Preferences",
+    "logout": "Logout / Reset",
+    "first_time": "First-time Voter",
+    "active_voter": "Active Voter"
+  },
+  "search": {
+    "placeholder": "Search elections, booth, documents...",
+    "suggestions": "Suggestions",
+    "no_results": "No results for \"{query}\"",
+    "find_booth": "Find Booth",
+    "check_eligibility": "Check Eligibility",
+    "open_documents": "Open Documents",
+    "start_journey": "Start Journey"
   },
   "notifications": {
     "title": "Notifications",
     "empty": "No new notifications",
+    "empty_tip": "Stay tuned for election alerts",
+    "new_alerts": "{count} new alerts",
+    "all_caught_up": "All caught up",
+    "end_of_notifications": "End of notifications",
     "mark_all_read": "Mark all as read",
     "notif_deadline_registration": "Registration closes in 2 days. Complete your Form 6 today!",
     "notif_incomplete_profile": "Your profile is incomplete. Finish it to see your voting readiness.",
@@ -268,5 +469,151 @@
     "type_official": "OFFICIAL",
     "type_tip": "VOTER TIP",
     "type_process": "PROCESS CHANGE"
+  },
+  "ballot": {
+    "title": "Mock Ballot Practice",
+    "subtitle": "Practice casting your preference. All data is local, private, and anonymous.",
+    "evm_simulation": "EVM Simulation",
+    "verify_process": "Verify the voting process",
+    "submit": "Submit Practice Vote",
+    "neutrality_verified": "Neutrality Verified",
+    "practice_success": "Excellent! You've successfully practiced the voting process. This helps build the muscle memory needed for the real election day.",
+    "points_earned": "+30 Points",
+    "badge_earned": "Expert Badge",
+    "principles_note": "Choice made based on democratic principles.",
+    "why_practice": "Why practice?",
+    "why_practice_desc": "Familiarizing yourself with the ballot layout reduces anxiety and potential errors on election day.",
+    "voter_secrecy": "Voter Secrecy",
+    "voter_secrecy_desc": "Your practice choices are never stored or shared. This is a local simulation for your benefit.",
+    "candidates": {
+      "c1": {
+        "name": "Candidate A",
+        "vision": "Education & Infrastructure"
+      },
+      "c2": {
+        "name": "Candidate B",
+        "vision": "Environment & Sustainability"
+      },
+      "c3": {
+        "name": "Candidate C",
+        "vision": "Technology & Jobs"
+      }
+    }
+  },
+  "timeline": {
+    "title": "Election Schedule",
+    "subtitle": "Track key dates and upcoming milestones.",
+    "days_left": "{days}d left",
+    "finished": "Finished",
+    "today": "Today",
+    "status": {
+      "completed": "Completed",
+      "active": "Active",
+      "upcoming": "Upcoming"
+    }
+  },
+  "laboratory": {
+    "title": "Virtual EVM Simulator",
+    "subtitle": "Understand the internal working of India's voting technology.",
+    "innovation_lab": "Innovation Lab",
+    "experimental_sims": "Experimental Simulations",
+    "lab_desc": "Test upcoming civic technologies and practice democratic processes in a secure environment.",
+    "evm_desc": "Experience the full lifecycle of a digital vote. Practice machine activation, ballot selection, and VVPAT verification to build technical confidence.",
+    "active_simulation": "Active Simulation",
+    "launch_lab": "Launch Lab",
+    "fact_check_title": "AI Fact-Check Hub",
+    "fact_check_desc": "Test our real-time deepfake detection and social media rumor monitoring tools. Help us calibrate the safety engines for 2026.",
+    "in_development": "In Development",
+    "back_to_lab": "Back to Lab",
+    "live_experiment": "Live Experiment",
+    "volunteer_title": "Become a Digital Volunteer",
+    "volunteer_desc": "Our Innovation Lab relies on real citizen feedback to harden democratic tools. Apply to join our beta program and get early access to voting security features.",
+    "apply_now": "Apply Now",
+    "status": "EVM Status",
+    "ready": "Activate Control Unit",
+    "voted": "Vote Successfully Cast",
+    "candidate": "Candidate",
+    "vision": "Vision",
+    "cast_vote": "Experience the secure, digital-first voting simulation.",
+    "slip_header": "VVPAT PAPER SLIP",
+    "election_year": "GENERAL ELECTION 2026",
+    "audit_desc": "This simulation demonstrates the verifiable nature of electronic voting. Your selection is printed on a slip, shown behind a glass for 7 seconds, and then falls into a sealed box.",
+    "try_again": "Try Another Simulation",
+    "vvpat_model": "VVPAT MODEL: CIVIC-V3",
+    "candidates": {
+      "c1": "Prosperity Party",
+      "c2": "Unity Front",
+      "c3": "Green Alliance",
+      "c4": "Progressive Union"
+    },
+    "info": {
+      "cu_title": "Control Unit",
+      "cu_desc": "The brain of the EVM that manages machines.",
+      "bu_title": "Ballot Unit",
+      "bu_desc": "Where citizens press the button to vote.",
+      "vvpat_title": "VVPAT System",
+      "vvpat_desc": "Verified paper audit trail for every vote."
+    },
+    "security_title": "Security Features",
+    "encapsulated": "Encapsulated Design",
+    "encapsulated_desc": "Independent units with no external connectivity (WiFi/Bluetooth).",
+    "firmware": "One-Time Firmware",
+    "firmware_desc": "Code is burnt into the chip at manufacture, cannot be altered.",
+    "audit": "Paper Audit Trail",
+    "audit_desc": "The VVPAT unit provides a paper audit trail of your vote for 7 seconds, ensuring complete transparency and verifiability.",
+    "try_again": "Try Again",
+    "vvpat_model": "VVPAT UNIT MODEL V3",
+    "slip_header": "VVPAT SLIP",
+    "election_year": "2026 ELECTION",
+    "candidates": {
+      "c1": "Prosperity Party",
+      "c2": "Unity Front",
+      "c3": "Green Alliance",
+      "c4": "Progressive Union"
+    },
+    "info": {
+      "cu_title": "Control Unit",
+      "cu_desc": "The brain of the EVM that resides with the Presiding Officer.",
+      "bu_title": "Ballot Unit",
+      "bu_desc": "Where the voter presses the button for their choice.",
+      "vvpat_title": "VVPAT",
+      "vvpat_desc": "Voter Verifiable Paper Audit Trail for transparency."
+    }
+  },
+  "voting_day": {
+    "live": "Voting is Live",
+    "today_is": "TODAY IS",
+    "election_day": "ELECTION DAY",
+    "readiness_msg": "Your readiness is {progress}%. You have everything you need to make your voice heard.",
+    "your_booth": "Your Booth",
+    "mock_booth": "St. Xavier's School, Room 4",
+    "navigate_now": "Navigate Now",
+    "required_id": "Required ID",
+    "epic_label": "Original Voter ID (EPIC)",
+    "or_aadhar": "OR Aadhaar Card",
+    "or_pan": "OR PAN Card",
+    "start_journey": "Start Voting Journey",
+    "step_count": "Step {current} of {total}",
+    "confirm_next": "Confirm & Next",
+    "i_voted": "I Have Voted",
+    "stuck_help": "Stuck? Look for the presiding officer in the room or use the help button in the corner.",
+    "steps": {
+      "step1": {
+        "title": "Verification",
+        "desc": "Show your ID to the polling officer"
+      },
+      "step2": {
+        "title": "Authentication",
+        "desc": "Get your finger inked and sign the register"
+      },
+      "step3": {
+        "title": "Ballot Selection",
+        "desc": "Select your preferred candidate on the EVM"
+      },
+      "step4": {
+        "title": "Final Check",
+        "desc": "Wait for the beep sound and verify VVPAT"
+      }
+    }
   }
 }

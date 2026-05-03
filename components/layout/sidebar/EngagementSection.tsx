@@ -14,8 +14,11 @@ import { useAppStore } from "@/store/useAppStore";
 import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/utils/cn";
 
+import { useTranslations } from "next-intl";
+
 export const EngagementSection: React.FC = () => {
   const router = useRouter();
+  const t = useTranslations("sidebar");
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -50,7 +53,7 @@ export const EngagementSection: React.FC = () => {
       {/* Activity Title */}
       <div className="px-2">
         <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
-          Your Activity
+          {t('your_activity')}
         </h3>
         
         <div className="space-y-3">
@@ -79,11 +82,11 @@ export const EngagementSection: React.FC = () => {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-black text-slate-900 truncate">Daily Quiz</h4>
-                  <span className="text-[10px] font-bold text-primary">+50 pts</span>
+                  <h4 className="text-sm font-black text-slate-900 truncate">{t('daily_quiz')}</h4>
+                  <span className="text-[10px] font-bold text-primary">+50 {t('pts')}</span>
                 </div>
                 <p className="text-[10px] font-bold text-slate-500 mt-0.5">
-                  {quizProgress}/10 completed
+                  {quizProgress}/10 {t('completed')}
                 </p>
               </div>
             </div>
@@ -101,9 +104,9 @@ export const EngagementSection: React.FC = () => {
                 <Zap size={20} />
               </div>
               <div className="flex-1">
-                <h4 className="text-sm font-black text-slate-900">Quest Progress</h4>
+                <h4 className="text-sm font-black text-slate-900">{t('quest_progress')}</h4>
                 <p className="text-[10px] font-bold text-slate-500">
-                  {completedQuests} / {totalQuests} Steps
+                  {completedQuests} / {totalQuests} {t('steps')}
                 </p>
               </div>
             </div>
@@ -128,9 +131,9 @@ export const EngagementSection: React.FC = () => {
                 <MapPin size={20} />
               </div>
               <div className="flex-1">
-                <h4 className="text-sm font-black text-slate-900">Stickers</h4>
+                <h4 className="text-sm font-black text-slate-900">{t('stickers')}</h4>
                 <p className="text-[10px] font-bold text-slate-500">
-                  {unlockedStates.length} / 28 States Unlocked
+                  {unlockedStates.length} / 28 {t('states_unlocked')}
                 </p>
               </div>
               <ChevronRight size={14} className="text-slate-300" />
@@ -142,7 +145,7 @@ export const EngagementSection: React.FC = () => {
       {/* Rewards Snapshot */}
       <div className="px-2">
         <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
-          Rewards
+          {t('rewards')}
         </h3>
         <motion.button
           whileHover={{ scale: 1.02 }}
@@ -155,14 +158,14 @@ export const EngagementSection: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-4 relative z-10">
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Points</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('total_points')}</span>
               <div className="flex items-center gap-2">
                 <Star size={14} className="text-amber-400 fill-amber-400" />
                 <span className="text-xl font-black">{points}</span>
               </div>
             </div>
             <div className="space-y-1 border-l border-white/10 pl-4">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Your Rank</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('your_rank')}</span>
               <div className="flex items-center gap-2">
                 <Trophy size={14} className="text-primary" />
                 <span className="text-xl font-black">#{leaderboardRank}</span>
@@ -176,11 +179,11 @@ export const EngagementSection: React.FC = () => {
                 <Medal size={16} className="text-amber-300" />
               </div>
               <span className="text-[11px] font-bold text-slate-200 truncate max-w-[100px]">
-                {badges[badges.length - 1] || "Explorer"}
+                {badges[badges.length - 1] || t('explorer')}
               </span>
             </div>
             <span className="text-[9px] font-black text-primary uppercase tracking-widest group-hover:translate-x-1 transition-transform">
-              View All
+              {t('view_all')}
             </span>
           </div>
         </motion.button>

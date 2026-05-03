@@ -41,12 +41,14 @@ export const ChatInterface: React.FC = () => {
   const [input, setInput] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [mounted, setMounted] = React.useState(false);
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const msgCount = React.useRef(0);
   const promptAttempted = React.useRef(false);
 
   // Initialize and load from session storage
   React.useEffect(() => {
+    setMounted(true);
     const saved = sessionStorage.getItem("civic_ai_chat_session");
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -55,7 +57,7 @@ export const ChatInterface: React.FC = () => {
       setMessages(revived);
       msgCount.current = revived.length;
     } else {
-      const welcomeMsg = { id: "1", text: t('welcome'), sender: "ai", timestamp: new Date() };
+      const welcomeMsg: Message = { id: "1", text: t('welcome'), sender: "ai", timestamp: new Date() };
       setMessages([welcomeMsg]);
       msgCount.current = 1;
 
@@ -133,6 +135,8 @@ export const ChatInterface: React.FC = () => {
     }
   }, [messages, isLoading]);
 
+  if (!mounted) return null;
+
   return (
     <div className="flex flex-col h-full w-full max-w-5xl mx-auto relative px-4">
 
@@ -144,7 +148,7 @@ export const ChatInterface: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-xl md:text-2xl font-black text-slate-900 font-display tracking-tight"
           >
-            Hello {profile.name || "Aarav"}! 👋
+            Hello {profile.name || "Citizen"}! 👋
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 10 }}

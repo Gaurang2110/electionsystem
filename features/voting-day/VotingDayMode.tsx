@@ -15,8 +15,10 @@ import {
 import { useAppStore } from "@/store/useAppStore";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 
 export const VotingDayMode: React.FC = () => {
+  const t = useTranslations('voting_day');
   const { progress, profile, setVoted, unlockBadge, isVoted } = useAppStore();
   const [showGuide, setShowGuide] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
@@ -27,10 +29,10 @@ export const VotingDayMode: React.FC = () => {
   if (!isVotingDayTriggered || isVoted) return null;
 
   const votingSteps = [
-    { title: "Verification", description: "Show your ID to the polling officer", icon: FileText },
-    { title: "Authentication", description: "Get your finger inked and sign the register", icon: ShieldCheck },
-    { title: "Ballot Selection", description: "Select your preferred candidate on the EVM", icon: Zap },
-    { title: "Final Check", description: "Wait for the beep sound and verify VVPAT", icon: CheckCircle2 }
+    { title: t('steps.step1.title'), description: t('steps.step1.desc'), icon: FileText },
+    { title: t('steps.step2.title'), description: t('steps.step2.desc'), icon: ShieldCheck },
+    { title: t('steps.step3.title'), description: t('steps.step3.desc'), icon: Zap },
+    { title: t('steps.step4.title'), description: t('steps.step4.desc'), icon: CheckCircle2 }
   ];
 
   const handleFinishVoting = () => {
@@ -61,13 +63,13 @@ export const VotingDayMode: React.FC = () => {
           >
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] animate-bounce">
-                <CheckCircle2 size={12} /> Voting is Live
+                <CheckCircle2 size={12} /> {t('live')}
               </div>
               <h1 className="text-5xl md:text-7xl font-black text-white font-display tracking-tight leading-none">
-                TODAY IS <br/> <span className="text-primary">ELECTION DAY</span>
+                {t('today_is')} <br/> <span className="text-primary">{t('election_day')}</span>
               </h1>
               <p className="text-slate-400 text-lg max-w-xl mx-auto font-medium">
-                Your readiness is {progress}%. You have everything you need to make your voice heard.
+                {t('readiness_msg', { progress })}
               </p>
             </div>
 
@@ -78,12 +80,12 @@ export const VotingDayMode: React.FC = () => {
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h3 className="text-white font-black text-xl">Your Booth</h3>
-                  <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-1">St. Xavier&apos;s School, Room 4</p>
+                  <h3 className="text-white font-black text-xl">{t('your_booth')}</h3>
+                  <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-1">{t('mock_booth')}</p>
                 </div>
                 <div className="pt-4 w-full">
                   <button className="w-full py-3 bg-white/5 rounded-xl border border-white/10 text-xs font-black uppercase tracking-widest text-white group-hover:bg-white group-hover:text-slate-900 transition-all">
-                    Navigate Now
+                    {t('navigate_now')}
                   </button>
                 </div>
               </Card>
@@ -94,12 +96,12 @@ export const VotingDayMode: React.FC = () => {
                   <FileText size={24} />
                 </div>
                 <div>
-                  <h3 className="text-white font-black text-xl">Required ID</h3>
-                  <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-1">Original Voter ID (EPIC)</p>
+                  <h3 className="text-white font-black text-xl">{t('required_id')}</h3>
+                  <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-1">{t('epic_label')}</p>
                 </div>
                 <div className="flex gap-2 pt-4">
-                  <span className="px-3 py-1 bg-white/5 rounded-lg text-[9px] font-black text-slate-400 uppercase border border-white/5">OR Aadhaar Card</span>
-                  <span className="px-3 py-1 bg-white/5 rounded-lg text-[9px] font-black text-slate-400 uppercase border border-white/5">OR PAN Card</span>
+                  <span className="px-3 py-1 bg-white/5 rounded-lg text-[9px] font-black text-slate-400 uppercase border border-white/5">{t('or_aadhar')}</span>
+                  <span className="px-3 py-1 bg-white/5 rounded-lg text-[9px] font-black text-slate-400 uppercase border border-white/5">{t('or_pan')}</span>
                 </div>
               </Card>
             </div>
@@ -109,7 +111,7 @@ export const VotingDayMode: React.FC = () => {
               className="group relative px-12 py-6 bg-primary text-white font-black text-xl uppercase tracking-widest rounded-3xl shadow-3xl shadow-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-4 overflow-hidden"
             >
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-              Start Voting Journey <ArrowRight size={24} strokeWidth={3} />
+              {t('start_journey')} <ArrowRight size={24} strokeWidth={3} />
             </button>
           </motion.div>
         ) : (
@@ -126,7 +128,7 @@ export const VotingDayMode: React.FC = () => {
                 <X size={24} />
               </button>
               <div className="text-right">
-                <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">Step {activeStep + 1} of {votingSteps.length}</span>
+                <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">{t('step_count', { current: activeStep + 1, total: votingSteps.length })}</span>
                 <div className="flex gap-1 mt-2">
                   {votingSteps.map((_, i) => (
                     <div key={i} className={cn("h-1 w-8 rounded-full transition-all", i <= activeStep ? "bg-primary" : "bg-white/10")} />
@@ -163,21 +165,21 @@ export const VotingDayMode: React.FC = () => {
                   onClick={() => setActiveStep(prev => prev + 1)}
                   className="w-full py-6 bg-white text-slate-950 font-black text-lg uppercase tracking-widest rounded-[2rem] shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
-                  Confirm & Next <ChevronRight size={20} strokeWidth={3} />
+                  {t('confirm_next')} <ChevronRight size={20} strokeWidth={3} />
                 </button>
               ) : (
                 <button 
                   onClick={handleFinishVoting}
                   className="w-full py-6 bg-emerald-500 text-white font-black text-lg uppercase tracking-widest rounded-[2rem] shadow-xl shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
-                  I Have Voted <CheckCircle2 size={24} strokeWidth={3} />
+                  {t('i_voted')} <CheckCircle2 size={24} strokeWidth={3} />
                 </button>
               )}
               
               <div className="flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-2xl">
                 <Info size={16} className="text-primary shrink-0" />
                 <p className="text-[10px] text-slate-400 font-bold leading-relaxed">
-                  Stuck? Look for the presiding officer in the room or use the help button in the corner.
+                  {t('stuck_help')}
                 </p>
               </div>
             </div>

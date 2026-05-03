@@ -2,7 +2,8 @@ import * as React from "react";
 import { cn } from "@/utils/cn";
 import { motion, HTMLMotionProps } from "framer-motion";
 
-export interface CardProps extends HTMLMotionProps<"div"> {
+export interface CardProps extends Omit<HTMLMotionProps<"div">, "children"> {
+  children?: React.ReactNode;
   hover?: boolean;
   glass?: boolean;
   variant?: "default" | "premium" | "glass" | "flat";

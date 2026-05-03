@@ -3,7 +3,7 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/Card";
 import { useTranslations } from "next-intl";
-import { Newspaper, Bell, Info, ArrowRight, Filter, Bookmark, Share2 } from "lucide-react";
+import { Newspaper, Bell, Info, ArrowRight, Filter, Bookmark, Share2, Calendar } from "lucide-react";
 import updatesData from "@/data/updates.json";
 import { cn } from "@/utils/cn";
 

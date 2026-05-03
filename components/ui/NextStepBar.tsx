@@ -12,7 +12,7 @@ interface NextStepBarProps {
 }
 
 export const NextStepBar: React.FC<NextStepBarProps> = ({ className }) => {
-  const { getNextBestAction, mounted } = useAppStore();
+  const { getNextBestAction } = useAppStore();
   const router = useRouter();
   const [isMounted, setIsMounted] = React.useState(false);
 

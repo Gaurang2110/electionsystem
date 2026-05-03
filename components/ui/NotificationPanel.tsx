@@ -43,7 +43,7 @@ export const NotificationPanel: React.FC<{ isOpen: boolean; onClose: () => void 
                 <div className="flex flex-col">
                   <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest leading-none">{t('title')}</h3>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1">
-                    {unreadCount > 0 ? `${unreadCount} new alerts` : 'All caught up'}
+                    {unreadCount > 0 ? t('new_alerts', { count: unreadCount }) : t('all_caught_up')}
                   </p>
                 </div>
               </div>
@@ -82,7 +82,7 @@ export const NotificationPanel: React.FC<{ isOpen: boolean; onClose: () => void 
                     </div>
                     <div className="space-y-1">
                       <p className="text-slate-900 font-black text-sm">{t('empty')}</p>
-                      <p className="text-slate-400 text-[11px] font-bold uppercase tracking-tight">Stay tuned for election alerts</p>
+                      <p className="text-slate-400 text-[11px] font-bold uppercase tracking-tight">{t('empty_tip')}</p>
                     </div>
                   </motion.div>
                 ) : (
@@ -151,7 +151,7 @@ export const NotificationPanel: React.FC<{ isOpen: boolean; onClose: () => void 
             
             {notifications.length > 0 && (
               <div className="p-4 bg-slate-50/80 backdrop-blur-md border-t border-slate-100 text-center">
-                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">End of notifications</p>
+                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">{t('end_of_notifications')}</p>
               </div>
             )}
           </motion.div>

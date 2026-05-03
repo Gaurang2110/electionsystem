@@ -16,7 +16,7 @@ export const VoiceInput: React.FC<VoiceInputProps> = ({ onTranscript, locale, di
   const recognitionRef = React.useRef<any>(null);
 
   React.useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     
     if (!SpeechRecognition) {
       setIsSupported(false);

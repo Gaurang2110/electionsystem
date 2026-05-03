@@ -14,15 +14,22 @@ const CANDIDATES = [
   { id: 'c4', name: "Progressive Union", symbol: "🚀" },
 ];
 
+import { useTranslations } from "next-intl";
+
 export const VirtualEVMSim: React.FC = () => {
+  const t = useTranslations('laboratory');
   const [step, setStep] = React.useState<'idle' | 'voting' | 'vvpat' | 'complete'>('idle');
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
   const [vvpatShown, setVvpatShown] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleVote = (id: string) => {
     if (step !== 'voting') return;
     setSelectedId(id);
-    // Play sound simulation? (Optional)
     setStep('vvpat');
     
     // Auto-advance after VVPAT verification
@@ -41,6 +48,10 @@ export const VirtualEVMSim: React.FC = () => {
     setVvpatShown(false);
   };
 
+  const getCandidateName = (id: string) => t(`candidates.${id}`);
+
+  if (!mounted) return null;
+
   return (
     <div className="space-y-8">
       <Card className="p-10 bg-slate-900 border-none shadow-2xl rounded-[3rem] overflow-hidden relative">
@@ -56,9 +67,9 @@ export const VirtualEVMSim: React.FC = () => {
                 <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
                    <ShieldCheck size={20} />
                 </div>
-                <h3 className="text-2xl font-black text-white font-display uppercase tracking-tight">Virtual EVM UNIT</h3>
+                <h3 className="text-2xl font-black text-white font-display uppercase tracking-tight">{t('title')}</h3>
               </div>
-              <p className="text-slate-400 font-medium text-sm">Follow the red light to cast your ballot.</p>
+              <p className="text-slate-400 font-medium text-sm">{t('cast_vote')}</p>
             </div>
 
             <div className="bg-slate-800/50 p-6 rounded-[2rem] border border-white/5 space-y-4">
@@ -66,7 +77,7 @@ export const VirtualEVMSim: React.FC = () => {
                  <div key={c.id} className="flex items-center gap-4">
                    <div className="flex-1 p-4 bg-slate-900 rounded-xl border border-white/10 flex items-center justify-between">
                      <span className="text-xl">{c.symbol}</span>
-                     <span className="text-xs font-black text-slate-300 uppercase tracking-wider">{c.name}</span>
+                     <span className="text-xs font-black text-slate-300 uppercase tracking-wider">{getCandidateName(c.id)}</span>
                    </div>
                    <motion.button
                      whileTap={{ scale: 0.9 }}
@@ -91,7 +102,7 @@ export const VirtualEVMSim: React.FC = () => {
 
             {step === 'idle' && (
               <Button size="lg" className="w-full h-16 rounded-2xl text-base" onClick={() => setStep('voting')}>
-                Activate Machine
+                {t('ready')}
               </Button>
             )}
           </div>
@@ -110,13 +121,13 @@ export const VirtualEVMSim: React.FC = () => {
                       className="w-full aspect-[4/5] bg-white rounded-lg shadow-inner p-6 flex flex-col items-center justify-between relative"
                     >
                       <div className="w-full border-b border-dashed border-slate-200 pb-2 flex justify-between">
-                        <span className="text-[6px] font-black uppercase text-slate-400">VVPAT SLIP</span>
-                        <span className="text-[6px] font-black uppercase text-slate-400">2026 ELECTION</span>
+                        <span className="text-[6px] font-black uppercase text-slate-400">{t('slip_header')}</span>
+                        <span className="text-[6px] font-black uppercase text-slate-400">{t('election_year')}</span>
                       </div>
                       
                       <div className="text-4xl">{CANDIDATES.find(c => c.id === selectedId)?.symbol}</div>
                       <div className="text-[10px] font-black text-slate-900 uppercase tracking-tighter">
-                        {CANDIDATES.find(c => c.id === selectedId)?.name}
+                        {selectedId && getCandidateName(selectedId)}
                       </div>
                       
                       <div className="w-full h-4 bg-slate-100 rounded-sm overflow-hidden flex items-center justify-center">
@@ -146,7 +157,7 @@ export const VirtualEVMSim: React.FC = () => {
                     >
                       <Info size={40} className="text-slate-600 mx-auto" />
                       <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-relaxed">
-                        The VVPAT screen will display your printed slip for 7 seconds for verification.
+                        {t('audit_desc')}
                       </p>
                     </motion.div>
                   )}
@@ -162,14 +173,14 @@ export const VirtualEVMSim: React.FC = () => {
                          <ShieldCheck size={32} />
                       </div>
                       <div className="space-y-2">
-                        <h4 className="text-white font-black text-xs uppercase tracking-widest">Verification Success</h4>
+                        <h4 className="text-white font-black text-xs uppercase tracking-widest">{t('voted')}</h4>
                         <p className="text-slate-400 text-[9px] font-medium leading-relaxed">
-                          Your vote was correctly recorded and verified by the VVPAT system.
+                          {t('audit_desc')}
                         </p>
                       </div>
                       <Button variant="ghost" size="sm" onClick={reset} className="text-primary text-[10px] font-black uppercase tracking-widest">
                         <RefreshCcw size={12} className="mr-2" />
-                        Try Again
+                        {t('try_again')}
                       </Button>
                     </motion.div>
                   )}
@@ -181,7 +192,7 @@ export const VirtualEVMSim: React.FC = () => {
                  <div className="w-1 h-1 rounded-full bg-slate-700" />
               </div>
             </div>
-            <p className="mt-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">VVPAT UNIT MODEL V3</p>
+            <p className="mt-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">{t('vvpat_model')}</p>
           </div>
         </div>
       </Card>
@@ -189,9 +200,9 @@ export const VirtualEVMSim: React.FC = () => {
       {/* Info Sections */}
       <div className="grid md:grid-cols-3 gap-6">
         {[
-          { title: "Control Unit", desc: "The brain of the EVM that resides with the Presiding Officer.", icon: Zap },
-          { title: "Ballot Unit", desc: "Where the voter presses the button for their choice.", icon: ChevronRight },
-          { title: "VVPAT", desc: "Voter Verifiable Paper Audit Trail for transparency.", icon: ShieldCheck },
+          { title: t('info.cu_title'), desc: t('info.cu_desc'), icon: Zap },
+          { title: t('info.bu_title'), desc: t('info.bu_desc'), icon: ChevronRight },
+          { title: t('info.vvpat_title'), desc: t('info.vvpat_desc'), icon: ShieldCheck },
         ].map((info, i) => (
           <Card key={i} className="p-6 bg-white border-none shadow-sm flex items-start gap-4">
             <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-900 shrink-0">

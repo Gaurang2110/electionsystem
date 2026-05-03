@@ -147,9 +147,9 @@ export const MythFactScreen: React.FC = () => {
           className="mt-12 p-8 rounded-[2.5rem] bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 relative overflow-hidden group"
         >
           <div className="relative z-10">
-            <h4 className="text-white font-bold text-lg mb-2">Verify Before You Share</h4>
+            <h4 className="text-white font-bold text-lg mb-2">{t('verify_title')}</h4>
             <p className="text-slate-400 text-sm leading-relaxed max-w-lg">
-              Always check information on the official Election Commission of India website or app before believing or sharing rumors.
+              {t('verify_desc')}
             </p>
           </div>
           <div className="absolute right-0 bottom-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">

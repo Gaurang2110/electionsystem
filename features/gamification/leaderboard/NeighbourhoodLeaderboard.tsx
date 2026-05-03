@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useAppStore } from "@/store/useAppStore";
 import { generateMockLeaderboard } from "@/lib/gamificationService";
 import { Card } from "@/components/ui/Card";
@@ -8,6 +9,7 @@ import { cn } from "@/utils/cn";
 import { Users, Crown, Medal, TrendingUp } from "lucide-react";
 
 export const NeighbourhoodLeaderboard: React.FC = () => {
+  const t = useTranslations('sidebar');
   const { gamification, userName, profile } = useAppStore();
   const [leaderboard, setLeaderboard] = React.useState<any[]>([]);
 
@@ -21,12 +23,12 @@ export const NeighbourhoodLeaderboard: React.FC = () => {
     <Card variant="glass" className="p-5 bg-white/80 border-white/50 shadow-premium overflow-hidden relative">
       <div className="flex items-center justify-between mb-5">
         <div className="space-y-0.5">
-          <h3 className="text-sm font-black text-slate-900 font-display uppercase tracking-tight">Leaderboard</h3>
-          <p className="text-slate-400 text-[8px] font-bold uppercase tracking-[0.1em]">Your area activity</p>
+          <h3 className="text-sm font-black text-slate-900 font-display uppercase tracking-tight">{t('leaderboard.title')}</h3>
+          <p className="text-slate-400 text-[8px] font-bold uppercase tracking-[0.1em]">{t('leaderboard.subtitle')}</p>
         </div>
         <div className="px-2 py-1 bg-primary/5 border border-primary/10 rounded-lg flex items-center gap-1.5">
           <TrendingUp size={10} className="text-primary" />
-          <span className="text-[9px] font-black text-primary uppercase tracking-widest">Rank #{userRank || '10+'}</span>
+          <span className="text-[9px] font-black text-primary uppercase tracking-widest">{t('leaderboard.rank', { rank: userRank || '10+' })}</span>
         </div>
       </div>
 
@@ -67,7 +69,7 @@ export const NeighbourhoodLeaderboard: React.FC = () => {
                   </h4>
                   <div className="flex items-center gap-1 mt-0.5">
                     <div className="w-1 h-1 rounded-full bg-emerald-500" />
-                    <span className="text-[7px] text-slate-400 font-bold uppercase tracking-widest">Online</span>
+                    <span className="text-[7px] text-slate-400 font-bold uppercase tracking-widest">{t('leaderboard.online')}</span>
                   </div>
                 </div>
               </div>
@@ -79,7 +81,7 @@ export const NeighbourhoodLeaderboard: React.FC = () => {
                 )}>
                   {user.points}
                 </span>
-                <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Pts</span>
+                <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">{t('pts')}</span>
               </div>
             </motion.div>
           );
@@ -89,7 +91,9 @@ export const NeighbourhoodLeaderboard: React.FC = () => {
       <div className="mt-5 p-2.5 bg-primary/5 rounded-xl border border-primary/5 flex items-center justify-center gap-2">
         <Medal className="text-amber-500" size={12} />
         <p className="text-[8px] text-slate-500 font-bold uppercase tracking-widest text-center">
-          Complete <span className="text-primary">Quests</span> to climb ranks
+          {t.rich('leaderboard.motivation', {
+            quest: (chunks) => <span className="text-primary">{chunks}</span>
+          })}
         </p>
       </div>
     </Card>

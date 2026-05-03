@@ -156,5 +156,17 @@ export const systemOrchestrator = {
     const store = useAppStore.getState();
     store.incrementEngagement(10);
     store.logEvent('constituency_insights_viewed');
+  },
+
+  /**
+   * 10. CANDIDATE MATCH EVENTS
+   */
+  onCandidateMatchComplete: () => {
+    const store = useAppStore.getState();
+    store.incrementEngagement(25);
+    store.addPoints(40);
+    store.unlockBadge('badge_issue_informed');
+    store.calculateProgress();
+    store.logEvent('candidate_match_complete');
   }
 };

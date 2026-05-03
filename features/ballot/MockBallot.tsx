@@ -10,10 +10,22 @@ import { systemOrchestrator } from "@/lib/systemOrchestrator";
 import { cn } from "@/utils/cn";
 import { NextStepBar } from "@/components/ui/NextStepBar";
 
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+
 export const MockBallot: React.FC = () => {
-  const { updateQuestStep, unlockBadge, addPoints } = useAppStore();
+  const { completedSteps } = useAppStore();
+  const t = useTranslations('ballot');
   const [selected, setSelected] = React.useState<string | null>(null);
   const [isVoted, setIsVoted] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+    if (completedSteps.includes('ballot')) {
+      setIsVoted(true);
+    }
+  }, [completedSteps]);
 
   const handleVote = () => {
     if (selected) {
@@ -22,12 +34,14 @@ export const MockBallot: React.FC = () => {
     }
   };
 
+  if (!mounted) return null;
+
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
       {/* Header Section */}
       <div className="flex flex-col gap-2">
-        <h1 className="text-4xl font-black text-slate-900 font-display">Mock Ballot Practice</h1>
-        <p className="text-slate-500 font-medium">Practice casting your preference. All data is local, private, and anonymous.</p>
+        <h1 className="text-4xl font-black text-slate-900 font-display">{t('title')}</h1>
+        <p className="text-slate-500 font-medium">{t('subtitle')}</p>
       </div>
 
       <Card className="p-8 md:p-12 bg-white border-none shadow-2xl shadow-slate-200/50 rounded-[2.5rem] relative overflow-hidden">
@@ -42,8 +56,8 @@ export const MockBallot: React.FC = () => {
               <ShieldCheck size={32} />
             </div>
             <div>
-              <h3 className="text-xl font-black text-slate-900 font-display">EVM Simulation</h3>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Verify the voting process</p>
+              <h3 className="text-xl font-black text-slate-900 font-display">{t('evm_simulation')}</h3>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('verify_process')}</p>
             </div>
           </div>
 
@@ -74,8 +88,8 @@ export const MockBallot: React.FC = () => {
                     {candidate.symbol}
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 text-lg leading-tight">{candidate.name}</h4>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{candidate.vision}</p>
+                    <h4 className="font-black text-slate-900 text-lg leading-tight">{t(`candidates.${candidate.id}.name`)}</h4>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{t(`candidates.${candidate.id}.vision`)}</p>
                   </div>
                 </div>
                 <div className={cn(
@@ -100,7 +114,7 @@ export const MockBallot: React.FC = () => {
                   onClick={handleVote}
                   className="w-full h-20 bg-slate-900 text-white font-black text-lg uppercase tracking-[0.2em] rounded-3xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-slate-900/20 group"
                 >
-                  Submit Practice Vote
+                  {t('submit')}
                   <ArrowRight size={22} className="ml-3 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.div>
@@ -117,26 +131,26 @@ export const MockBallot: React.FC = () => {
                     <Shield size={40} />
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-3xl font-black text-slate-900 font-display">Neutrality Verified</h4>
+                    <h4 className="text-3xl font-black text-slate-900 font-display">{t('neutrality_verified')}</h4>
                     <p className="text-slate-500 font-medium max-w-md mx-auto">
-                      Excellent! You've successfully practiced the voting process. This helps build the muscle memory needed for the real election day.
+                      {t('practice_success')}
                     </p>
                   </div>
                   
                   <div className="flex flex-wrap items-center justify-center gap-4 py-4">
                     <div className="px-5 py-3 rounded-2xl bg-white shadow-sm flex items-center gap-2">
                       <Star size={16} className="text-amber-500 fill-amber-500" />
-                      <span className="text-sm font-black text-slate-900">+30 <span className="text-[10px] text-slate-400 uppercase">Points</span></span>
+                      <span className="text-sm font-black text-slate-900">{t('points_earned')}</span>
                     </div>
                     <div className="px-5 py-3 rounded-2xl bg-white shadow-sm flex items-center gap-2">
                       <Star size={16} className="text-primary fill-primary" />
-                      <span className="text-sm font-black text-slate-900">Expert <span className="text-[10px] text-slate-400 uppercase">Badge</span></span>
+                      <span className="text-sm font-black text-slate-900">{t('badge_earned')}</span>
                     </div>
                   </div>
   
                   <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase text-emerald-600 tracking-widest bg-emerald-500/10 py-3 rounded-xl">
                     <Info size={14} />
-                    Choice made based on democratic principles.
+                    {t('principles_note')}
                   </div>
                 </div>
 
@@ -154,9 +168,9 @@ export const MockBallot: React.FC = () => {
             <Info size={20} />
           </div>
           <div className="space-y-1">
-            <h4 className="font-black text-slate-900 uppercase tracking-widest text-xs">Why practice?</h4>
+            <h4 className="font-black text-slate-900 uppercase tracking-widest text-xs">{t('why_practice')}</h4>
             <p className="text-xs text-slate-500 font-medium leading-relaxed">
-              Familiarizing yourself with the ballot layout reduces anxiety and potential errors on election day.
+              {t('why_practice_desc')}
             </p>
           </div>
         </Card>
@@ -165,9 +179,9 @@ export const MockBallot: React.FC = () => {
             <ShieldCheck size={20} />
           </div>
           <div className="space-y-1">
-            <h4 className="font-black text-slate-900 uppercase tracking-widest text-xs">Voter Secrecy</h4>
+            <h4 className="font-black text-slate-900 uppercase tracking-widest text-xs">{t('voter_secrecy')}</h4>
             <p className="text-xs text-slate-500 font-medium leading-relaxed">
-              Your practice choices are never stored or shared. This is a local simulation for your benefit.
+              {t('voter_secrecy_desc')}
             </p>
           </div>
         </Card>

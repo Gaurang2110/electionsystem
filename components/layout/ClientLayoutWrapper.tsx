@@ -83,7 +83,7 @@ export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ c
 
   return (
     <div className={cn(
-      "flex-1 ml-[240px] flex flex-col min-h-screen relative transition-all duration-300",
+      "flex-1 ml-0 lg:ml-[260px] flex flex-col min-h-screen relative transition-all duration-300",
       isAssistant && "h-screen overflow-hidden",
       isSimpleMode && "text-lg simple-mode",
       isHighContrast && "high-contrast bg-black text-white"
@@ -114,12 +114,12 @@ export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ c
           animate={{ opacity: 1, scale: 1, y: 0 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="fixed bottom-8 right-8 z-[200]"
+          className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[200]"
         >
           <ProactiveHint />
           <div onClick={() => systemOrchestrator.openAssistant({ query: getContextualPrompt() })}>
-            <div className="flex items-center gap-4 pl-3 pr-6 py-3 rounded-full bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.15)] group cursor-pointer hover:bg-white transition-all">
-              <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-200 group-hover:rotate-12 transition-transform">
+            <div className="flex items-center gap-3 sm:gap-4 pl-2 sm:pl-3 pr-4 sm:pr-6 py-2 sm:py-3 rounded-full bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.15)] group cursor-pointer hover:bg-white transition-all">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-200 group-hover:rotate-12 transition-transform">
                 <motion.div
                   animate={{ rotate: [0, -10, 10, 0] }}
                   transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}

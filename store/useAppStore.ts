@@ -69,8 +69,10 @@ interface UserState {
   isNotificationOpen: boolean;
   analytics: { event: string; timestamp: number }[];
   leaderboardRank: number;
+  isSidebarOpen: boolean;
   
   // Actions
+  setSidebarOpen: (open: boolean) => void;
   setNotificationOpen: (open: boolean) => void;
   getNextBestAction: () => { id: string; label: string; link: string; impact: string };
   getMissingSteps: () => { id: string; label: string; link: string }[];
@@ -153,6 +155,9 @@ export const useAppStore = create<UserState>()(
       isNotificationOpen: false,
       analytics: [],
       leaderboardRank: 42, // Default for demo
+      isSidebarOpen: false,
+
+      setSidebarOpen: (open) => set({ isSidebarOpen: open }),
 
       setNotificationOpen: (open) => set({ isNotificationOpen: open }),
       getNextBestAction: () => {

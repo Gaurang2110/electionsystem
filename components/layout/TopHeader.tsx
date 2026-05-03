@@ -13,7 +13,9 @@ import {
   Milestone,
   LogOut,
   Settings,
-  Command
+  Command,
+  Menu,
+  X
 } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import { systemOrchestrator } from "@/lib/systemOrchestrator";
@@ -257,13 +259,21 @@ const ProfileDropdown: React.FC = () => {
 
 // --- MAIN TOP HEADER ---
 export const TopHeader: React.FC = () => {
-  const { notifications, setNotificationOpen } = useAppStore();
+  const { notifications, setNotificationOpen, isSidebarOpen, setSidebarOpen } = useAppStore();
   const unreadCount = notifications.filter(n => !n.isRead).length;
   const pathname = usePathname();
   const router = useRouter();
 
   return (
     <header className="sticky top-0 z-[100] w-full h-[72px] bg-white/70 backdrop-blur-[16px] border-b border-black/5 flex items-center px-4 md:px-8 gap-4 md:gap-8">
+      {/* Mobile Menu Toggle */}
+      <button
+        onClick={() => setSidebarOpen(!isSidebarOpen)}
+        className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-50 rounded-xl transition-all"
+      >
+        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
       {/* Brand / Logo Section */}
       <div className="flex items-center gap-4 min-w-fit">
         <div className="w-10 h-10 bg-primary rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0">

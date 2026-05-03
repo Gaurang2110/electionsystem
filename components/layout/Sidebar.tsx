@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/utils/cn";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/store/useAppStore";
 import { EngagementSection } from "./sidebar/EngagementSection";
 
@@ -40,9 +40,11 @@ const NavItem = ({ item, label, isActive, isHovered, onHover }: {
   isHovered: boolean,
   onHover: (id: string | null) => void
 }) => {
+  const setSidebarOpen = useAppStore(s => s.setSidebarOpen);
   return (
     <Link
       href={item.href}
+      onClick={() => setSidebarOpen(false)}
       onMouseEnter={() => onHover(item.id)}
       onMouseLeave={() => onHover(null)}
       className="block"
@@ -104,6 +106,8 @@ export const Sidebar: React.FC = () => {
   const tChat = useTranslations("chat.suggestions");
   const profile = useAppStore(s => s.profile);
   const progress = useAppStore(s => s.progress);
+  const isSidebarOpen = useAppStore(s => s.isSidebarOpen);
+  const setSidebarOpen = useAppStore(s => s.setSidebarOpen);
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
   const [mounted, setMounted] = React.useState(false);
 
@@ -111,10 +115,25 @@ export const Sidebar: React.FC = () => {
     setMounted(true);
   }, []);
 
-
-
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-[260px] bg-white/70 backdrop-blur-xl flex flex-col z-[100] shadow-[10px_0_40px_rgba(0,0,0,0.03)] border-r border-slate-200/50 overflow-hidden">
+    <>
+      {/* Mobile Overlay */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSidebarOpen(false)}
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[90] lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <aside className={cn(
+        "fixed left-0 top-0 bottom-0 w-[260px] bg-white/70 backdrop-blur-xl flex flex-col z-[100] shadow-[10px_0_40px_rgba(0,0,0,0.03)] border-r border-slate-200/50 overflow-hidden transition-transform duration-500 ease-in-out",
+        isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      )}>
       {/* Dynamic Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-indigo-50/20 pointer-events-none" />
 
@@ -215,5 +234,6 @@ export const Sidebar: React.FC = () => {
 
       </div>
     </aside>
+    </>
   );
 };

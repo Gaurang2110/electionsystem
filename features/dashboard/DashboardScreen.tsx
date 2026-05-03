@@ -94,10 +94,10 @@ export const DashboardScreen: React.FC = () => {
       </motion.div>
 
       {/* TWO COLUMN GRID LAYOUT */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
 
         {/* LEFT COLUMN: MAIN CONTENT (SPAN 8) */}
-        <div className="lg:col-span-8 space-y-8">
+        <div className="xl:col-span-8 space-y-8">
 
           {/* HERO ROW */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -109,8 +109,10 @@ export const DashboardScreen: React.FC = () => {
 
                 <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 relative z-10">Your Voting Readiness</h3>
 
-                <div className="flex items-center justify-between relative z-10">
-                  <Gauge value={progress} size={140} strokeWidth={12} subLabel="Almost There!" />
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-8 relative z-10">
+                  <div className="flex-shrink-0">
+                    <Gauge value={progress} size={140} strokeWidth={12} subLabel="Almost There!" />
+                  </div>
 
                   <div className="text-right">
                     <p className="text-xs text-slate-400 font-medium mb-1">Keep going!</p>
@@ -174,7 +176,7 @@ export const DashboardScreen: React.FC = () => {
           {/* MISSION CONTROL (QUICK ACTIONS) */}
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] px-2">Mission Control</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {[
                 { id: "map", label: "Booth Map", icon: MapIcon, color: "text-emerald-500 bg-emerald-50 border-emerald-100", desc: "Find area" },
                 { id: "docs", label: "Documents", icon: FileText, color: "text-orange-500 bg-orange-50 border-orange-100", desc: "Verify docs" },
@@ -211,7 +213,7 @@ export const DashboardScreen: React.FC = () => {
         </div>
 
         {/* RIGHT COLUMN: WIDGETS (SPAN 4) */}
-        <div className="lg:col-span-4 space-y-8">
+        <div className="xl:col-span-4 space-y-8">
           {/* LEADERBOARD WIDGET */}
           <motion.div variants={itemVariants}>
             <NeighbourhoodLeaderboard />

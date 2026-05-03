@@ -62,15 +62,50 @@
   --shadow-glow: 0 0 20px 0 rgba(99, 102, 241, 0.15);
 }
 
-html {
-  font-size: 14px;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply antialiased;
+    font-size: 14px;
+    overflow-x: hidden;
+    @media (min-width: 640px) {
+      font-size: 15px;
+    }
+    @media (min-width: 1024px) {
+      font-size: 16px;
+    }
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    @apply antialiased overflow-x-hidden;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+  }
+
+  /* Full-width buttons on mobile */
+  @media (max-width: 768px) {
+    button:not(.icon-button) {
+      width: 100%;
+    }
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
-  overflow-x: hidden;
+@layer components {
+  .responsive-container {
+    @apply w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12;
+  }
+
+  /* Leaflet Map Fix */
+  .leaflet-container {
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1;
+  }
 }
 
 /* Better Scrollbar */

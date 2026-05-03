@@ -6,6 +6,7 @@ import { Check, Info, ShieldCheck, Vote, Star, ArrowRight, Shield } from "lucide
 import candidates from "@/data/candidates.json";
 import { useAppStore } from "@/store/useAppStore";
 import { Button } from "@/components/ui/Button";
+import { systemOrchestrator } from "@/lib/systemOrchestrator";
 import { cn } from "@/utils/cn";
 
 export const MockBallot: React.FC = () => {
@@ -16,10 +17,7 @@ export const MockBallot: React.FC = () => {
   const handleVote = () => {
     if (selected) {
       setIsVoted(true);
-      // Mark quest step as complete
-      updateQuestStep('ballot', true);
-      unlockBadge('badge_informed_voter');
-      addPoints(30);
+      systemOrchestrator.onBallotSubmit(selected);
     }
   };
 

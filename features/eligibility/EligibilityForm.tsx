@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useAppStore } from "@/store/useAppStore";
-import { CheckCircle2, XCircle, ChevronRight, ChevronLeft, MapPin, UserCheck, ShieldCheck, GraduationCap, Volume2, Sparkles, ArrowRight, RefreshCcw, MessageSquare } from "lucide-react";
+import { CheckCircle2, XCircle, ChevronRight, ChevronLeft, MapPin, UserCheck, ShieldCheck, GraduationCap, Volume2, Sparkles, ArrowRight, RefreshCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { SpeakerButton } from "@/components/ui/SpeakerButton";
 import { cn } from "@/utils/cn";

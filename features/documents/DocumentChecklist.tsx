@@ -18,8 +18,7 @@ import {
   ExternalLink,
   UploadCloud,
   Eye,
-  Info,
-  MessageSquare
+  Info
 } from "lucide-react";
 import { systemOrchestrator } from "@/lib/systemOrchestrator";
 import { Card } from "@/components/ui/Card";
@@ -90,7 +89,7 @@ export const DocumentChecklist: React.FC = () => {
                       transition={{ duration: 1.5, ease: "circOut" }}
                     />
                   </svg>
-                  <div className="absolute  right-12 top-17 -translate-y-1/2 flex flex-col items-center justify-center text-white">
+                  <div className="absolute  right-10 top-17 -translate-y-1/2 flex flex-col items-center justify-center text-white">
                     <span className="text-xl font-black">{percentage}%</span>
                   </div>
                 </div>

@@ -20,7 +20,6 @@ import {
   Sparkles,
   Lock,
   ExternalLink,
-  MessageSquare,
   History,
   Target,
   Eye,

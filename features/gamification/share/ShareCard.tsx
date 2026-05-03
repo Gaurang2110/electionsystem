@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { Share2, Download, CheckCircle2, Sparkles, Heart, Users, Shield } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { getBadgeById } from "@/lib/gamificationService";
+import { systemOrchestrator } from "@/lib/systemOrchestrator";
 import { Button } from "@/components/ui/Button";
 
 export const ShareCard: React.FC = () => {
@@ -111,35 +112,56 @@ export const ShareCard: React.FC = () => {
   };
 
   const handleShare = async () => {
+    setIsGenerating(true);
     const dataUrl = await generateCard();
-    if (!dataUrl) return;
+    if (!dataUrl) {
+      setIsGenerating(false);
+      return;
+    }
 
     try {
       if (navigator.share) {
-        const blob = await (await fetch(dataUrl)).blob();
-        const file = new File([blob], "readiness.png", { type: "image/png" });
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        const file = new File([blob], "election_readiness.png", { type: "image/png" });
+        
         await navigator.share({
           title: "My Election Readiness",
           text: `I'm ${progress}% ready for the upcoming elections! Join me on Civic AI and prepare for your vote.`,
           files: [file],
         });
+        
+        setIsShared(true);
+        systemOrchestrator.onShare();
       } else {
-        const link = document.createElement("a");
-        link.download = "election-readiness.png";
-        link.href = dataUrl;
-        link.click();
+        // Fallback to download if share not supported
+        handleDownload();
       }
-      
-      setIsShared(true);
-      incrementEngagement(50); // Bonus for community impact
-      
-      const { updateQuestStep, unlockBadge } = useAppStore.getState();
-      updateQuestStep('share', true);
-      unlockBadge('badge_community_hero');
-
     } catch (error) {
       console.error("Share failed:", error);
+    } finally {
+      setIsGenerating(false);
     }
+  };
+
+  const handleDownload = async () => {
+    setIsGenerating(true);
+    const dataUrl = await generateCard();
+    if (!dataUrl) {
+      setIsGenerating(false);
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.download = `readiness_report_${userName || 'citizen'}.png`;
+    link.href = dataUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    setIsShared(true);
+    systemOrchestrator.onShare();
+    setIsGenerating(false);
   };
 
   return (
@@ -168,7 +190,7 @@ export const ShareCard: React.FC = () => {
                 <div className="flex justify-between items-start">
                   <div className="space-y-1">
                     <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Civic AI Report</p>
-                    <h3 className="text-xl font-black text-slate-900 uppercase leading-none">{userName || "CITIZEN"}</h3>
+                    <h3 className="text-xl font-black text-slate-900 uppercase leading-none">{profile.name || "CITIZEN"}</h3>
                   </div>
                   <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-primary">
                     <Shield size={20} />
@@ -222,7 +244,8 @@ export const ShareCard: React.FC = () => {
               <Button 
                 variant="outline"
                 size="lg"
-                onClick={handleShare}
+                onClick={handleDownload}
+                disabled={isGenerating}
                 className="h-16 rounded-2xl border-2 border-slate-100 bg-white hover:bg-slate-50"
               >
                 Download PNG

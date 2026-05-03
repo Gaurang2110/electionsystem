@@ -4,7 +4,7 @@ import {
   LayoutDashboard,
   Compass,
   Map as MapIcon,
-  MessageSquare,
+  HelpCircle,
   ShieldCheck,
   FileText,
   FlaskConical,
@@ -25,7 +25,7 @@ const MENU_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/" },
   { id: "journey", label: "Journey", icon: Compass, href: "/journey" },
   { id: "map", label: "Booth Map", icon: MapIcon, href: "/map" },
-  { id: "assistant", label: "AI Assistant", icon: MessageSquare, href: "/assistant" },
+  { id: "assistant", label: "AI Assistant", icon: HelpCircle, href: "/assistant" },
   { id: "eligibility", label: "Eligibility", icon: ShieldCheck, href: "/eligibility" },
   { id: "documents", label: "Documents", icon: FileText, href: "/documents" },
   { id: "laboratory", label: "Laboratory", icon: FlaskConical, href: "/laboratory" },
@@ -95,7 +95,13 @@ const NavItem = ({ item, isActive, isHovered, onHover }: {
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const { profile, progress } = useAppStore();
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleVoiceTrigger = () => {
     // In a real app, this would trigger the system orchestrator
@@ -133,6 +139,34 @@ export const Sidebar: React.FC = () => {
             <p className="text-[10px] font-black text-primary uppercase tracking-[0.25em] mt-1 opacity-70">Empowering Democracy</p>
           </div>
         </div>
+      </div>
+
+      {/* User Profile Snapshot */}
+      <div className="px-4 py-2 relative z-20">
+        <motion.div 
+          whileHover={{ x: 4 }}
+          className="p-4 rounded-[2rem] bg-slate-900 text-white relative overflow-hidden group cursor-pointer"
+          onClick={() => router.push('/profile' as any)}
+        >
+          <div className="absolute top-0 right-0 p-4 opacity-10 rotate-12 group-hover:rotate-45 transition-transform duration-1000">
+            <User size={64} />
+          </div>
+          <div className="flex items-center gap-4 relative z-10">
+            <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-inner">
+              <User size={24} className="text-primary" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-0.5">Active Citizen</p>
+              <h4 className="font-black text-sm truncate uppercase tracking-tight">
+                {(!mounted) ? "..." : (profile.name || "Citizen")}
+              </h4>
+              <div className="flex items-center gap-1.5 mt-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{progress}% Ready</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* Main Navigation */}

@@ -5,17 +5,35 @@ import { GamificationFlow } from "./gamificationFlow";
  * CENTRAL SYSTEM ORCHESTRATOR
  * This module acts as the "Air Traffic Control" for the Civic AI system.
  * It listens to user actions and orchestrates updates across state, 
- * gamification, and predictive readiness without holding business logic itself.
+ * gamification, and predictive readiness.
  */
 
 export const systemOrchestrator = {
   /**
-   * Triggered when a user completes the eligibility verification form.
+   * 1. JOURNEY & QUEST EVENTS
+   */
+  onStepComplete: (stepId: string) => {
+    const store = useAppStore.getState();
+    console.log(`[ORCHESTRATOR] Step '${stepId}' complete.`);
+    
+    // 1. Sync with legacy completedSteps if missing
+    if (!store.completedSteps.includes(stepId)) {
+      store.toggleStep(stepId);
+    }
+
+    // 2. Pass to gamification flow
+    GamificationFlow.onStepComplete(stepId);
+    
+    // 3. Sync readiness
+    store.calculateProgress();
+  },
+
+  /**
+   * 2. ELIGIBILITY EVENTS
    */
   onEligibilityCheck: (data: { age: number; isIndian: boolean; state: string; isRegistered: boolean }) => {
     const store = useAppStore.getState();
     
-    // 1. Update Core Profile & Eligibility State
     store.setEligibility({
       age: data.age,
       isIndian: data.isIndian,
@@ -23,129 +41,101 @@ export const systemOrchestrator = {
       isRegistered: data.isRegistered
     });
 
-    // 2. Recalculate Global Readiness Score
     store.calculateProgress();
 
-    // 3. Trigger Gamification Logic if newly registered
     if (data.isRegistered) {
-      GamificationFlow.onStepComplete('register');
+      systemOrchestrator.onStepComplete('register');
     }
-
-    console.log("[ORCHESTRATOR] Eligibility check processed.");
+    
+    store.logEvent('eligibility_checked');
   },
 
   /**
-   * Triggered when a user completes a major journey milestone (e.g., Booth Finding).
-   */
-  onStepComplete: (stepId: string) => {
-    // 1. Pass to Gamification Flow (handles badges, points, quest steps)
-    GamificationFlow.onStepComplete(stepId);
-
-    // 2. Ensure Readiness Score is synced
-    useAppStore.getState().calculateProgress();
-
-    console.log(`[ORCHESTRATOR] Step '${stepId}' completion orchestrated.`);
-  },
-
-  /**
-   * Triggered by map interactions like district discovery or booth location.
+   * 3. MAP & DISCOVERY EVENTS
    */
   onMapInteraction: (data: { type: 'district' | 'booth'; id: string; name?: string }) => {
     const store = useAppStore.getState();
 
     if (data.type === 'district') {
-      // 1. Trigger State Sticker Unlock
       GamificationFlow.onStateUnlock(data.id);
     } else if (data.type === 'booth') {
-      // 2. Mark "Locate Booth" quest step as complete
-      GamificationFlow.onStepComplete('locate');
+      systemOrchestrator.onStepComplete('locate');
       store.incrementEngagement(15);
     }
 
-    // 3. Recalculate readiness to reflect engagement increase
     store.calculateProgress();
-
-    console.log(`[ORCHESTRATOR] Map interaction (${data.type}) processed.`);
+    store.logEvent(`map_${data.type}_${data.id}`);
   },
 
   /**
-   * Triggered upon completion of a civic knowledge quiz.
+   * 4. KNOWLEDGE & QUIZ EVENTS
    */
   onQuizComplete: (score: number, total: number) => {
-    // 1. Update Quiz State & Rewards
+    const store = useAppStore.getState();
+    
     GamificationFlow.onQuizComplete(score, total);
-
-    // 2. Recalculate readiness (Engagement factor)
-    useAppStore.getState().calculateProgress();
-
-    console.log(`[ORCHESTRATOR] Quiz results (${score}/${total}) synchronized.`);
+    store.calculateProgress();
+    
+    if (score === total) {
+      store.unlockBadge('badge_quiz_master');
+    }
+    
+    store.logEvent(`quiz_completed_${score}/${total}`);
   },
 
   /**
-   * Triggered when a user toggles a document in their checklist.
+   * 5. MOCK BALLOT EVENTS
+   */
+  onBallotSubmit: (candidateId: string) => {
+    const store = useAppStore.getState();
+    
+    // Complete quest step
+    systemOrchestrator.onStepComplete('ballot');
+    
+    // Rewards
+    store.unlockBadge('badge_informed_voter');
+    store.addPoints(30);
+    store.incrementEngagement(20);
+    
+    store.calculateProgress();
+    store.logEvent(`ballot_submitted_${candidateId}`);
+  },
+
+  /**
+   * 6. COMMUNITY & SHARE EVENTS
+   */
+  onShare: () => {
+    const store = useAppStore.getState();
+    
+    // Complete quest step
+    systemOrchestrator.onStepComplete('share');
+    
+    // Rewards
+    store.unlockBadge('badge_community_hero');
+    store.addPoints(50);
+    store.incrementEngagement(30);
+    
+    store.calculateProgress();
+    store.logEvent('community_share_complete');
+  },
+
+  /**
+   * 7. DOCUMENT EVENTS
    */
   onDocumentUpdate: (docId: string) => {
     const store = useAppStore.getState();
-
-    // 1. Toggle Document Status
     store.toggleDocument(docId);
-
-    // 2. Increment micro-engagement
-    store.incrementEngagement(2);
-
-    // 3. Recalculate readiness (Checklist factor)
+    store.incrementEngagement(5);
     store.calculateProgress();
-
-    console.log(`[ORCHESTRATOR] Document '${docId}' status update handled.`);
   },
 
   /**
-   * Triggered when a user completes the Candidate Match simulation.
-   */
-  onCandidateMatchComplete: () => {
-    const store = useAppStore.getState();
-
-    // 1. Mark "Informed Voter" (ballot) quest step as complete
-    GamificationFlow.onStepComplete('ballot');
-
-    // 2. Reward with bonus engagement points for analytical thinking
-    store.incrementEngagement(20);
-    store.addPoints(50);
-
-    // 3. Recalculate global readiness
-    store.calculateProgress();
-
-    console.log("[ORCHESTRATOR] Candidate match simulation synchronized.");
-  },
-
-  /**
-   * Triggered when a user views the Constituency Insights dashboard.
-   */
-  onConstituencyView: () => {
-    const store = useAppStore.getState();
-
-    // 1. Reward engagement points for civic curiosity
-    store.incrementEngagement(15);
-    store.addPoints(30);
-
-    // 2. Unlock "Aware Citizen" badge
-    store.unlockBadge('badge_aware_citizen');
-
-    // 3. Recalculate readiness
-    store.calculateProgress();
-
-    console.log("[ORCHESTRATOR] Constituency insights engagement handled.");
-  },
-
-  /**
-   * Opens the AI Assistant panel with current context.
+   * 8. ASSISTANT & TOOLS
    */
   openAssistant: (context?: { page?: string; query?: string }) => {
     const store = useAppStore.getState();
     const router = window.location.pathname;
     
-    // Logic to trigger the assistant sidebar/drawer
-    // We can use a global event or update store state if assistant visibility is managed there
     const event = new CustomEvent('open-ai-assistant', { 
       detail: { 
         page: context?.page || router,
@@ -156,17 +146,15 @@ export const systemOrchestrator = {
     });
     window.dispatchEvent(event);
     
-    console.log("[ORCHESTRATOR] AI Assistant trigger dispatched with context.");
+    store.logEvent('assistant_opened');
+  },
+
+  /**
+   * 9. CONSTITUENCY & INSIGHTS
+   */
+  onConstituencyView: () => {
+    const store = useAppStore.getState();
+    store.incrementEngagement(10);
+    store.logEvent('constituency_insights_viewed');
   }
 };
-
-/**
- * EXAMPLE USAGE:
- * 
- * // In a component:
- * import { systemOrchestrator } from "@/lib/systemOrchestrator";
- * 
- * const handleFinishQuiz = (score) => {
- *   systemOrchestrator.onQuizComplete(score, 10);
- * };
- */

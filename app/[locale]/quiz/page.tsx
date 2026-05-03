@@ -58,7 +58,7 @@ export default function QuizPage() {
       setIsAnswered(false);
     } else {
       setIsFinished(true);
-      finishQuiz(score, sessionQuestions.length);
+      systemOrchestrator.onQuizComplete(score, sessionQuestions.length);
     }
   };
 

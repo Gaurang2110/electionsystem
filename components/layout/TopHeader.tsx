@@ -254,8 +254,7 @@ const ProfileDropdown: React.FC = () => {
 
 // --- MAIN TOP HEADER ---
 export const TopHeader: React.FC = () => {
-  const [isNotifOpen, setIsNotifOpen] = React.useState(false);
-  const { notifications } = useAppStore();
+  const { notifications, setNotificationOpen } = useAppStore();
   const unreadCount = notifications.filter(n => !n.isRead).length;
   const pathname = usePathname();
   const router = useRouter();
@@ -290,7 +289,7 @@ export const TopHeader: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => setIsNotifOpen(true)}
+              onClick={() => setNotificationOpen(true)}
               className="w-11 h-11 rounded-full bg-white border border-slate-200/60 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary/30 transition-all shadow-sm"
             >
               <Bell size={18} />
@@ -298,7 +297,6 @@ export const TopHeader: React.FC = () => {
                 <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full" />
               )}
             </motion.button>
-            <NotificationPanel isOpen={isNotifOpen} onClose={() => setIsNotifOpen(false)} />
           </div>
 
           <div className="w-px h-8 bg-slate-200/60 mx-1 hidden sm:block" />

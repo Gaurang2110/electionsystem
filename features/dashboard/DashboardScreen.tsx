@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   Compass,
   Map as MapIcon,
-  MessageSquare,
+  HelpCircle,
   ShieldCheck,
   FileText,
   Sparkles,
@@ -82,10 +82,10 @@ export const DashboardScreen: React.FC = () => {
       {/* GREETING SECTION */}
       <motion.div variants={itemVariants} className="mb-2">
         <h2 className="text-3xl font-black text-slate-900 font-display flex items-center gap-3">
-          Namaste, {profile.name || "Aarav"}! <span className="text-2xl animate-bounce">👋</span>
+          Namaste, {!mounted ? "Aarav" : (profile.name || "Aarav")}! <span className="text-2xl animate-bounce">👋</span>
         </h2>
         <p className="text-slate-500 text-sm font-medium mt-1">
-          Let's make every vote count. You are <span className="text-primary font-black">{progress}%</span> of the way to be a <span className="text-primary font-black uppercase tracking-tighter">Ready Citizen!</span>
+          Let's make every vote count. You are <span className="text-primary font-black">{!mounted ? 0 : progress}%</span> of the way to be a <span className="text-primary font-black uppercase tracking-tighter">Ready Citizen!</span>
         </p>
       </motion.div>
 
@@ -157,9 +157,9 @@ export const DashboardScreen: React.FC = () => {
                   </div>
                 </div>
 
-                <Link href={nextBestAction.link} className="w-full mt-6">
+                <Link href={!mounted ? '/eligibility' : nextBestAction.link} className="w-full mt-6">
                   <button className="w-full py-3.5 bg-primary text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group">
-                    <span>{nextBestAction.id === 'ready' ? 'View Journey' : nextBestAction.label}</span>
+                    <span>{!mounted ? 'Check Eligibility' : (nextBestAction.id === 'ready' ? 'View Journey' : nextBestAction.label)}</span>
                     <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
@@ -174,7 +174,7 @@ export const DashboardScreen: React.FC = () => {
               {[
                 { id: "map", label: "Booth Map", icon: MapIcon, color: "text-emerald-500 bg-emerald-50 border-emerald-100", desc: "Find area" },
                 { id: "docs", label: "Documents", icon: FileText, color: "text-orange-500 bg-orange-50 border-orange-100", desc: "Verify docs" },
-                { id: "assistant", label: "AI Assistant", icon: MessageSquare, color: "text-indigo-500 bg-indigo-50 border-indigo-100", desc: "Ask anything" },
+                { id: "assistant", label: "AI Assistant", icon: HelpCircle, color: "text-indigo-500 bg-indigo-50 border-indigo-100", desc: "Ask anything" },
                 { id: "journey", label: "Journey", icon: Sparkles, color: "text-purple-500 bg-purple-50 border-purple-100", desc: "Track path" },
               ].map((action) => (
                 <Link key={action.id} href={`/${action.id}`}>

@@ -62,10 +62,12 @@ interface UserState {
   peopleHelpedCount: number;
   isSimpleMode: boolean;
   isHighContrast: boolean;
+  isNotificationOpen: boolean;
   analytics: { event: string; timestamp: number }[];
   leaderboardRank: number;
   
   // Actions
+  setNotificationOpen: (open: boolean) => void;
   getNextBestAction: () => { id: string; label: string; link: string; impact: string };
   getMissingSteps: () => { id: string; label: string; link: string }[];
   setOnboarded: (status: boolean) => void;
@@ -143,11 +145,13 @@ export const useAppStore = create<UserState>()(
       peopleHelpedCount: 0,
       isSimpleMode: false,
       isHighContrast: false,
+      isNotificationOpen: false,
       analytics: [],
       leaderboardRank: 42, // Default for demo
 
+      setNotificationOpen: (open) => set({ isNotificationOpen: open }),
       getNextBestAction: () => {
-        const { eligibility, documentChecklist, gamification } = get();
+        const { eligibility, documentChecklist, gamification, completedSteps } = get();
         
         if (eligibility.status === 'not-checked') {
           return { id: 'eligibility', label: 'Check Eligibility', link: '/eligibility', impact: '+20%' };
@@ -171,6 +175,10 @@ export const useAppStore = create<UserState>()(
 
         if (gamification.quizScore === 0) {
           return { id: 'quiz', label: 'Test Your Knowledge', link: '/quiz', impact: '+10%' };
+        }
+
+        if (!completedSteps.includes('laboratory_evm_sim')) {
+          return { id: 'laboratory', label: 'Practice technical voting', link: '/laboratory', impact: '+5%' };
         }
 
         return { id: 'ready', label: 'You are ready to vote!', link: '/journey', impact: '100%' };

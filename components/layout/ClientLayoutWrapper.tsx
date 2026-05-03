@@ -11,8 +11,11 @@ import { MessageSquare, Bot } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import { ProfileOnboardingModal } from "@/components/ui/ProfileOnboardingModal";
+import { NotificationPanel } from "@/components/ui/NotificationPanel";
+import { useAppStore } from "@/store/useAppStore";
 
 export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isNotificationOpen, setNotificationOpen } = useAppStore();
   const pathname = usePathname();
   const isAssistant = pathname.includes('/assistant');
 
@@ -33,6 +36,7 @@ export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ c
       isAssistant && "h-screen overflow-hidden"
     )}>
       <ProfileOnboardingModal />
+      <NotificationPanel isOpen={isNotificationOpen} onClose={() => setNotificationOpen(false)} />
       <TopHeader />
       <main className={cn(
         "flex-1 p-6 max-w-[1600px] mx-auto w-full",

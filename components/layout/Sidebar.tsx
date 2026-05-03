@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+// Trigger HMR update
 import {
   LayoutDashboard,
   Compass,
@@ -100,6 +101,7 @@ export const Sidebar: React.FC = () => {
   const router = useRouter();
   const tNav = useTranslations("nav");
   const tSidebar = useTranslations("sidebar");
+  const tChat = useTranslations("chat.suggestions");
   const { profile, progress } = useAppStore();
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
   const [mounted, setMounted] = React.useState(false);
@@ -140,8 +142,8 @@ export const Sidebar: React.FC = () => {
             <Vote size={24} className="text-white" />
           </motion.div>
           <div>
-            <h1 className="font-black text-2xl tracking-tighter leading-none text-slate-900 font-display">{tSidebar('app_title')}</h1>
-            <p className="text-[10px] font-black text-primary uppercase tracking-[0.25em] mt-1 opacity-70">{tSidebar('app_tagline')}</p>
+            <h1 className="font-black text-2xl tracking-tighter leading-none text-slate-900 font-display">{tChat('app_title')}</h1>
+            <p className="text-[10px] font-black text-primary uppercase tracking-[0.25em] mt-1 opacity-70">{tChat('app_tagline')}</p>
           </div>
         </div>
       </div>
@@ -163,7 +165,7 @@ export const Sidebar: React.FC = () => {
             <div className="flex-1 min-w-0">
               <p className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-0.5">{tSidebar('active_citizen')}</p>
               <h4 className="font-black text-sm truncate uppercase tracking-tight">
-                {(!mounted) ? "..." : (profile.name || tSidebar('default_citizen'))}
+                {(!mounted) ? "..." : (profile.name || tChat('default_citizen'))}
               </h4>
               <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />

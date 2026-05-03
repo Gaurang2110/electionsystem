@@ -205,9 +205,9 @@ export const DashboardScreen: React.FC = () => {
           </motion.div>
 
           {/* HEATMAP/RESULTS PREVIEW */}
-          <motion.div variants={itemVariants}>
+          {/* <motion.div variants={itemVariants}>
             <HeatmapCard />
-          </motion.div>
+          </motion.div> */}
         </div>
 
         {/* RIGHT COLUMN: WIDGETS (SPAN 4) */}

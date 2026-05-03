@@ -11,6 +11,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
     notFound();
   }
 
+  // Force HMR reload
+  console.log(`Loading messages for locale: ${locale}`);
+
   return {
     locale: locale as string,
     messages: (await import(`../messages/${locale}.json`)).default

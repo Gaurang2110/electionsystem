@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+// Trigger HMR for translations
 import { motion } from "framer-motion";
 import { 
   Trophy, 

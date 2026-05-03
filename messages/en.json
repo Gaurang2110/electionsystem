@@ -226,7 +226,10 @@
       "completed": "Completed",
       "active": "Active",
       "upcoming": "Upcoming"
-    }
+    },
+    "days_left": "{days}d left",
+    "finished": "Finished",
+    "today": "Today"
   },
   "chat": {
     "welcome": "Hello! I am your Civic AI assistant. How can I help you today?",
@@ -500,18 +503,7 @@
       }
     }
   },
-  "timeline": {
-    "title": "Election Schedule",
-    "subtitle": "Track key dates and upcoming milestones.",
-    "days_left": "{days}d left",
-    "finished": "Finished",
-    "today": "Today",
-    "status": {
-      "completed": "Completed",
-      "active": "Active",
-      "upcoming": "Upcoming"
-    }
-  },
+
   "laboratory": {
     "title": "Virtual EVM Simulator",
     "subtitle": "Understand the internal working of India's voting technology.",

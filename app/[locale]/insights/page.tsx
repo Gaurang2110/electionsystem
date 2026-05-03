@@ -2,7 +2,7 @@ import { ConstituencyDashboard } from "@/features/constituency/ConstituencyDashb
 
 export default function InsightsPage() {
   return (
-    <div className="py-12">
+    <div className="p-10">
       <ConstituencyDashboard />
     </div>
   );

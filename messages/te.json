@@ -1,267 +1,272 @@
 {
   "onboarding": {
-    "title_part1": "Your Vote,",
-    "title_part2": "Your Future.",
-    "subtitle": "Master the Indian election process with your personal AI assistant.",
+    "title_part1": "మీ ఓటు,",
+    "title_part2": "మీ భవిష్యత్తు.",
+    "subtitle": "మీ వ్యక్తిగత AI సహాయకుడితో భారతీయ ఎన్నికల ప్రక్రియను తెలుసుకోండి.",
     "features": {
       "multilingual": {
-        "title": "Multilingual Support",
-        "desc": "Available in 12+ Indian languages"
+        "title": "బహుభాషా మద్దతు",
+        "desc": "12+ భారతీయ భాషల్లో అందుబాటులో ఉంది"
       },
       "verified": {
-        "title": "Verified Info",
-        "desc": "Sourced directly from ECI guidelines"
+        "title": "ధృవీకరించబడిన సమాచారం",
+        "desc": "నేరుగా ECI మార్గదర్శకాల నుండి పొందబడింది"
       }
     },
-    "cta": "Start Your Voting Journey",
-    "login": "Already have an account? Login",
+    "cta": "మీ ఓటింగ్ ప్రయాణాన్ని ప్రారంభించండి",
+    "login": "ఇప్పటికే ఖాతా ఉందా? లాగిన్ చేయండి",
     "voter_selection": {
-      "title": "Is this your first time voting?",
-      "subtitle": "We'll tailor your experience to make it simple and stress-free.",
-      "yes_title": "Yes, I'm a First-Timer",
-      "yes_desc": "I need help with everything from registration to the booth.",
-      "no_title": "No, I've Voted Before",
-      "no_desc": "I just need a quick status check and booth info.",
-      "button": "Confirm Choice"
+      "title": "మీరు మొదటిసారి ఓటు వేస్తున్నారా?",
+      "subtitle": "మీ అనుభవాన్ని సులభంగా మరియు ఒత్తిడి లేకుండా చేయడానికి మేము దీన్ని అనుకూలీకరిస్తాము.",
+      "yes_title": "అవును, నేను మొదటిసారి ఓటరును",
+      "yes_desc": "రిజిస్ట్రేషన్ నుండి బూత్ వరకు నాకు ప్రతి విషయంలోనూ సహాయం కావాలి.",
+      "no_title": "లేదు, నేను ఇంతకు ముందు ఓటు వేశాను",
+      "no_desc": "నాకు కేవలం త్వరిత స్థితి తనిఖీ మరియు బూత్ సమాచారం కావాలి.",
+      "button": "ఎంపికను ధృవీకరించండి"
     }
   },
   "dashboard": {
-    "readiness": "Voting Readiness",
-    "complete_profile": "Complete your profile to be 100% ready",
-    "progress_status": "You are {progress}% ready to vote",
-    "next_step": "Next Step",
-    "verify_id": "Verify Voter ID",
+    "readiness": "ఓటింగ్ సంసిద్ధత",
+    "complete_profile": "100% సిద్ధంగా ఉండటానికి మీ ప్రొఫైల్‌ను పూర్తి చేయండి",
+    "progress_status": "మీరు ఓటు వేయడానికి {progress}% సిద్ధంగా ఉన్నారు",
+    "next_step": "తదుపరి దశ",
+    "verify_id": "ఓటరు ఐడిని ధృవీకరించండి",
     "actions": {
-      "journey": "Voting Journey",
-      "assistant": "Ask AI Assistant",
-      "eligibility": "Eligibility Check",
-      "documents": "My Documents",
-      "fact_check": "Fact Check",
-      "map": "Booth Finder"
+      "journey": "ఓటింగ్ ప్రయాణం",
+      "assistant": "AI సహాయకుడిని అడగండి",
+      "eligibility": "అర్హత తనిఖీ",
+      "documents": "నా పత్రాలు",
+      "fact_check": "వాస్తవ తనిఖీ",
+      "map": "బూత్ కనుగొనండి"
     },
     "deadlines": {
-      "title": "Upcoming Deadlines",
-      "view_all": "View All",
+      "title": "రాబోయే గడువు తేదీలు",
+      "view_all": "అన్నీ చూడండి",
       "item1": {
-        "title": "Last Day to Register",
-        "type": "Urgent"
+        "title": "రిజిస్ట్రేషన్ చివరి రోజు",
+        "type": "అత్యవసరం"
       },
       "item2": {
-        "title": "Document Verification",
-        "type": "Normal"
+        "title": "పత్రాల ధృవీకరణ",
+        "type": "సాధారణం"
       }
     },
-    "first_timer_guidance": "Since it's your first time, we've highlighted the most critical steps for you. Don't worry, it's simpler than it looks!"
+    "first_timer_guidance": "మీకు ఇది మొదటిసారి కాబట్టి, మేము మీ కోసం అత్యంత కీలకమైన దశలను హైలైట్ చేసాము. చింతించకండి, ఇది కనిపించే దానికంటే సులభం!"
   },
   "journey": {
-    "title": "Your Journey",
-    "subtitle": "Follow these steps to ensure you're ready.",
+    "title": "మీ ప్రయాణం",
+    "subtitle": "మీరు సిద్ధంగా ఉన్నారని నిర్ధారించుకోవడానికి ఈ దశలను అనుసరించండి.",
     "steps": {
       "registration": {
-        "title": "Voter Registration",
-        "desc": "Fill Form 6 on NVSP portal to register as a new voter.",
-        "time": "5 min"
+        "title": "ఓటరు రిజిస్ట్రేషన్",
+        "desc": "కొత్త ఓటరుగా నమోదు చేసుకోవడానికి NVSP పోర్టల్‌లో ఫారమ్ 6 నింపండి.",
+        "time": "5 నిమిషాలు"
       },
       "verification": {
-        "title": "Document Verification",
-        "desc": "Your local BLO will visit for physical verification of your documents.",
-        "time": "2 min"
+        "title": "పత్రాల ధృవీకరణ",
+        "desc": "మీ పత్రాలను నేరుగా ధృవీకరించడానికి మీ స్థానిక BLO సందర్శిస్తారు.",
+        "time": "2 నిమిషాలు"
       },
       "booth": {
-        "title": "Find Polling Booth",
-        "desc": "Locate your designated polling station on the ECI website.",
-        "time": "1 min"
+        "title": "పోలింగ్ బూత్ కనుగొనండి",
+        "desc": "ECI వెబ్‌సైట్‌లో మీ కోసం కేటాయించిన పోలింగ్ కేంద్రాన్ని గుర్తించండి.",
+        "time": "1 నిమిషం"
       },
       "vote": {
-        "title": "Cast Your Vote",
-        "desc": "Head to your booth with your EPIC card and cast your vote.",
-        "time": "15 min"
+        "title": "మీ ఓటు వేయండి",
+        "desc": "మీ EPIC కార్డుతో కేటాయించిన బూత్‌కు వెళ్లి ఓటు వేయండి.",
+        "time": "15 నిమిషాలు"
       }
     },
-    "mark_complete": "Mark as Complete",
+    "mark_complete": "పూర్తయినట్లుగా గుర్తించండి",
     "tips": {
-      "registration": "FIRST-TIMER TIP: Keep your Aadhaar and a clear passport-size photo ready before starting Form 6.",
-      "verification": "FIRST-TIMER TIP: The BLO will call you before visiting. Keep your originals handy for quick verification.",
-      "booth": "FIRST-TIMER TIP: Booths are usually in schools or community halls nearby. Check the map a day before.",
-      "vote": "FIRST-TIMER TIP: Don't forget your ink mark! It's a badge of honor for every citizen."
+      "registration": "మొదటిసారి ఓటు వేసేవారికి చిట్కా: ఫారమ్ 6 ప్రారంభించే ముందు మీ ఆధార్ మరియు స్పష్టమైన పాస్‌పోర్ట్ పరిమాణ ఫోటోను సిద్ధంగా ఉంచుకోండి.",
+      "verification": "మొదటిసారి ఓటు వేసేవారికి చిట్కా: BLO సందర్శించడానికి ముందు మీకు ఫోన్ చేస్తారు. త్వరిత ధృవీకరణ కోసం మీ అసలు పత్రాలను అందుబాటులో ఉంచుకోండి.",
+      "booth": "మొదటిసారి ఓటు వేసేవారికి చిట్కా: బూత్‌లు సాధారణంగా సమీపంలోని పాఠశాలలు లేదా కమ్యూనిటీ హాళ్లలో ఉంటాయి. ఒక రోజు ముందు మ్యాప్‌ను తనిఖీ చేయండి.",
+      "vote": "మొదటిసారి ఓటు వేసేవారికి చిట్కా: మీ సిరా గుర్తును మర్చిపోవద్దు! ఇది ప్రతి పౌరుడికి గర్వకారణం."
     }
   },
   "documents": {
-    "title": "Document Checklist",
-    "subtitle": "Ensure you have these documents ready for verification.",
-    "status_label": "Readiness Status",
-    "complete": "Complete",
-    "of": "of",
-    "documents_ready": "documents ready",
-    "kcy_alert": "Make sure your mobile number is linked with your Aadhaar for faster e-KYC during verification.",
+    "title": "పత్రాల చెక్‌లిస్ట్",
+    "subtitle": "ధృవీకరణ కోసం ఈ పత్రాలను సిద్ధంగా ఉంచుకున్నారని నిర్ధారించుకోండి.",
+    "status_label": "సంసిద్ధత స్థితి",
+    "complete": "పూర్తయింది",
+    "of": "లో",
+    "documents_ready": "పత్రాలు సిద్ధంగా ఉన్నాయి",
+    "kcy_alert": "ధృవీకరణ సమయంలో వేగవంతమైన e-KYC కోసం మీ మొబైల్ నంబర్ ఆధార్‌తో అనుసంధానించబడిందని నిర్ధారించుకోండి.",
     "items": {
       "aadhar": {
-        "title": "Aadhaar Card",
-        "desc": "Required for identity and age proof."
+        "title": "ఆధార్ కార్డ్",
+        "desc": "గుర్తింపు మరియు వయస్సు రుజువు కోసం అవసరం."
       },
       "voter-id": {
-        "title": "Voter ID (if any)",
-        "desc": "Existing EPIC card if you are already registered."
+        "title": "ఓటరు ఐడి (ఏదైనా ఉంటే)",
+        "desc": "మీరు ఇప్పటికే రిజిస్టర్ అయి ఉంటే ప్రస్తుతం ఉన్న EPIC కార్డ్."
       },
       "address-proof": {
-        "title": "Address Proof",
-        "desc": "Electricity bill, Gas connection, or Bank passbook."
+        "title": "చిరునామా రుజువు",
+        "desc": "విద్యుత్ బిల్లు, గ్యాస్ కనెక్షన్ లేదా బ్యాంక్ పాస్‌బుక్."
+      },
+      "pan-card": {
+        "title": "పాన్ కార్డ్",
+        "desc": "అదనపు ధృవీకరణ కోసం ఐచ్ఛిక గుర్తింపు రుజువు."
       }
     }
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Let's see if you can vote in the next election.",
-    "age_question": "What is your age?",
-    "age_placeholder": "Enter your age",
-    "citizen_question": "Are you an Indian citizen?",
-    "state_question": "Which state are you from?",
-    "registered_question": "Are you already registered to vote?",
-    "yes": "Yes",
-    "no": "No",
-    "check_result": "Check Result",
-    "result_eligible": "You Are Eligible!",
-    "result_not_eligible": "Not Eligible Yet",
-    "desc_eligible": "Congratulations! You are eligible to vote in the upcoming elections.",
-    "desc_not_eligible": "Unfortunately, you do not meet the criteria to vote yet.",
-    "reason_age": "You must be at least 18 years old to vote.",
-    "reason_citizen": "Only Indian citizens are eligible to vote.",
-    "next_steps_title": "Next Steps",
-    "next_step_register": "Register on the NVSP portal (Form 6)",
-    "next_step_documents": "Keep your Aadhaar and address proof ready",
-    "what_to_do_next": "What should you do next?",
-    "start_over": "Start Over",
-    "next": "Next Step"
+    "title": "అర్హత తనిఖీ",
+    "subtitle": "మీరు తదుపరి ఎన్నికల్లో ఓటు వేయగలరో లేదో చూద్దాం.",
+    "age_question": "మీ వయస్సు ఎంత?",
+    "age_placeholder": "మీ వయస్సును నమోదు చేయండి",
+    "citizen_question": "మీరు భారతీయ పౌరులేనా?",
+    "state_question": "మీరు ఏ రాష్ట్రం నుండి వచ్చారు?",
+    "registered_question": "మీరు ఇప్పటికే ఓటు వేయడానికి నమోదు చేసుకున్నారా?",
+    "yes": "అవును",
+    "no": "లేదు",
+    "check_result": "ఫలితాన్ని తనిఖీ చేయండి",
+    "result_eligible": "మీరు అర్హులు!",
+    "result_not_eligible": "ఇంకా అర్హత లేదు",
+    "desc_eligible": "అభినందనలు! రాబోయే ఎన్నికల్లో ఓటు వేయడానికి మీరు అర్హులు.",
+    "desc_not_eligible": "దురదృష్టవశాత్తు, మీరు ఇంకా ఓటు వేయడానికి ప్రమాణాలను అందుకోలేదు.",
+    "reason_age": "ఓటు వేయడానికి మీకు కనీసం 18 ఏళ్లు నిండి ఉండాలి.",
+    "reason_citizen": "భారతీయ పౌరులు మాత్రమే ఓటు వేయడానికి అర్హులు.",
+    "next_steps_title": "తదుపరి దశలు",
+    "next_step_register": "NVSP పోర్టల్‌లో నమోదు చేసుకోండి (ఫారమ్ 6)",
+    "next_step_documents": "మీ ఆధార్ మరియు చిరునామా రుజువును సిద్ధంగా ఉంచుకోండి",
+    "what_to_do_next": "మీరు తర్వాత ఏమి చేయాలి?",
+    "start_over": "మళ్ళీ ప్రారంభించండి",
+    "next": "తదుపరి దశ"
   },
   "timeline": {
-    "title": "Election Timeline",
-    "subtitle": "Key dates for the 2026 General Elections",
-    "remind_me": "Remind Me",
-    "details": "Details",
+    "title": "ఎన్నికల కాలక్రమం",
+    "subtitle": "2026 సాధారణ ఎన్నికలకు సంబంధించిన ముఖ్యమైన తేదీలు",
+    "remind_me": "నాకు గుర్తు చేయండి",
+    "details": "వివరాలు",
     "events": {
-      "registration_open": { "title": "Registration Opens" },
-      "registration_deadline": { "title": "Registration Deadline", "countdown": "14 days left" },
-      "voter_list": { "title": "Voter List Update" },
-      "election_day": { "title": "Election Day", "countdown": "40 days left" }
+      "registration_open": { "title": "రిజిస్ట్రేషన్ ప్రారంభం" },
+      "registration_deadline": { "title": "రిజిస్ట్రేషన్ గడువు", "countdown": "14 రోజులు ఉన్నాయి" },
+      "voter_list": { "title": "ఓటరు జాబితా అప్‌డేట్" },
+      "election_day": { "title": "ఎన్నికల రోజు", "countdown": "40 రోజులు ఉన్నాయి" }
     },
     "status": {
-      "completed": "Completed",
-      "active": "Active",
-      "upcoming": "Upcoming"
+      "completed": "పూర్తయింది",
+      "active": "యాక్టివ్",
+      "upcoming": "రాబోయే"
     }
   },
   "chat": {
-    "welcome": "Hello! I am your Civic AI assistant. How can I help you today?",
-    "mock_response": "I'm a mock AI assistant. Soon I'll be powered by Gemini to provide real-time election information!",
-    "placeholder": "Ask anything...",
+    "welcome": "నమస్కారం! నేను మీ సివిక్ AI సహాయకుడిని. ఈరోజు నేను మీకు ఎలా సహాయపడగలను?",
+    "mock_response": "నేను ఒక మాక్ AI సహాయకుడిని. త్వరలో నేను నిజ-సమయ ఎన్నికల సమాచారాన్ని అందించడానికి Gemini ద్వారా పని చేస్తాను!",
+    "placeholder": "ఏదైనా అడగండి...",
     "suggestions": {
-      "next": "What should I do next?",
-      "register": "How do I register to vote?",
-      "polling": "Check my polling station",
-      "docs": "Documents required for registration"
+      "next": "నేను తర్వాత ఏమి చేయాలి?",
+      "register": "నేను ఓటు వేయడానికి ఎలా నమోదు చేసుకోవాలి?",
+      "polling": "నా పోలింగ్ కేంద్రాన్ని తనిఖీ చేయండి",
+      "docs": "రిజిస్ట్రేషన్ కోసం అవసరమైన పత్రాలు",
+      "eligibility": "నేను ఓటు వేయడానికి అర్హుడినా?"
     }
   },
   "nav": {
-    "home": "Home",
-    "journey": "Journey",
-    "assistant": "AI Assistant",
-    "eligibility": "Eligibility",
-    "map": "Booth Finder"
+    "home": "హోమ్",
+    "journey": "ప్రయాణం",
+    "assistant": "AI సహాయకుడు",
+    "eligibility": "అర్హత",
+    "map": "బూత్ కనుగొనండి"
   },
   "booth_finder": {
-    "title": "Find My Booth",
-    "subtitle": "Enter your PIN code to locate your designated polling station.",
-    "placeholder": "Enter PIN Code (e.g. 400001)",
-    "search": "Search",
-    "searching": "Searching...",
-    "distance_away": "{distance} away",
-    "get_directions": "Get Directions",
-    "no_results": "No booths found for this PIN code.",
-    "empty_state": "Your results will appear here.",
-    "map_title": "Interactive Map",
-    "map_desc": "Coming soon with real-time navigation."
+    "title": "నా బూత్ కనుగొనండి",
+    "subtitle": "మీ కోసం కేటాయించిన పోలింగ్ కేంద్రాన్ని గుర్తించడానికి మీ పిన్ కోడ్‌ను నమోదు చేయండి.",
+    "placeholder": "పిన్ కోడ్‌ను నమోదు చేయండి (ఉదా. 400001)",
+    "search": "శోధించండి",
+    "searching": "శోధిస్తోంది...",
+    "distance_away": "{distance} దూరంలో",
+    "get_directions": "దిశలను పొందండి",
+    "no_results": "ఈ పిన్ కోడ్ కోసం బూత్‌లు ఏవీ కనుగొనబడలేదు.",
+    "empty_state": "మీ ఫలితాలు ఇక్కడ కనిపిస్తాయి.",
+    "map_title": "ఇంటరాక్టివ్ మ్యాప్",
+    "map_desc": "నిజ-సమయ నావిగేషన్‌తో త్వరలో రాబోతోంది."
   },
   "myth_fact": {
-    "title": "Myth vs Fact",
-    "subtitle": "Busting common election rumors with verified facts.",
-    "myth_label": "Myth",
-    "fact_label": "Fact",
+    "title": "అపోహ vs వాస్తవం",
+    "subtitle": "ధృవీకరించబడిన వాస్తవాలతో సాధారణ ఎన్నికల పుకార్లను తొలగించడం.",
+    "myth_label": "అపోహ",
+    "fact_label": "వాస్తవం",
     "items": {
       "item1": {
-        "myth": "I have a Voter ID card, so I can definitely vote.",
-        "fact": "Having an EPIC card is not enough. Your name MUST be present in the official Electoral Roll to vote."
+        "myth": "నా దగ్గర ఓటరు ఐడి కార్డ్ ఉంది, కాబట్టి నేను ఖచ్చితంగా ఓటు వేయగలను.",
+        "fact": "EPIC కార్డ్ ఉంటే సరిపోదు. ఓటు వేయడానికి మీ పేరు ఖచ్చితంగా అధికారిక ఓటర్ల జాబితాలో ఉండాలి."
       },
       "item2": {
-        "myth": "I can vote from any polling station in my city.",
-        "fact": "No. You can only vote at the specific polling booth assigned to you in the voter list."
+        "myth": "నేను నా నగరంలోని ఏదైనా పోలింగ్ కేంద్రం నుండి ఓటు వేయవచ్చు.",
+        "fact": "లేదు. ఓటరు జాబితాలో మీకు కేటాయించిన నిర్దిష్ట పోలింగ్ బూత్‌లో మాత్రమే మీరు ఓటు వేయగలరు."
       },
       "item3": {
-        "myth": "Registered voters can vote online from home.",
-        "fact": "Currently, the ECI does not provide an online voting facility for general citizens. You must visit your booth."
+        "myth": "నమోదిత ఓటర్లు ఇంటి నుండి ఆన్‌లైన్‌లో ఓటు వేయవచ్చు.",
+        "fact": "ప్రస్తుతం, ECI సాధారణ పౌరుల కోసం ఆన్‌లైన్ ఓటింగ్ సౌకర్యాన్ని అందించడం లేదు. మీరు మీ బూత్‌కు వెళ్లాలి."
       }
     }
   },
   "help_others": {
-    "title": "Help Someone Vote",
-    "subtitle": "Share the simple 4-step process with friends and family to ensure everyone's voice is heard.",
-    "button": "Help Someone",
-    "modal_title": "Help Someone Vote",
-    "modal_subtitle": "Empower your community by sharing essential voting information.",
-    "copy_text": "Copy Steps",
-    "copy_link": "Copy Link",
-    "copied": "Copied!",
-    "people_helped": "People Helped",
-    "option_checklist": "Share Checklist",
-    "option_progress": "Share Progress",
-    "option_guide": "Share Simple Guide",
-    "share_message": "🗳️ *Voting Guide 2026*\n\n1. Register: Fill Form 6 at voters.eci.gov.in\n2. Verify: Keep documents ready for BLO visit\n3. Locate: Find your booth via EPIC number\n4. Vote: Visit booth on election day!\n\nHelp your community vote: {link}",
-    "share_checklist_msg": "🗳️ *My Voting Checklist*\n\nI've prepared my documents for the 2026 Elections. Prepare yours and get ready to vote: {link}",
-    "share_progress_msg": "📈 I am {progress}% ready for the 2026 Elections! Check your voting readiness here: {link}",
-    "share_guide_msg": "📘 Here is a simple step-by-step guide to voting in the 2026 Elections. Share it with anyone who needs help: {link}"
+    "title": "ఎవరైనా ఓటు వేయడానికి సహాయం చేయండి",
+    "subtitle": "ప్రతి ఒక్కరి స్వరం వినబడుతుందని నిర్ధారించుకోవడానికి స్నేహితులు మరియు కుటుంబ సభ్యులతో సరళమైన 4-దశల ప్రక్రియను భాగస్వామ్యం చేయండి.",
+    "button": "ఎవరికైనా సహాయం చేయండి",
+    "modal_title": "ఎవరైనా ఓటు వేయడానికి సహాయం చేయండి",
+    "modal_subtitle": "అవసరమైన ఓటింగ్ సమాచారాన్ని భాగస్వామ్యం చేయడం ద్వారా మీ కమ్యూనిటీని శక్తివంతం చేయండి.",
+    "copy_text": "దశలను కాపీ చేయండి",
+    "copy_link": "లింక్‌ను కాపీ చేయండి",
+    "copied": "కాపీ చేయబడింది!",
+    "people_helped": "సహాయం పొందిన వ్యక్తులు",
+    "option_checklist": "చెక్‌లిస్ట్‌ను భాగస్వామ్యం చేయండి",
+    "option_progress": "పురోగతిని భాగస్వామ్యం చేయండి",
+    "option_guide": "సరళమైన మార్గదర్శిని భాగస్వామ్యం చేయండి",
+    "share_message": "🗳️ *ఓటింగ్ గైడ్ 2026*\n\n1. రిజిస్ట్రేషన్: voters.eci.gov.inలో ఫారమ్ 6 నింపండి\n2. ధృవీకరణ: BLO సందర్శన కోసం పత్రాలను సిద్ధంగా ఉంచండి\n3. గుర్తించండి: EPIC నంబర్ ద్వారా మీ బూత్‌ను కనుగొనండి\n4. ఓటు: ఎన్నికల రోజున బూత్‌ను సందర్శించండి!\n\nమీ కమ్యూనిటీకి ఓటు వేయడానికి సహాయం చేయండి: {link}",
+    "share_checklist_msg": "🗳️ *నా ఓటింగ్ చెక్‌లిస్ట్*\n\nనేను 2026 ఎన్నికల కోసం నా పత్రాలను సిద్ధం చేసుకున్నాను. మీరు కూడా సిద్ధం చేసుకోండి మరియు ఓటు వేయడానికి సిద్ధంగా ఉండండి: {link}",
+    "share_progress_msg": "📈 నేను 2026 ఎన్నికల కోసం {progress}% సిద్ధంగా ఉన్నాను! మీ ఓటింగ్ సంసిద్ధతను ఇక్కడ తనిఖీ చేయండి: {link}",
+    "share_guide_msg": "📘 2026 ఎన్నికలలో ఓటు వేయడానికి ఇక్కడ సరళమైన దశల వారీ మార్గదర్శి ఉంది. సహాయం అవసరమైన వారితో దీన్ని భాగస్వామ్యం చేయండి: {link}"
   },
   "common": {
-    "hi": "Hi",
-    "election_year": "India Election 2026"
+    "hi": "నమస్కారం",
+    "election_year": "భారత ఎన్నికలు 2026"
   },
   "profile": {
-    "title": "Voter Profile",
-    "edit": "Edit Profile",
-    "save": "Save Profile",
-    "readiness": "Readiness Snapshot",
-    "impact_score": "Impact Score",
-    "completion": "Completion",
-    "basic_info": "Basic Information",
-    "full_name": "Full Name",
-    "age": "Age",
-    "state": "State",
-    "district": "District",
-    "voting_status": "Voting Status",
-    "registered_voter": "Registered Voter",
-    "voter_id_available": "Voter ID Available",
-    "first_time_voter": "First-Time Voter",
-    "preferences": "Preferences",
-    "app_language": "App Language"
+    "title": "ఓటరు ప్రొఫైల్",
+    "edit": "ప్రొఫైల్‌ను సవరించండి",
+    "save": "ప్రొఫైల్‌ను సేవ్ చేయండి",
+    "readiness": "సంసిద్ధత స్నాప్‌షాట్",
+    "impact_score": "ఇంపాక్ట్ స్కోర్",
+    "completion": "పూర్తి చేయడం",
+    "basic_info": "ప్రాథమిక సమాచారం",
+    "full_name": "పూర్తి పేరు",
+    "age": "వయస్సు",
+    "state": "రాష్ట్రం",
+    "district": "జిల్లా",
+    "voting_status": "ఓటింగ్ స్థితి",
+    "registered_voter": "నమోదిత ఓటరు",
+    "voter_id_available": "ఓటరు ఐడి అందుబాటులో ఉంది",
+    "first_time_voter": "మొదటిసారి ఓటరు",
+    "preferences": "ప్రాధాన్యతలు",
+    "app_language": "యాప్ భాష"
   },
   "notifications": {
-    "title": "Notifications",
-    "empty": "No new notifications",
-    "mark_all_read": "Mark all as read",
-    "notif_deadline_registration": "Registration closes in 2 days. Complete your Form 6 today!",
-    "notif_incomplete_profile": "Your profile is incomplete. Finish it to see your voting readiness.",
-    "notif_voting_day": "Election Day is approaching on May 20th. Don't forget to vote!",
-    "notif_eligible_now": "Congratulations! Based on your age, you are now eligible to vote.",
-    "notif_document_pending": "You have {count} documents pending in your checklist."
+    "title": "నోటిఫికేషన్లు",
+    "empty": "కొత్త నోటిఫికేషన్లు లేవు",
+    "mark_all_read": "అన్నింటినీ చదివినట్లుగా గుర్తు చేయండి",
+    "notif_deadline_registration": "రిజిస్ట్రేషన్ 2 రోజుల్లో ముగుస్తుంది. ఈరోజే మీ ఫారమ్ 6ని పూర్తి చేయండి!",
+    "notif_incomplete_profile": "మీ ప్రొఫైల్ అసంపూర్తిగా ఉంది. మీ ఓటింగ్ సంసిద్ధతను చూడటానికి దాన్ని పూర్తి చేయండి.",
+    "notif_voting_day": "ఎన్నికల రోజు మే 20న వస్తోంది. ఓటు వేయడం మర్చిపోవద్దు!",
+    "notif_eligible_now": "అభినందనలు! మీ వయస్సు ఆధారంగా, మీరు ఇప్పుడు ఓటు వేయడానికి అర్హులు.",
+    "notif_document_pending": "మీ చెక్‌లిస్ట్‌లో {count} పత్రాలు పెండింగ్‌లో ఉన్నాయి."
   },
   "updates": {
-    "title": "Election Updates",
-    "subtitle": "Latest official news and voter tips",
-    "filter_all": "All",
-    "filter_official": "Official",
-    "filter_tip": "Tips",
-    "filter_process": "Process",
-    "read_more": "Read More",
-    "type_official": "OFFICIAL",
-    "type_tip": "VOTER TIP",
-    "type_process": "PROCESS CHANGE"
+    "title": "ఎన్నికల అప్‌డేట్‌లు",
+    "subtitle": "తాజా అధికారిక వార్తలు మరియు ఓటరు చిట్కాలు",
+    "filter_all": "అన్నీ",
+    "filter_official": "అధికారిక",
+    "filter_tip": "చిట్కాలు",
+    "filter_process": "ప్రక్రియ",
+    "read_more": "మరింత చదవండి",
+    "type_official": "అధికారిక",
+    "type_tip": "ఓటరు చిట్కా",
+    "type_process": "ప్రక్రియ మార్పు"
   }
 }

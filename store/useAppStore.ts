@@ -35,6 +35,7 @@ interface GamificationState {
   badges: string[];
   unlockedStates: string[];
   quizScore: number;
+  quizProgress: number;
 }
 
 interface UserState {
@@ -62,6 +63,7 @@ interface UserState {
   isSimpleMode: boolean;
   isHighContrast: boolean;
   analytics: { event: string; timestamp: number }[];
+  leaderboardRank: number;
   
   // Actions
   getNextBestAction: () => { id: string; label: string; link: string; impact: string };
@@ -88,6 +90,8 @@ interface UserState {
   toggleSimpleMode: () => void;
   toggleHighContrast: () => void;
   logEvent: (event: string) => void;
+  finishQuiz: (score: number, total: number) => void;
+  unlockState: (stateId: string) => void;
 }
 
 export const useAppStore = create<UserState>()(
@@ -131,6 +135,7 @@ export const useAppStore = create<UserState>()(
         badges: [],
         unlockedStates: [],
         quizScore: 0,
+        quizProgress: 3, // Default for demo
       },
       readinessCategory: 'Low',
       readinessNudge: 'Complete registration to improve readiness',
@@ -139,6 +144,7 @@ export const useAppStore = create<UserState>()(
       isSimpleMode: false,
       isHighContrast: false,
       analytics: [],
+      leaderboardRank: 42, // Default for demo
 
       getNextBestAction: () => {
         const { eligibility, documentChecklist, gamification } = get();
@@ -159,8 +165,12 @@ export const useAppStore = create<UserState>()(
           return { id: 'documents', label: 'Complete Documents', link: '/documents', impact: '+20%' };
         }
 
+        if (!gamification.questSteps.ballot) {
+          return { id: 'ballot', label: 'Practice Mock Ballot', link: '/ballot', impact: '+15%' };
+        }
+
         if (gamification.quizScore === 0) {
-          return { id: 'quiz', label: 'Test Your Knowledge', link: '/?scroll=quiz', impact: '+10%' };
+          return { id: 'quiz', label: 'Test Your Knowledge', link: '/quiz', impact: '+10%' };
         }
 
         return { id: 'ready', label: 'You are ready to vote!', link: '/journey', impact: '100%' };
@@ -188,13 +198,13 @@ export const useAppStore = create<UserState>()(
           missing.push({ id: 'locate', label: 'Find Your Booth', link: '/map' });
         }
         if (!gamification.questSteps.ballot) {
-          missing.push({ id: 'ballot', label: 'Practice Mock Ballot', link: '/#mock-ballot' });
+          missing.push({ id: 'ballot', label: 'Practice Mock Ballot', link: '/ballot' });
         }
         if (!gamification.questSteps.ready) {
           missing.push({ id: 'ready', label: 'Confirm Readiness', link: '/eligibility' });
         }
         if (!gamification.questSteps.share) {
-          missing.push({ id: 'share', label: 'Invite Community', link: '/#share-card' });
+          missing.push({ id: 'share', label: 'Invite Community', link: '/share' });
         }
 
         return missing;

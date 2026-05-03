@@ -70,9 +70,9 @@ export const DashboardScreen: React.FC = () => {
       className="flex flex-col gap-6 pb-20 relative"
     >
       {/* Background Decoration from Stitch */}
-      <div className="absolute top-0 right-0 w-[40%] h-[400px] pointer-events-none opacity-10 -z-10 overflow-hidden select-none">
+      <div className="absolute -top-40 right-0  pointer-events-none opacity-30 -z-10 overflow-hidden select-none">
         <img
-          src="https://lh3.googleusercontent.com/aida/ADBb0uj4XMK-Q_ZT71KlIia6FrakOt6IDNKeNV6Nfut71doHQIJU_44WpR-3GiAALf958Wtq6C5fDZawlzAiFiKrDKfichKGf8xYw6wVdy_E99UXzUXc4DTzXDEAhuOaYACEstruEj3NOlrPuVZgEXKhZyZvogg6_AW6gHgVYJrPAOhEzhz1Abe0Z2GRGnIgjSsJ4hjQe1mwT6UJc4XgvgotCO_8MhZ5sN0psJnNMXdMHxW5aGfExHpRrdX94XPupYPwX7GGC2GJtkbx5Q"
+          src="/eligibity_header.png"
           alt="Parliament Decoration"
           className="w-full h-full object-cover object-right-top"
           style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 80%)' }}
@@ -147,8 +147,12 @@ export const DashboardScreen: React.FC = () => {
                       )}
                     </div>
                     <div>
-                      <h4 className="font-black text-slate-900 text-base leading-tight">{nextBestAction.label}</h4>
-                      <p className="text-xs text-slate-500 font-medium mt-1">Impact: <span className="text-secondary font-black">{nextBestAction.impact}</span> on your readiness</p>
+                      <h4 className="font-black text-slate-900 text-base leading-tight">
+                        {!mounted ? 'Check Eligibility' : nextBestAction.label}
+                      </h4>
+                      <p className="text-xs text-slate-500 font-medium mt-1">
+                        Impact: <span className="text-secondary font-black">{!mounted ? '+20%' : nextBestAction.impact}</span> on your readiness
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -172,8 +176,6 @@ export const DashboardScreen: React.FC = () => {
                 { id: "docs", label: "Documents", icon: FileText, color: "text-orange-500 bg-orange-50 border-orange-100", desc: "Verify docs" },
                 { id: "assistant", label: "AI Assistant", icon: MessageSquare, color: "text-indigo-500 bg-indigo-50 border-indigo-100", desc: "Ask anything" },
                 { id: "journey", label: "Journey", icon: Sparkles, color: "text-purple-500 bg-purple-50 border-purple-100", desc: "Track path" },
-                { id: "myth", label: "Myth vs Fact", icon: ShieldCheck, color: "text-blue-500 bg-blue-50 border-blue-100", desc: "Know truth" },
-                { id: "timeline", label: "Timeline", icon: Clock, color: "text-rose-500 bg-rose-50 border-rose-100", desc: "Key dates" },
               ].map((action) => (
                 <Link key={action.id} href={`/${action.id}`}>
                   <motion.div

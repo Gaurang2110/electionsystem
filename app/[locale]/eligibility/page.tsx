@@ -1,5 +1,5 @@
 import { EligibilityForm } from "@/features/eligibility/EligibilityForm";
 
 export default function EligibilityPage() {
-  return <EligibilityForm />;
+  return <div className="px-10"><EligibilityForm /></div>;
 }

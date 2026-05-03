@@ -1,267 +1,272 @@
 {
   "onboarding": {
-    "title_part1": "Your Vote,",
-    "title_part2": "Your Future.",
-    "subtitle": "Master the Indian election process with your personal AI assistant.",
+    "title_part1": "ਤੁਹਾਡੀ ਵੋਟ,",
+    "title_part2": "ਤੁਹਾਡਾ ਭਵਿੱਖ।",
+    "subtitle": "ਆਪਣੇ ਨਿੱਜੀ AI ਸਹਾਇਕ ਨਾਲ ਭਾਰਤੀ ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਜਾਣੋ।",
     "features": {
       "multilingual": {
-        "title": "Multilingual Support",
-        "desc": "Available in 12+ Indian languages"
+        "title": "ਬਹੁ-ਭਾਸ਼ਾਈ ਸਹਾਇਤਾ",
+        "desc": "12+ ਭਾਰਤੀ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਉਪਲਬਧ"
       },
       "verified": {
-        "title": "Verified Info",
-        "desc": "Sourced directly from ECI guidelines"
+        "title": "ਪ੍ਰਮਾਣਿਤ ਜਾਣਕਾਰੀ",
+        "desc": "ਸਿੱਧੇ ECI ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼ਾਂ ਤੋਂ ਪ੍ਰਾਪਤ"
       }
     },
-    "cta": "Start Your Voting Journey",
-    "login": "Already have an account? Login",
+    "cta": "ਆਪਣੀ ਵੋਟਿੰਗ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕਰੋ",
+    "login": "ਪਹਿਲਾਂ ਹੀ ਖਾਤਾ ਹੈ? ਲੌਗਇਨ ਕਰੋ",
     "voter_selection": {
-      "title": "Is this your first time voting?",
-      "subtitle": "We'll tailor your experience to make it simple and stress-free.",
-      "yes_title": "Yes, I'm a First-Timer",
-      "yes_desc": "I need help with everything from registration to the booth.",
-      "no_title": "No, I've Voted Before",
-      "no_desc": "I just need a quick status check and booth info.",
-      "button": "Confirm Choice"
+      "title": "ਕੀ ਤੁਸੀਂ ਪਹਿਲੀ ਵਾਰ ਵੋਟ ਪਾ ਰਹੇ ਹੋ?",
+      "subtitle": "ਅਸੀਂ ਤੁਹਾਡੇ ਅਨੁਭਵ ਨੂੰ ਸਰਲ ਅਤੇ ਤਣਾਅ-ਮੁਕਤ ਬਣਾਉਣ ਲਈ ਇਸਨੂੰ ਅਨੁਕੂਲਿਤ ਕਰਾਂਗੇ।",
+      "yes_title": "ਹਾਂ, ਮੈਂ ਪਹਿਲੀ ਵਾਰ ਵੋਟਰ ਹਾਂ",
+      "yes_desc": "ਮੈਨੂੰ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਤੋਂ ਲੈ ਕੇ ਬੂਥ ਤੱਕ ਹਰ ਚੀਜ਼ ਵਿੱਚ ਮਦਦ ਚਾਹੀਦੀ ਹੈ।",
+      "no_title": "ਨਹੀਂ, ਮੈਂ ਪਹਿਲਾਂ ਵੋਟ ਪਾਈ ਹੈ",
+      "no_desc": "ਮੈਨੂੰ ਬੱਸ ਇੱਕ ਤੁਰੰਤ ਸਥਿਤੀ ਦੀ ਜਾਂਚ ਅਤੇ ਬੂਥ ਦੀ ਜਾਣਕਾਰੀ ਚਾਹੀਦੀ ਹੈ।",
+      "button": "ਚੋਣ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ"
     }
   },
   "dashboard": {
-    "readiness": "Voting Readiness",
-    "complete_profile": "Complete your profile to be 100% ready",
-    "progress_status": "You are {progress}% ready to vote",
-    "next_step": "Next Step",
-    "verify_id": "Verify Voter ID",
+    "readiness": "ਵੋਟਿੰਗ ਤਿਆਰੀ",
+    "complete_profile": "100% ਤਿਆਰ ਹੋਣ ਲਈ ਆਪਣਾ ਪ੍ਰੋਫਾਈਲ ਪੂਰਾ ਕਰੋ",
+    "progress_status": "ਤੁਸੀਂ ਵੋਟ ਪਾਉਣ ਲਈ {progress}% ਤਿਆਰ ਹੋ",
+    "next_step": "ਅਗਲਾ ਕਦਮ",
+    "verify_id": "ਵੋਟਰ ਆਈਡੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
     "actions": {
-      "journey": "Voting Journey",
-      "assistant": "Ask AI Assistant",
-      "eligibility": "Eligibility Check",
-      "documents": "My Documents",
-      "fact_check": "Fact Check",
-      "map": "Booth Finder"
+      "journey": "ਵੋਟਿੰਗ ਯਾਤਰਾ",
+      "assistant": "AI ਸਹਾਇਕ ਨੂੰ ਪੁੱਛੋ",
+      "eligibility": "ਯੋਗਤਾ ਦੀ ਜਾਂਚ",
+      "documents": "ਮੇਰੇ ਦਸਤਾਵੇਜ਼",
+      "fact_check": "ਤੱਥਾਂ ਦੀ ਜਾਂਚ",
+      "map": "ਬੂਥ ਲੱਭੋ"
     },
     "deadlines": {
-      "title": "Upcoming Deadlines",
-      "view_all": "View All",
+      "title": "ਆਉਣ ਵਾਲੀਆਂ ਸਮਾਂ-ਸੀਮਾਵਾਂ",
+      "view_all": "ਸਾਰੇ ਦੇਖੋ",
       "item1": {
-        "title": "Last Day to Register",
-        "type": "Urgent"
+        "title": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਦਾ ਆਖਰੀ ਦਿਨ",
+        "type": "ਜ਼ਰੂਰੀ"
       },
       "item2": {
-        "title": "Document Verification",
-        "type": "Normal"
+        "title": "ਦਸਤਾਵੇਜ਼ ਦੀ ਪੁਸ਼ਟੀ",
+        "type": "ਸਧਾਰਨ"
       }
     },
-    "first_timer_guidance": "Since it's your first time, we've highlighted the most critical steps for you. Don't worry, it's simpler than it looks!"
+    "first_timer_guidance": "ਕਿਉਂਕਿ ਇਹ ਤੁਹਾਡੀ ਪਹਿਲੀ ਵਾਰ ਹੈ, ਅਸੀਂ ਤੁਹਾਡੇ ਲਈ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਕਦਮਾਂ ਨੂੰ ਉਜਾਗਰ ਕੀਤਾ ਹੈ। ਚਿੰਤਾ ਨਾ ਕਰੋ, ਇਹ ਜਿੰਨਾ ਲੱਗਦਾ ਹੈ ਉਸ ਤੋਂ ਕਿਤੇ ਜ਼ਿਆਦਾ ਸਰਲ ਹੈ!"
   },
   "journey": {
-    "title": "Your Journey",
-    "subtitle": "Follow these steps to ensure you're ready.",
+    "title": "ਤੁਹਾਡੀ ਯਾਤਰਾ",
+    "subtitle": "ਇਹ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ ਇਹਨਾਂ ਕਦਮਾਂ ਦੀ ਪਾਲਣਾ ਕਰੋ ਕਿ ਤੁਸੀਂ ਤਿਆਰ ਹੋ।",
     "steps": {
       "registration": {
-        "title": "Voter Registration",
-        "desc": "Fill Form 6 on NVSP portal to register as a new voter.",
-        "time": "5 min"
+        "title": "ਵੋਟਰ ਰਜਿਸਟ੍ਰੇਸ਼ਨ",
+        "desc": "ਨਵੇਂ ਵੋਟਰ ਵਜੋਂ ਰਜਿਸਟਰ ਕਰਨ ਲਈ NVSP ਪੋਰਟਲ 'ਤੇ ਫਾਰਮ 6 ਭਰੋ।",
+        "time": "5 ਮਿੰਟ"
       },
       "verification": {
-        "title": "Document Verification",
-        "desc": "Your local BLO will visit for physical verification of your documents.",
-        "time": "2 min"
+        "title": "ਦਸਤਾਵੇਜ਼ ਦੀ ਪੁਸ਼ਟੀ",
+        "desc": "ਤੁਹਾਡਾ ਸਥਾਨਕ BLO ਤੁਹਾਡੇ ਦਸਤਾਵੇਜ਼ਾਂ ਦੀ ਸਰੀਰਕ ਪੁਸ਼ਟੀ ਲਈ ਆਵੇਗਾ।",
+        "time": "2 ਮਿੰਟ"
       },
       "booth": {
-        "title": "Find Polling Booth",
-        "desc": "Locate your designated polling station on the ECI website.",
-        "time": "1 min"
+        "title": "ਪੋਲਿੰਗ ਬੂਥ ਲੱਭੋ",
+        "desc": "ECI ਵੈੱਬਸਾਈਟ 'ਤੇ ਆਪਣੇ ਨਿਰਧਾਰਤ ਪੋਲਿੰਗ ਸਟੇਸ਼ਨ ਦਾ ਪਤਾ ਲਗਾਓ।",
+        "time": "1 ਮਿੰਟ"
       },
       "vote": {
-        "title": "Cast Your Vote",
-        "desc": "Head to your booth with your EPIC card and cast your vote.",
-        "time": "15 min"
+        "title": "ਆਪਣੀ ਵੋਟ ਪਾਓ",
+        "desc": "ਆਪਣੇ EPIC ਕਾਰਡ ਨਾਲ ਆਪਣੇ ਨਿਰਧਾਰਤ ਬੂਥ 'ਤੇ ਜਾਓ ਅਤੇ ਵੋਟ ਪਾਓ।",
+        "time": "15 ਮਿੰਟ"
       }
     },
-    "mark_complete": "Mark as Complete",
+    "mark_complete": "ਮੁਕੰਮਲ ਵਜੋਂ ਮਾਰਕ ਕਰੋ",
     "tips": {
-      "registration": "FIRST-TIMER TIP: Keep your Aadhaar and a clear passport-size photo ready before starting Form 6.",
-      "verification": "FIRST-TIMER TIP: The BLO will call you before visiting. Keep your originals handy for quick verification.",
-      "booth": "FIRST-TIMER TIP: Booths are usually in schools or community halls nearby. Check the map a day before.",
-      "vote": "FIRST-TIMER TIP: Don't forget your ink mark! It's a badge of honor for every citizen."
+      "registration": "ਪਹਿਲੀ ਵਾਰ ਵੋਟਰਾਂ ਲਈ ਟਿਪ: ਫਾਰਮ 6 ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਆਪਣਾ ਆਧਾਰ ਅਤੇ ਇੱਕ ਸਾਫ਼ ਪਾਸਪੋਰਟ ਸਾਈਜ਼ ਫੋਟੋ ਤਿਆਰ ਰੱਖੋ।",
+      "verification": "ਪਹਿਲੀ ਵਾਰ ਵੋਟਰਾਂ ਲਈ ਟਿਪ: BLO ਆਉਣ ਤੋਂ ਪਹਿਲਾਂ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗਾ। ਤੁਰੰਤ ਪੁਸ਼ਟੀ ਲਈ ਆਪਣੇ ਅਸਲ ਦਸਤਾਵੇਜ਼ ਕੋਲ ਰੱਖੋ।",
+      "booth": "ਪਹਿਲੀ ਵਾਰ ਵੋਟਰਾਂ ਲਈ ਟਿਪ: ਬੂਥ ਆਮ ਤੌਰ 'ਤੇ ਨੇੜਲੇ ਸਕੂਲਾਂ ਜਾਂ ਕਮਿਊਨਿਟੀ ਹਾਲਾਂ ਵਿੱਚ ਹੁੰਦੇ ਹਨ। ਇੱਕ ਦਿਨ ਪਹਿਲਾਂ ਨਕਸ਼ੇ ਦੀ ਜਾਂਚ ਕਰੋ।",
+      "vote": "ਪਹਿਲੀ ਵਾਰ ਵੋਟਰਾਂ ਲਈ ਟਿਪ: ਆਪਣਾ ਸਿਆਹੀ ਦਾ ਨਿਸ਼ਾਨ ਨਾ ਭੁੱਲੋ! ਇਹ ਹਰ ਨਾਗਰਿਕ ਲਈ ਮਾਣ ਵਾਲੀ ਗੱਲ ਹੈ।"
     }
   },
   "documents": {
-    "title": "Document Checklist",
-    "subtitle": "Ensure you have these documents ready for verification.",
-    "status_label": "Readiness Status",
-    "complete": "Complete",
-    "of": "of",
-    "documents_ready": "documents ready",
-    "kcy_alert": "Make sure your mobile number is linked with your Aadhaar for faster e-KYC during verification.",
+    "title": "ਦਸਤਾਵੇਜ਼ ਚੈੱਕਲਿਸਟ",
+    "subtitle": "ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਪੁਸ਼ਟੀ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਇਹ ਦਸਤਾਵੇਜ਼ ਤਿਆਰ ਹਨ।",
+    "status_label": "ਤਿਆਰੀ ਦੀ ਸਥਿਤੀ",
+    "complete": "ਮੁਕੰਮਲ",
+    "of": "ਵਿੱਚੋਂ",
+    "documents_ready": "ਦਸਤਾਵੇਜ਼ ਤਿਆਰ",
+    "kcy_alert": "ਪੁਸ਼ਟੀ ਦੌਰਾਨ ਤੇਜ਼ੀ ਨਾਲ e-KYC ਲਈ ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਤੁਹਾਡਾ ਮੋਬਾਈਲ ਨੰਬਰ ਤੁਹਾਡੇ ਆਧਾਰ ਨਾਲ ਲਿੰਕ ਹੈ।",
     "items": {
       "aadhar": {
-        "title": "Aadhaar Card",
-        "desc": "Required for identity and age proof."
+        "title": "ਆਧਾਰ ਕਾਰਡ",
+        "desc": "ਪਛਾਣ ਅਤੇ ਉਮਰ ਦੇ ਸਬੂਤ ਲਈ ਲੋੜੀਂਦਾ।"
       },
       "voter-id": {
-        "title": "Voter ID (if any)",
-        "desc": "Existing EPIC card if you are already registered."
+        "title": "ਵੋਟਰ ਆਈਡੀ (ਜੇ ਕੋਈ ਹੋਵੇ)",
+        "desc": "ਜੇਕਰ ਤੁਸੀਂ ਪਹਿਲਾਂ ਹੀ ਰਜਿਸਟਰਡ ਹੋ ਤਾਂ ਮੌਜੂਦਾ EPIC ਕਾਰਡ।"
       },
       "address-proof": {
-        "title": "Address Proof",
-        "desc": "Electricity bill, Gas connection, or Bank passbook."
+        "title": "ਪਤੇ ਦਾ ਸਬੂਤ",
+        "desc": "ਬਿਜਲੀ ਦਾ ਬਿੱਲ, ਗੈਸ ਕਨੈਕਸ਼ਨ, ਜਾਂ ਬੈਂਕ ਪਾਸਬੁੱਕ।"
+      },
+      "pan-card": {
+        "title": "ਪੈਨ ਕਾਰਡ",
+        "desc": "ਵਾਧੂ ਪੁਸ਼ਟੀ ਲਈ ਵਿਕਲਪਿਕ ਪਛਾਣ ਦਾ ਸਬੂਤ।"
       }
     }
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Let's see if you can vote in the next election.",
-    "age_question": "What is your age?",
-    "age_placeholder": "Enter your age",
-    "citizen_question": "Are you an Indian citizen?",
-    "state_question": "Which state are you from?",
-    "registered_question": "Are you already registered to vote?",
-    "yes": "Yes",
-    "no": "No",
-    "check_result": "Check Result",
-    "result_eligible": "You Are Eligible!",
-    "result_not_eligible": "Not Eligible Yet",
-    "desc_eligible": "Congratulations! You are eligible to vote in the upcoming elections.",
-    "desc_not_eligible": "Unfortunately, you do not meet the criteria to vote yet.",
-    "reason_age": "You must be at least 18 years old to vote.",
-    "reason_citizen": "Only Indian citizens are eligible to vote.",
-    "next_steps_title": "Next Steps",
-    "next_step_register": "Register on the NVSP portal (Form 6)",
-    "next_step_documents": "Keep your Aadhaar and address proof ready",
-    "what_to_do_next": "What should you do next?",
-    "start_over": "Start Over",
-    "next": "Next Step"
+    "title": "ਯੋਗਤਾ ਦੀ ਜਾਂਚ",
+    "subtitle": "ਆਓ ਦੇਖੀਏ ਕਿ ਕੀ ਤੁਸੀਂ ਅਗਲੀਆਂ ਚੋਣਾਂ ਵਿੱਚ ਵੋਟ ਪਾ ਸਕਦੇ ਹੋ।",
+    "age_question": "ਤੁਹਾਡੀ ਉਮਰ ਕੀ ਹੈ?",
+    "age_placeholder": "ਆਪਣੀ ਉਮਰ ਦਰਜ ਕਰੋ",
+    "citizen_question": "ਕੀ ਤੁਸੀਂ ਭਾਰਤੀ ਨਾਗਰਿਕ ਹੋ?",
+    "state_question": "ਤੁਸੀਂ ਕਿਸ ਰਾਜ ਤੋਂ ਹੋ?",
+    "registered_question": "ਕੀ ਤੁਸੀਂ ਪਹਿਲਾਂ ਹੀ ਵੋਟ ਪਾਉਣ ਲਈ ਰਜਿਸਟਰਡ ਹੋ?",
+    "yes": "ਹਾਂ",
+    "no": "ਨਹੀਂ",
+    "check_result": "ਨਤੀਜਾ ਦੇਖੋ",
+    "result_eligible": "ਤੁਸੀਂ ਯੋਗ ਹੋ!",
+    "result_not_eligible": "ਅਜੇ ਯੋਗ ਨਹੀਂ",
+    "desc_eligible": "ਵਧਾਈਆਂ! ਤੁਸੀਂ ਆਉਣ ਵਾਲੀਆਂ ਚੋਣਾਂ ਵਿੱਚ ਵੋਟ ਪਾਉਣ ਦੇ ਯੋਗ ਹੋ।",
+    "desc_not_eligible": "ਬਦਕਿਸਮਤੀ ਨਾਲ, ਤੁਸੀਂ ਅਜੇ ਤੱਕ ਵੋਟ ਪਾਉਣ ਦੇ ਮਾਪਦੰਡਾਂ ਨੂੰ ਪੂਰਾ ਨਹੀਂ ਕਰਦੇ।",
+    "reason_age": "ਵੋਟ ਪਾਉਣ ਲਈ ਤੁਹਾਡੀ ਉਮਰ ਘੱਟੋ-ਘੱਟ 18 ਸਾਲ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।",
+    "reason_citizen": "ਸਿਰਫ਼ ਭਾਰਤੀ ਨਾਗਰਿਕ ਹੀ ਵੋਟ ਪਾਉਣ ਦੇ ਯੋਗ ਹਨ।",
+    "next_steps_title": "ਅਗਲੇ ਕਦਮ",
+    "next_step_register": "NVSP ਪੋਰਟਲ 'ਤੇ ਰਜਿਸਟਰ ਕਰੋ (ਫਾਰਮ 6)",
+    "next_step_documents": "ਆਪਣਾ ਆਧਾਰ ਅਤੇ ਪਤੇ ਦਾ ਸਬੂਤ ਤਿਆਰ ਰੱਖੋ",
+    "what_to_do_next": "ਤੁਹਾਨੂੰ ਅੱਗੇ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+    "start_over": "ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ",
+    "next": "ਅਗਲਾ ਕਦਮ"
   },
   "timeline": {
-    "title": "Election Timeline",
-    "subtitle": "Key dates for the 2026 General Elections",
-    "remind_me": "Remind Me",
-    "details": "Details",
+    "title": "ਚੋਣ ਸਮਾਂ-ਰੇਖਾ",
+    "subtitle": "2026 ਦੀਆਂ ਆਮ ਚੋਣਾਂ ਲਈ ਮਹੱਤਵਪੂਰਨ ਮਿਤੀਆਂ",
+    "remind_me": "ਮੈਨੂੰ ਯਾਦ ਕਰਵਾਓ",
+    "details": "ਵੇਰਵੇ",
     "events": {
-      "registration_open": { "title": "Registration Opens" },
-      "registration_deadline": { "title": "Registration Deadline", "countdown": "14 days left" },
-      "voter_list": { "title": "Voter List Update" },
-      "election_day": { "title": "Election Day", "countdown": "40 days left" }
+      "registration_open": { "title": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਸ਼ੁਰੂ" },
+      "registration_deadline": { "title": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਦੀ ਆਖਰੀ ਮਿਤੀ", "countdown": "14 ਦਿਨ ਬਾਕੀ" },
+      "voter_list": { "title": "ਵੋਟਰ ਸੂਚੀ ਅੱਪਡੇਟ" },
+      "election_day": { "title": "ਚੋਣ ਦਾ ਦਿਨ", "countdown": "40 ਦਿਨ ਬਾਕੀ" }
     },
     "status": {
-      "completed": "Completed",
-      "active": "Active",
-      "upcoming": "Upcoming"
+      "completed": "ਮੁਕੰਮਲ",
+      "active": "ਸਰਗਰਮ",
+      "upcoming": "ਆਉਣ ਵਾਲਾ"
     }
   },
   "chat": {
-    "welcome": "Hello! I am your Civic AI assistant. How can I help you today?",
-    "mock_response": "I'm a mock AI assistant. Soon I'll be powered by Gemini to provide real-time election information!",
-    "placeholder": "Ask anything...",
+    "welcome": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਤੁਹਾਡਾ ਸਿਵਿਕ AI ਸਹਾਇਕ ਹਾਂ। ਅੱਜ ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?",
+    "mock_response": "ਮੈਂ ਇੱਕ ਮੌਕ AI ਸਹਾਇਕ ਹਾਂ। ਜਲਦੀ ਹੀ ਮੈਂ ਅਸਲ-ਸਮੇਂ ਦੀ ਚੋਣ ਜਾਣਕਾਰੀ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ Gemini ਦੁਆਰਾ ਸੰਚਾਲਿਤ ਹੋਵਾਂਗਾ!",
+    "placeholder": "ਕੁਝ ਵੀ ਪੁੱਛੋ...",
     "suggestions": {
-      "next": "What should I do next?",
-      "register": "How do I register to vote?",
-      "polling": "Check my polling station",
-      "docs": "Documents required for registration"
+      "next": "ਮੈਨੂੰ ਅੱਗੇ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+      "register": "ਮੈਂ ਵੋਟ ਪਾਉਣ ਲਈ ਰਜਿਸਟਰ ਕਿਵੇਂ ਕਰਾਂ?",
+      "polling": "ਮੇਰੇ ਪੋਲਿੰਗ ਸਟੇਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ",
+      "docs": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਲਈ ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼",
+      "eligibility": "ਕੀ ਮੈਂ ਵੋਟ ਪਾਉਣ ਦੇ ਯੋਗ ਹਾਂ?"
     }
   },
   "nav": {
-    "home": "Home",
-    "journey": "Journey",
-    "assistant": "AI Assistant",
-    "eligibility": "Eligibility",
-    "map": "Booth Finder"
+    "home": "ਹੋਮ",
+    "journey": "ਯਾਤਰਾ",
+    "assistant": "AI ਸਹਾਇਕ",
+    "eligibility": "ਯੋਗਤਾ",
+    "map": "ਬੂਥ ਲੱਭੋ"
   },
   "booth_finder": {
-    "title": "Find My Booth",
-    "subtitle": "Enter your PIN code to locate your designated polling station.",
-    "placeholder": "Enter PIN Code (e.g. 400001)",
-    "search": "Search",
-    "searching": "Searching...",
-    "distance_away": "{distance} away",
-    "get_directions": "Get Directions",
-    "no_results": "No booths found for this PIN code.",
-    "empty_state": "Your results will appear here.",
-    "map_title": "Interactive Map",
-    "map_desc": "Coming soon with real-time navigation."
+    "title": "ਮੇਰਾ ਬੂਥ ਲੱਭੋ",
+    "subtitle": "ਆਪਣੇ ਨਿਰਧਾਰਤ ਪੋਲਿੰਗ ਸਟੇਸ਼ਨ ਦਾ ਪਤਾ ਲਗਾਉਣ ਲਈ ਆਪਣਾ ਪਿੰਨ ਕੋਡ ਦਰਜ ਕਰੋ।",
+    "placeholder": "ਪਿੰਨ ਕੋਡ ਦਰਜ ਕਰੋ (ਜਿਵੇਂ ਕਿ 400001)",
+    "search": "ਖੋਜੋ",
+    "searching": "ਖੋਜ ਰਿਹਾ ਹੈ...",
+    "distance_away": "{distance} ਦੂਰ",
+    "get_directions": "ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼ ਪ੍ਰਾਪਤ ਕਰੋ",
+    "no_results": "ਇਸ ਪਿੰਨ ਕੋਡ ਲਈ ਕੋਈ ਬੂਥ ਨਹੀਂ ਮਿਲਿਆ।",
+    "empty_state": "ਤੁਹਾਡੇ ਨਤੀਜੇ ਇੱਥੇ ਦਿਖਾਈ ਦੇਣਗੇ।",
+    "map_title": "ਇੰਟਰਐਕਟਿਵ ਨਕਸ਼ਾ",
+    "map_desc": "ਅਸਲ-ਸਮੇਂ ਦੀ ਨੇਵੀਗੇਸ਼ਨ ਨਾਲ ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ।"
   },
   "myth_fact": {
-    "title": "Myth vs Fact",
-    "subtitle": "Busting common election rumors with verified facts.",
-    "myth_label": "Myth",
-    "fact_label": "Fact",
+    "title": "ਮਿੱਥ ਬਨਾਮ ਤੱਥ",
+    "subtitle": "ਪ੍ਰਮਾਣਿਤ ਤੱਥਾਂ ਨਾਲ ਚੋਣਾਂ ਬਾਰੇ ਆਮ ਅਫਵਾਹਾਂ ਨੂੰ ਦੂਰ ਕਰਨਾ।",
+    "myth_label": "ਮਿੱਥ",
+    "fact_label": "ਤੱਥ",
     "items": {
       "item1": {
-        "myth": "I have a Voter ID card, so I can definitely vote.",
-        "fact": "Having an EPIC card is not enough. Your name MUST be present in the official Electoral Roll to vote."
+        "myth": "ਮੇਰੇ ਕੋਲ ਵੋਟਰ ਆਈਡੀ ਕਾਰਡ ਹੈ, ਇਸ ਲਈ ਮੈਂ ਯਕੀਨੀ ਤੌਰ 'ਤੇ ਵੋਟ ਪਾ ਸਕਦਾ ਹਾਂ।",
+        "fact": "ਸਿਰਫ਼ EPIC ਕਾਰਡ ਹੋਣਾ ਹੀ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ। ਵੋਟ ਪਾਉਣ ਲਈ ਤੁਹਾਡਾ ਨਾਮ ਸਰਕਾਰੀ ਵੋਟਰ ਸੂਚੀ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
       },
       "item2": {
-        "myth": "I can vote from any polling station in my city.",
-        "fact": "No. You can only vote at the specific polling booth assigned to you in the voter list."
+        "myth": "ਮੈਂ ਆਪਣੇ ਸ਼ਹਿਰ ਦੇ ਕਿਸੇ ਵੀ ਪੋਲਿੰਗ ਸਟੇਸ਼ਨ ਤੋਂ ਵੋਟ ਪਾ ਸਕਦਾ ਹਾਂ।",
+        "fact": "ਨਹੀਂ। ਤੁਸੀਂ ਸਿਰਫ਼ ਵੋਟਰ ਸੂਚੀ ਵਿੱਚ ਤੁਹਾਨੂੰ ਦਿੱਤੇ ਗਏ ਵਿਸ਼ੇਸ਼ ਪੋਲਿੰਗ ਬੂਥ 'ਤੇ ਹੀ ਵੋਟ ਪਾ ਸਕਦੇ ਹੋ।"
       },
       "item3": {
-        "myth": "Registered voters can vote online from home.",
-        "fact": "Currently, the ECI does not provide an online voting facility for general citizens. You must visit your booth."
+        "myth": "ਰਜਿਸਟਰਡ ਵੋਟਰ ਘਰ ਬੈਠੇ ਆਨਲਾਈਨ ਵੋਟ ਪਾ ਸਕਦੇ ਹਨ।",
+        "fact": "ਵਰਤਮਾਨ ਵਿੱਚ, ECI ਆਮ ਨਾਗਰਿਕਾਂ ਲਈ ਆਨਲਾਈਨ ਵੋਟਿੰਗ ਦੀ ਸਹੂਲਤ ਪ੍ਰਦਾਨ ਨਹੀਂ ਕਰਦਾ ਹੈ। ਤੁਹਾਨੂੰ ਆਪਣੇ ਬੂਥ 'ਤੇ ਜਾਣਾ ਪਵੇਗਾ।"
       }
     }
   },
   "help_others": {
-    "title": "Help Someone Vote",
-    "subtitle": "Share the simple 4-step process with friends and family to ensure everyone's voice is heard.",
-    "button": "Help Someone",
-    "modal_title": "Help Someone Vote",
-    "modal_subtitle": "Empower your community by sharing essential voting information.",
-    "copy_text": "Copy Steps",
-    "copy_link": "Copy Link",
-    "copied": "Copied!",
-    "people_helped": "People Helped",
-    "option_checklist": "Share Checklist",
-    "option_progress": "Share Progress",
-    "option_guide": "Share Simple Guide",
-    "share_message": "🗳️ *Voting Guide 2026*\n\n1. Register: Fill Form 6 at voters.eci.gov.in\n2. Verify: Keep documents ready for BLO visit\n3. Locate: Find your booth via EPIC number\n4. Vote: Visit booth on election day!\n\nHelp your community vote: {link}",
-    "share_checklist_msg": "🗳️ *My Voting Checklist*\n\nI've prepared my documents for the 2026 Elections. Prepare yours and get ready to vote: {link}",
-    "share_progress_msg": "📈 I am {progress}% ready for the 2026 Elections! Check your voting readiness here: {link}",
-    "share_guide_msg": "📘 Here is a simple step-by-step guide to voting in the 2026 Elections. Share it with anyone who needs help: {link}"
+    "title": "ਕਿਸੇ ਨੂੰ ਵੋਟ ਪਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰੋ",
+    "subtitle": "ਇਹ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ ਕਿ ਹਰ ਕਿਸੇ ਦੀ ਆਵਾਜ਼ ਸੁਣੀ ਜਾਵੇ, ਦੋਸਤਾਂ ਅਤੇ ਪਰਿਵਾਰ ਨਾਲ ਸਧਾਰਨ 4-ਕਦਮਾਂ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ ਸਾਂਝੀ ਕਰੋ।",
+    "button": "ਕਿਸੇ ਦੀ ਮਦਦ ਕਰੋ",
+    "modal_title": "ਕਿਸੇ ਨੂੰ ਵੋਟ ਪਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰੋ",
+    "modal_subtitle": "ਜ਼ਰੂਰੀ ਵੋਟਿੰਗ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਕਰਕੇ ਆਪਣੇ ਭਾਈਚਾਰੇ ਨੂੰ ਸ਼ਕਤੀਸ਼ਾਲੀ ਬਣਾਓ।",
+    "copy_text": "ਕਦਮ ਕਾਪੀ ਕਰੋ",
+    "copy_link": "ਲਿੰਕ ਕਾਪੀ ਕਰੋ",
+    "copied": "ਕਾਪੀ ਕੀਤਾ ਗਿਆ!",
+    "people_helped": "ਮਦਦ ਕੀਤੇ ਗਏ ਲੋਕ",
+    "option_checklist": "ਚੈੱਕਲਿਸਟ ਸਾਂਝੀ ਕਰੋ",
+    "option_progress": "ਤਰੱਕੀ ਸਾਂਝੀ ਕਰੋ",
+    "option_guide": "ਸਧਾਰਨ ਗਾਈਡ ਸਾਂਝੀ ਕਰੋ",
+    "share_message": "🗳️ *ਵੋਟਿੰਗ ਗਾਈਡ 2026*\n\n1. ਰਜਿਸਟ੍ਰੇਸ਼ਨ: voters.eci.gov.in 'ਤੇ ਫਾਰਮ 6 ਭਰੋ\n2. ਪੁਸ਼ਟੀ: BLO ਦੇ ਆਉਣ ਲਈ ਦਸਤਾਵੇਜ਼ ਤਿਆਰ ਰੱਖੋ\n3. ਪਤਾ ਲਗਾਓ: EPIC ਨੰਬਰ ਰਾਹੀਂ ਆਪਣਾ ਬੂਥ ਲੱਭੋ\n4. ਵੋਟ: ਚੋਣ ਵਾਲੇ ਦਿਨ ਬੂਥ 'ਤੇ ਜਾਓ!\n\nਆਪਣੇ ਭਾਈਚਾਰੇ ਦੀ ਵੋਟ ਪਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰੋ: {link}",
+    "share_checklist_msg": "🗳️ *ਮੇਰੀ ਵੋਟਿੰਗ ਚੈੱਕਲਿਸਟ*\n\nਮੈਂ 2026 ਦੀਆਂ ਚੋਣਾਂ ਲਈ ਆਪਣੇ ਦਸਤਾਵੇਜ਼ ਤਿਆਰ ਕਰ ਲਏ ਹਨ। ਤੁਸੀਂ ਵੀ ਆਪਣੇ ਦਸਤਾਵੇਜ਼ ਤਿਆਰ ਕਰੋ ਅਤੇ ਵੋਟ ਪਾਉਣ ਲਈ ਤਿਆਰ ਰਹੋ: {link}",
+    "share_progress_msg": "📈 ਮੈਂ 2026 ਦੀਆਂ ਚੋਣਾਂ ਲਈ {progress}% ਤਿਆਰ ਹਾਂ! ਆਪਣੀ ਵੋਟਿੰਗ ਤਿਆਰੀ ਇੱਥੇ ਦੇਖੋ: {link}",
+    "share_guide_msg": "📘 ਇੱਥੇ 2026 ਦੀਆਂ ਚੋਣਾਂ ਵਿੱਚ ਵੋਟ ਪਾਉਣ ਲਈ ਇੱਕ ਸਧਾਰਨ ਕਦਮ-ਦਰ-ਕਦਮ ਗਾਈਡ ਹੈ। ਇਸਨੂੰ ਕਿਸੇ ਵੀ ਵਿਅਕਤੀ ਨਾਲ ਸਾਂਝਾ ਕਰੋ ਜਿਸਨੂੰ ਮਦਦ ਦੀ ਲੋੜ ਹੈ: {link}"
   },
   "common": {
-    "hi": "Hi",
-    "election_year": "India Election 2026"
+    "hi": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ",
+    "election_year": "ਭਾਰਤ ਚੋਣ 2026"
   },
   "profile": {
-    "title": "Voter Profile",
-    "edit": "Edit Profile",
-    "save": "Save Profile",
-    "readiness": "Readiness Snapshot",
-    "impact_score": "Impact Score",
-    "completion": "Completion",
-    "basic_info": "Basic Information",
-    "full_name": "Full Name",
-    "age": "Age",
-    "state": "State",
-    "district": "District",
-    "voting_status": "Voting Status",
-    "registered_voter": "Registered Voter",
-    "voter_id_available": "Voter ID Available",
-    "first_time_voter": "First-Time Voter",
-    "preferences": "Preferences",
-    "app_language": "App Language"
+    "title": "ਵੋਟਰ ਪ੍ਰੋਫਾਈਲ",
+    "edit": "ਪ੍ਰੋਫਾਈਲ ਸੋਧੋ",
+    "save": "ਪ੍ਰੋਫਾਈਲ ਸੁਰੱਖਿਅਤ ਕਰੋ",
+    "readiness": "ਤਿਆਰੀ ਦਾ ਸਨੈਪਸ਼ਾਟ",
+    "impact_score": "ਪ੍ਰਭਾਵ ਸਕੋਰ",
+    "completion": "ਮੁਕੰਮਲਤਾ",
+    "basic_info": "ਬੁਨਿਆਦੀ ਜਾਣਕਾਰੀ",
+    "full_name": "ਪੂਰਾ ਨਾਮ",
+    "age": "ਉਮਰ",
+    "state": "ਰਾਜ",
+    "district": "ਜ਼ਿਲ੍ਹਾ",
+    "voting_status": "ਵੋਟਿੰਗ ਸਥਿਤੀ",
+    "registered_voter": "ਰਜਿਸਟਰਡ ਵੋਟਰ",
+    "voter_id_available": "ਵੋਟਰ ਆਈਡੀ ਉਪਲਬਧ",
+    "first_time_voter": "ਪਹਿਲੀ ਵਾਰ ਵੋਟਰ",
+    "preferences": "ਤਰਜੀਹਾਂ",
+    "app_language": "ਐਪ ਦੀ ਭਾਸ਼ਾ"
   },
   "notifications": {
-    "title": "Notifications",
-    "empty": "No new notifications",
-    "mark_all_read": "Mark all as read",
-    "notif_deadline_registration": "Registration closes in 2 days. Complete your Form 6 today!",
-    "notif_incomplete_profile": "Your profile is incomplete. Finish it to see your voting readiness.",
-    "notif_voting_day": "Election Day is approaching on May 20th. Don't forget to vote!",
-    "notif_eligible_now": "Congratulations! Based on your age, you are now eligible to vote.",
-    "notif_document_pending": "You have {count} documents pending in your checklist."
+    "title": "ਸੂਚਨਾਵਾਂ",
+    "empty": "ਕੋਈ ਨਵੀਂ ਸੂਚਨਾ ਨਹੀਂ",
+    "mark_all_read": "ਸਾਰਿਆਂ ਨੂੰ ਪੜ੍ਹਿਆ ਹੋਇਆ ਮਾਰਕ ਕਰੋ",
+    "notif_deadline_registration": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ 2 ਦਿਨਾਂ ਵਿੱਚ ਬੰਦ ਹੋ ਜਾਵੇਗੀ। ਅੱਜ ਹੀ ਆਪਣਾ ਫਾਰਮ 6 ਪੂਰਾ ਕਰੋ!",
+    "notif_incomplete_profile": "ਤੁਹਾਡਾ ਪ੍ਰੋਫਾਈਲ ਅਧੂਰਾ ਹੈ। ਆਪਣੀ ਵੋਟਿੰਗ ਤਿਆਰੀ ਦੇਖਣ ਲਈ ਇਸਨੂੰ ਪੂਰਾ ਕਰੋ।",
+    "notif_voting_day": "ਚੋਣ ਦਾ ਦਿਨ 20 ਮਈ ਨੂੰ ਆ ਰਿਹਾ ਹੈ। ਵੋਟ ਪਾਉਣਾ ਨਾ ਭੁੱਲੋ!",
+    "notif_eligible_now": "ਵਧਾਈਆਂ! ਤੁਹਾਡੀ ਉਮਰ ਦੇ ਆਧਾਰ 'ਤੇ, ਤੁਸੀਂ ਹੁਣ ਵੋਟ ਪਾਉਣ ਦੇ ਯੋਗ ਹੋ।",
+    "notif_document_pending": "ਤੁਹਾਡੀ ਚੈੱਕਲਿਸਟ ਵਿੱਚ {count} ਦਸਤਾਵੇਜ਼ ਬਾਕੀ ਹਨ।"
   },
   "updates": {
-    "title": "Election Updates",
-    "subtitle": "Latest official news and voter tips",
-    "filter_all": "All",
-    "filter_official": "Official",
-    "filter_tip": "Tips",
-    "filter_process": "Process",
-    "read_more": "Read More",
-    "type_official": "OFFICIAL",
-    "type_tip": "VOTER TIP",
-    "type_process": "PROCESS CHANGE"
+    "title": "ਚੋਣ ਅੱਪਡੇਟ",
+    "subtitle": "ਤਾਜ਼ਾ ਸਰਕਾਰੀ ਖ਼ਬਰਾਂ ਅਤੇ ਵੋਟਰ ਸੁਝਾਅ",
+    "filter_all": "ਸਾਰੇ",
+    "filter_official": "ਸਰਕਾਰੀ",
+    "filter_tip": "ਸੁਝਾਅ",
+    "filter_process": "ਪ੍ਰਕਿਰਿਆ",
+    "read_more": "ਹੋਰ ਪੜ੍ਹੋ",
+    "type_official": "ਸਰਕਾਰੀ",
+    "type_tip": "ਵੋਟਰ ਸੁਝਾਅ",
+    "type_process": "ਪ੍ਰਕਿਰਿਆ ਤਬਦੀਲੀ"
   }
 }

@@ -163,11 +163,7 @@ export const ProfileScreen: React.FC = () => {
               >
                 {isEditing ? <><Save size={14} /> Save Changes</> : <><Edit3 size={14} /> Profile Settings</>}
               </motion.button>
-              <Link href="/assistant">
-                <button className="p-3 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-indigo-600 hover:border-indigo-100 transition-all shadow-sm">
-                  <MessageSquare size={16} />
-                </button>
-              </Link>
+
             </div>
           </div>
         </Card>
@@ -203,9 +199,6 @@ export const ProfileScreen: React.FC = () => {
                   <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Personal Readiness</h4>
                 </div>
                 <p className="text-[11px] text-slate-500 font-bold leading-relaxed mb-3">Your voting profile is {progress}% complete. Verify remaining steps to reach 100%.</p>
-                <Link href="/checklist" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
-                  Finish Verification <ChevronRight size={10} />
-                </Link>
               </div>
             </div>
           </Card>

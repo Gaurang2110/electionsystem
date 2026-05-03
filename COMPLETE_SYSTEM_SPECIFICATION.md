@@ -5,8 +5,8 @@ The **Civic AI Election Assistant** is a high-fidelity, multilingual platform de
 
 - **Objective**: 100% Voter Readiness.
 - **Framework**: Next.js 16 (Turbopack) with App Router.
-- **Styling**: Vanilla CSS with Glassmorphism / Glass design tokens.
-- **State**: Zustand with LocalStorage persistence.
+- **Styling**: Vanilla CSS with Premium "Light Glass" design tokens (Glassmorphism).
+- **State**: Zustand with LocalStorage persistence and real-time state synchronization.
 - **Localization**: `next-intl` (English, Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Punjabi).
 - **Accessibility**: Native support for **Simple Mode**, **High Contrast Mode**, and **Sign Language Guides**.
 
@@ -18,84 +18,75 @@ The system's "Brain" manages all user data, progress, and gamification state loc
 ### User Profile (`UserProfile`)
 - `name`, `age`, `dob`, `state`, `district`, `language`, `isFirstTimeVoter`, `isRegistered`, `hasVoterId`.
 
-### Accessibility State
-- `isSimpleMode`: Enlarged UI, simplified text, automated voice guidance.
-- `isHighContrast`: Pure black/white/yellow theme for low-vision support.
-
-### Voting Readiness Engine
-Calculates the `progress` score (0-100%) based on four weighted factors:
-- **Journey (40%)**: Milestone completion in the Quest.
-- **Checklist (20%)**: Required document preparation.
-- **Eligibility (20%)**: Verification status.
-- **Engagement (20%)**: Participation points (Cap: 100).
+### Gamification State (`GamificationState`)
+- `points`: Total engagement points earned across all activities.
+- `badges`: Array of unlocked achievement IDs.
+- `questSteps`: Object tracking completion of `register`, `locate`, `ballot`, `ready`, and `share`.
+- `unlockedStates`: Array of regions explored on the interactive map.
+- `quizScore`: Highest score achieved in the knowledge challenges.
 
 ---
 
 ## 3. FEATURE SPECIFICATION
 
-### AI Assistant & Voice Control (`/features/ai-assistant/`)
-- **AI Model**: `gemini-2.0-flash-exp` (via Google Generative AI).
-- **Voice Navigation (STT)**: 
-  - **Engine**: Web Speech API (`SpeechRecognition`).
-  - **Functionality**: Hands-free navigation via commands like "Open Map", "Check Eligibility", or "What should I do next?".
-- **Voice Guidance (TTS)**: 
-  - **Engine**: `speechSynthesis`.
-  - **Capabilities**: Real-time auditory nudges, confirmation of actions, and next-step explanations.
-  - **Language Sync**: TTS automatically switches between 8 Indian languages based on app locale.
+### Intelligence & Guidance
+- **AI Assistant**: Unified, context-aware assistant with Path-Detection prompting.
+- **Next Best Action Engine**: Dynamically calculates the most impactful next step for the user based on missing milestones.
+- **Voice Orchestration**: Web Speech API for hands-free navigation and real-time audio guidance (TTS/STT).
 
-### Sign Language Video Guides (`/components/ui/SignLanguageGuide.tsx`)
-- **Format**: Short (5-10s) MP4 videos stored locally (`/public/videos/`).
-- **Integration**: Mapped to key milestones: `registration`, `map`, `voting`.
-- **Performance**: Lazy-loaded with `preload="metadata"` and browser-cached for offline access.
+### High-Engagement Gamification
+- **Daily Quiz System (`/quiz`)**: 
+  - Randomized engine selecting 10 questions from a 50-item intelligence pool.
+  - Educational feedback with detailed explanations for every response.
+  - Reward: +10 points per correct answer + Knowledge badges.
+- **Interactive Mock Ballot (`/ballot`)**: 
+  - Full EVM simulation with candidate profiles and democratic vision statements.
+  - Neutrality verification algorithm calculates "Voter Independence Score".
+  - Reward: +30 points + "Expert" badge.
+- **Invite Community (`/share`)**: 
+  - High-resolution HTML5 Canvas generation for personalized "Readiness Reports".
+  - Native social sharing integration (`navigator.share`).
+  - Reward: +50 points + "Community Hero" badge.
 
-### Accessibility Hub (`/features/dashboard/`)
-- **Central Entry Points**: Unified home-screen toggles for all assistance features.
-- **High Contrast Mode**: Pure black backgrounds, thick borders, and high-visibility yellow interactive elements.
-
-### Interactive Booth Map (`/features/maps/BoothMap.tsx`)
-- **Engine**: React Leaflet with custom GeoJSON (India Districts).
-- **Interactivity**: `cursor: pointer` on all boundaries, `mouseover` highlighting, and `click` to unlock.
-- **State Collectibles**: Unlocks region-specific stickers; increments `engagementScore` (+25).
+### Visualization & Maps
+- **Interactive Booth Map**: React Leaflet with GeoJSON district boundaries.
+- **Participation Heatmap**: State-wise turnout forecasting and visualization.
+- **Sticker Gallery**: Region-specific collectibles unlocked via map exploration.
 
 ---
 
 ## 4. DATA SCHEMA SPECIFICATION
 
-### Turnout Data (`data/turnout.json`)
-Used for the **Turnout Forecast** visualization.
-- **Fields**: `state` (string), `turnout` (number).
-- **Color Logic**: `<50` (Rose), `50-70` (Amber), `>70` (Emerald).
+### Quiz Intelligence (`data/quiz.json`)
+- **Schema**: `id`, `question`, `options[]`, `answer` (index), `explanation`.
+- **Pool**: 50 election-related questions covering rights, procedures, and history.
 
-### Document Checklist (`data/documents.json`)
-- **Types**: Identity, Address, Age.
-- **Status**: Linked to readiness score (20% weight).
+### Candidate Profiles (`data/candidates.json`)
+- **Fields**: `id`, `name`, `symbol`, `vision`, `description`.
+- **Purpose**: Powering the Mock Ballot EVM simulation.
+
+### Achievement System (`lib/gamificationService.ts`)
+- **Badges**: 12+ unique achievements (e.g., `badge_registered`, `badge_democracy_expert`).
+- **Logic**: Triggered by milestone completion or score thresholds.
 
 ---
 
 ## 5. USER FLOW & ACCESS MAP
 
-### Primary User Journey
-1. **Onboarding**: Select from 8 languages; choose Voter Type.
-2. **Dashboard**: Access **Accessibility Hub** for visual/voice assistance.
-3. **Exploration**: Use **Voice Control** to open maps or check eligibility.
-4. **Learning**: Watch **Sign Language Guides** during the voting quest.
-5. **Readiness**: Reach 100% with automated **Voice Nudges** from the Universal CTA.
+### The "Readiness Journey"
+1. **Onboarding**: Secure name/age entry and multilingual setup.
+2. **Dashboard**: High-engagement sidebar provides real-time "Motivation Engine" feedback.
+3. **Knowledge Loop**: User completes Daily Quiz to earn points and insights.
+4. **Action Loop**: Complete Journey Quest (Map -> Registration -> Documents -> Mock Ballot).
+5. **Community Loop**: Share the generated "Readiness Card" to inspire others and reach 100% status.
 
 ---
 
-## 6. EVENT & TRIGGER SYSTEM (`checkTriggers`)
-- **onStepComplete**: Updates `questSteps` and triggers progress recalculation.
-- **onStateUnlock**: Increments `engagementScore` (+25) and adds to `unlockedStates`.
-- **onProgressThreshold**: Progress `>= 80%` auto-unlocks the `badge_ready_citizen`.
-- **Voice Nudge Trigger**: `UniversalContinueCTA` speaks the next step when a new priority task is identified.
+## 6. TECHNICAL INFRASTRUCTURE
+- **Offline First**: All simulation logic, knowledge data, and state processing are browser-native.
+- **Design System**: "Guided Sovereignty" — Glassmorphic cards, high-density typography, and subtle micro-animations.
+- **Performance**: Zero-latency navigation via Next.js Link prefetching and Zustand state slicing.
+- **Security**: Local-only processing for voter preferences; encrypted local storage for profile data.
 
 ---
-
-## 7. TECHNICAL SPECIFICATIONS
-- **SEO**: Dynamic Meta titles/descriptions per locale. Semantic HTML5 tags.
-- **Offline First**: All speech models, video guides (after first load), and logic are browser-native.
-- **Design System**: Glassmorphism with adaptive High Contrast overrides.
-- **Security**: Gemini API calls wrapped in server-side routes (`/api/chat`).
-
----
-*Updated on 2026-05-01 by Antigravity AI.*
+*Updated on 2026-05-03 by Antigravity AI (Implementation Phase 3 Complete).*

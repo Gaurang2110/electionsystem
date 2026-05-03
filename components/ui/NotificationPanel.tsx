@@ -48,7 +48,7 @@ export const NotificationPanel: React.FC<{ isOpen: boolean; onClose: () => void 
                 </div>
               </div>
               <button 
-                onClick={() => markAsRead()}
+                onClick={onClose}
                 className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:border-blue-100 transition-all shadow-sm"
                 title={t('mark_all_read')}
               >

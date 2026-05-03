@@ -71,10 +71,7 @@ export default async function LocaleLayout({
             <ClientLayoutWrapper>
               {children}
             </ClientLayoutWrapper>
-            <UniversalContinueCTA />
-            <DemoModeOverlay />
             <GuidedTourOverlay />
-            <VoiceNavigator />
             <SWRegistration />
             <PrivacyConsent />
           </div>

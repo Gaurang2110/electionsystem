@@ -89,9 +89,9 @@ export const GamificationFlow = {
     const steps = [
       { id: 'register', label: 'Verify Registration', link: '/journey' },
       { id: 'locate', label: 'Find Voting Booth', link: '/map' },
-      { id: 'ballot', label: 'Practice Mock Ballot', link: '/#mock-ballot' },
+      { id: 'ballot', label: 'Practice Mock Ballot', link: '/ballot' },
       { id: 'ready', label: 'Confirm Readiness', link: '/eligibility' },
-      { id: 'share', label: 'Invite Community', link: '/#share-card' }
+      { id: 'share', label: 'Invite Community', link: '/share' }
     ];
 
     return steps.find(s => !gamification.questSteps[s.id]) || null;

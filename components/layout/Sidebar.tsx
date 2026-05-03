@@ -9,15 +9,17 @@ import {
   FileText,
   FlaskConical,
   BarChart3,
-  Sticker,
-  Trophy,
   User,
-  WifiOff
+  WifiOff,
+  Mic,
+  Vote,
+  MoreVertical
 } from "lucide-react";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/utils/cn";
-import { motion, useAnimation } from "framer-motion";
-import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { useAppStore } from "@/store/useAppStore";
+import { EngagementSection } from "./sidebar/EngagementSection";
 
 const MENU_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/" },
@@ -26,137 +28,164 @@ const MENU_ITEMS = [
   { id: "assistant", label: "AI Assistant", icon: MessageSquare, href: "/assistant" },
   { id: "eligibility", label: "Eligibility", icon: ShieldCheck, href: "/eligibility" },
   { id: "documents", label: "Documents", icon: FileText, href: "/documents" },
+  { id: "laboratory", label: "Laboratory", icon: FlaskConical, href: "/laboratory" },
   { id: "insights", label: "Insights", icon: BarChart3, href: "/insights" },
-  { id: "profile", label: "Profile", icon: User, href: "/profile" },
 ];
 
-const AnimatedIcon = ({ icon: Icon, isActive, isHovered }: { icon: any, isActive: boolean, isHovered: boolean }) => {
+const NavItem = ({ item, isActive, isHovered, onHover }: {
+  item: typeof MENU_ITEMS[0],
+  isActive: boolean,
+  isHovered: boolean,
+  onHover: (id: string | null) => void
+}) => {
   return (
-    <motion.div
-      animate={{
-        scale: isActive ? 1.2 : isHovered ? 1.1 : 1,
-        rotate: isActive ? [0, -10, 10, 0] : isHovered ? [0, -5, 5, 0] : 0,
-      }}
-      transition={{
-        duration: 0.5,
-        rotate: { repeat: isActive ? Infinity : 0, duration: 2, ease: "linear" }
-      }}
-      className={cn(
-        "transition-colors duration-300",
-        isActive ? "text-primary drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]" : "text-slate-400 group-hover:text-slate-200"
-      )}
+    <Link
+      href={item.href}
+      onMouseEnter={() => onHover(item.id)}
+      onMouseLeave={() => onHover(null)}
+      className="block"
     >
-      <Icon size={19} />
-    </motion.div>
+      <motion.div
+        whileHover={{ x: 4 }}
+        whileTap={{ scale: 0.98 }}
+        className={cn(
+          "relative group flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 overflow-hidden",
+          isActive
+            ? "text-primary bg-primary/5 border border-primary/10 shadow-sm"
+            : "text-slate-500 hover:text-slate-900"
+        )}
+      >
+        {isActive && (
+          <motion.div
+            layoutId="active-pill"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary rounded-r-full z-20"
+          />
+        )}
+
+        <div className={cn(
+          "relative z-10 transition-transform duration-300",
+          isActive && "scale-110",
+          isHovered && !isActive && "scale-105"
+        )}>
+          <item.icon size={20} className={cn(
+            "transition-colors",
+            isActive ? "text-primary" : "text-slate-400 group-hover:text-slate-600"
+          )} />
+        </div>
+
+        <span className={cn(
+          "relative z-10 text-[13px] font-black uppercase tracking-widest transition-all duration-300 font-display",
+          isActive ? "text-slate-900" : "text-slate-500"
+        )}>
+          {item.label}
+        </span>
+
+        {isActive && (
+          <motion.div
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+            className="absolute right-4 w-1 h-1 rounded-full bg-primary"
+          />
+        )}
+      </motion.div>
+    </Link>
   );
 };
 
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
 
-  return (
-    <aside className="fixed left-0 top-0 bottom-0 w-[240px] bg-[#0A0F1D] text-white flex flex-col z-[100] shadow-2xl overflow-hidden border-r border-white/5">
-      {/* Layer 1: Dark Navy Gradient Base */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-[#0A0F1D] to-[#080C14] pointer-events-none" />
+  const handleVoiceTrigger = () => {
+    // In a real app, this would trigger the system orchestrator
+    console.log("Voice Assistant Triggered");
+    if ((window as any).systemOrchestrator) {
+      (window as any).systemOrchestrator.startVoice();
+    }
+  };
 
-      {/* Layer 2: Silhouette Illustration (Faded Parliament) */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 opacity-20 pointer-events-none mix-blend-screen overflow-hidden">
+  return (
+    <aside className="fixed left-0 top-0 bottom-0 w-[260px] bg-white/70 backdrop-blur-xl flex flex-col z-[100] shadow-[10px_0_40px_rgba(0,0,0,0.03)] border-r border-slate-200/50 overflow-hidden">
+      {/* Dynamic Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-indigo-50/20 pointer-events-none" />
+
+      {/* Bottom Illustration (Low Opacity) */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 opacity-[0.03] pointer-events-none overflow-hidden scale-x-[-1]">
         <img
           src="/header_civic_illustration_1777628116893.png"
           alt="Illustration"
-          className="w-full h-full object-cover object-bottom grayscale brightness-[0.2] scale-150"
+          className="w-full h-full object-cover object-bottom"
         />
       </div>
 
-      <div className="p-6 pb-4 relative z-20">
+      {/* Header / Logo */}
+      <div className="p-8 pb-4 relative z-20">
         <div className="flex items-center gap-3">
           <motion.div
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.8 }}
-            className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20 border border-white/10 group"
+            whileHover={{ rotate: 15 }}
+            className="w-12 h-12 rounded-[1.2rem] bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center shadow-xl shadow-primary/20 border border-white/20 group"
           >
-            <LayoutDashboard size={20} className="text-white" />
+            <Vote size={24} className="text-white" />
           </motion.div>
           <div>
-            <h1 className="font-black text-xl tracking-tight leading-none text-white font-display">CIVIC AI</h1>
-            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-1.5">Election Assistant</p>
+            <h1 className="font-black text-2xl tracking-tighter leading-none text-slate-900 font-display">CIVIC AI</h1>
+            <p className="text-[10px] font-black text-primary uppercase tracking-[0.25em] mt-1 opacity-70">Empowering Democracy</p>
           </div>
         </div>
       </div>
 
-      <nav className="flex-1 px-4 space-y-1 overflow-y-auto no-scrollbar relative z-20 pt-2 pb-20">
-        {MENU_ITEMS.map((item) => {
-          const isActive = pathname === item.href || (item.href === "/" && pathname === "/");
-          return (
-            <Link
-              key={item.id}
-              href={item.href}
-              onMouseEnter={() => setHoveredId(item.id)}
-              onMouseLeave={() => setHoveredId(null)}
-            >
-              <motion.div
-                whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
-                whileTap={{ scale: 0.98 }}
-                className={cn(
-                  "relative group flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 overflow-hidden",
-                  isActive
-                    ? "text-white bg-white/10 border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
-                    : "text-slate-400 hover:text-white"
-                )}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="active-nav"
-                    className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/10 to-transparent border-l-[3px] border-primary z-0"
-                  />
-                )}
-
-                <div className="relative z-10">
-                  <AnimatedIcon
-                    icon={item.icon}
-                    isActive={isActive}
-                    isHovered={hoveredId === item.id}
-                  />
-                </div>
-
-                <span className={cn(
-                  "relative z-10 text-[12px] font-bold uppercase tracking-[0.15em] transition-all duration-500 font-display",
-                  isActive ? "text-white" : "group-hover:translate-x-1"
-                )}>
-                  {item.label}
-                </span>
-
-                {isActive && (
-                  <motion.div
-                    animate={{ opacity: [0.2, 0.5, 0.2] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                    className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(99,102,241,1)]"
-                  />
-                )}
-              </motion.div>
-            </Link>
-          );
-        })}
+      {/* Main Navigation */}
+      <nav className="px-4 space-y-1 overflow-y-auto no-scrollbar relative z-20 pt-4 max-h-[40vh]">
+        <div className="px-2 mb-2">
+          <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Menu</h3>
+        </div>
+        {MENU_ITEMS.map((item) => (
+          <NavItem
+            key={item.id}
+            item={item}
+            isActive={pathname === item.href || (item.href === "/" && pathname === "/")}
+            isHovered={hoveredId === item.id}
+            onHover={setHoveredId}
+          />
+        ))}
       </nav>
 
-      {/* Offline Mode Card - Stitch Style */}
-      <div className="p-4 relative z-20 mt-auto">
+      {/* Engagement Hub & Rewards */}
+      <div className="flex-1 overflow-y-auto no-scrollbar relative z-20 border-t border-slate-100/50 mt-4">
+        <EngagementSection />
+      </div>
+
+      {/* Footer Actions */}
+      <div className="p-4 space-y-3 relative z-20 bg-gradient-to-t from-white/90 to-transparent">
+        {/* Offline Status */}
         <motion.div
           whileHover={{ y: -2 }}
-          className="dark-glass-card rounded-2xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-colors border border-white/5"
+          className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group cursor-pointer"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-slate-800/80 flex items-center justify-center border border-white/5 group-hover:border-secondary/30 transition-colors">
-              <WifiOff size={18} className="text-secondary" />
+            <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-100">
+              <WifiOff size={14} className="text-emerald-600" />
             </div>
-            <div className="text-left">
-              <p className="text-[11px] font-black text-white uppercase tracking-wider leading-tight font-display">Offline Mode</p>
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">You are all set!</p>
+            <div>
+              <p className="text-[10px] font-black text-slate-900 uppercase tracking-wider leading-tight">Offline Sync</p>
+              <p className="text-[8px] font-bold text-emerald-500 uppercase tracking-widest mt-0.5">Ready</p>
             </div>
           </div>
-          <Compass size={14} className="text-slate-600 group-hover:text-white transition-colors" />
+          <MoreVertical size={14} className="text-slate-300 group-hover:text-slate-600" />
         </motion.div>
+
+        {/* Voice Trigger Button */}
+        {/* <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleVoiceTrigger}
+          className="w-full h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center gap-3 shadow-lg shadow-slate-900/10 group overflow-hidden relative"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <Mic size={18} className="relative z-10 group-hover:animate-pulse" />
+          <span className="text-[11px] font-black uppercase tracking-[0.2em] relative z-10">Voice Command</span>
+        </motion.button> */}
       </div>
     </aside>
   );

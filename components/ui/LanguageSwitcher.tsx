@@ -48,14 +48,14 @@ export const LanguageSwitcher: React.FC = () => {
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
         disabled={isChanging}
-        className="flex items-center gap-3 px-5 py-2.5 bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-white/10 text-slate-100 shadow-premium hover:bg-slate-800/60 transition-all"
+        className="flex items-center gap-3 px-5 py-2.5 bg-white border border-slate-200/60 rounded-2xl text-slate-700 shadow-sm hover:bg-slate-50 transition-all"
       >
         {isChanging ? (
           <Loader2 size={18} className="text-primary animate-spin" />
         ) : (
           <Languages size={18} className="text-primary" />
         )}
-        <span className="text-[14px] font-bold font-display tracking-wide">{currentLang.label}</span>
+        <span className="text-[13px] font-bold tracking-wide">{currentLang.label}</span>
       </motion.button>
 
       <AnimatePresence>
@@ -69,7 +69,7 @@ export const LanguageSwitcher: React.FC = () => {
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className="absolute right-0 mt-3 w-48 bg-slate-900/90 backdrop-blur-xl rounded-[1.5rem] border border-white/10 shadow-2xl z-50 overflow-hidden"
+              className="absolute right-0 mt-3 w-52 bg-white rounded-[1.5rem] border border-slate-200/60 shadow-2xl z-50 overflow-hidden"
             >
               <div className="p-2 space-y-1">
                 {languages.map((lang) => (
@@ -80,19 +80,19 @@ export const LanguageSwitcher: React.FC = () => {
                       "w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all",
                       currentLocale === lang.code 
                         ? "bg-primary text-white shadow-lg shadow-primary/20" 
-                        : "text-slate-400 hover:bg-white/5 hover:text-white"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-primary"
                     )}
                   >
                     <div className="flex items-center gap-3">
                       <div className={cn(
                         "w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black transition-all",
-                        currentLocale === lang.code ? "bg-white/20 text-white" : "bg-primary/10 text-primary group-hover:bg-primary/20"
+                        currentLocale === lang.code ? "bg-white/20 text-white" : "bg-primary/10 text-primary"
                       )}>
                         {lang.icon}
                       </div>
-                      <div className="flex flex-col items-start">
-                        <span className="text-[10px] opacity-70 leading-none mb-1 uppercase tracking-wider">{lang.name}</span>
-                        <span className="text-sm font-bold font-display leading-none">{lang.label}</span>
+                      <div className="flex flex-col items-start text-left">
+                        <span className="text-[9px] opacity-70 leading-none mb-1 uppercase tracking-wider">{lang.name}</span>
+                        <span className="text-sm font-bold leading-none">{lang.label}</span>
                       </div>
                     </div>
                     {currentLocale === lang.code && <Check size={16} />}

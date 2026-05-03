@@ -58,11 +58,7 @@ export const DocumentChecklist: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3 relative z-20">
-          <Link href="/assistant">
-            <button className="h-10 px-5 bg-indigo-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-indigo-100 flex items-center gap-2 hover:bg-indigo-700 transition-all">
-              <MessageSquare size={14} /> Ask Help
-            </button>
-          </Link>
+
           <div className="hidden md:block relative w-48 h-40 opacity-40">
             <img
               src="/eligibity_header.png"
@@ -112,9 +108,9 @@ export const DocumentChecklist: React.FC = () => {
                 </div>
               </div>
 
-              <button className="h-10 px-5 bg-white rounded-xl text-indigo-600 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-black/10 hover:scale-105 transition-transform flex items-center gap-2">
+              {/* <button className="h-10 px-5 bg-white rounded-xl text-indigo-600 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-black/10 hover:scale-105 transition-transform flex items-center gap-2">
                 Continue Verification <ChevronRight size={14} />
-              </button>
+              </button> */}
             </div>
           </Card>
 
@@ -257,20 +253,7 @@ export const DocumentChecklist: React.FC = () => {
             </button>
           </Card>
 
-          {/* Need Help Card */}
-          <Link href="/assistant">
-            <Card className="p-4 border-slate-100 hover:border-indigo-100 transition-all cursor-pointer group hover:bg-white active:scale-95">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h5 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Need Help?</h5>
-                  <p className="text-[9px] font-bold text-slate-500">Ask our AI Assistant</p>
-                </div>
-                <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                  <MessageSquare size={16} />
-                </div>
-              </div>
-            </Card>
-          </Link>
+
         </div>
       </div>
     </div>

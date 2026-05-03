@@ -76,11 +76,7 @@ export const ConstituencyDashboard: React.FC = () => {
             <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           </div>
 
-          <Link href="/assistant">
-            <button className="h-10 px-5 bg-indigo-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-indigo-100 flex items-center gap-2 hover:bg-indigo-700 transition-all">
-              <BarChart3 size={14} /> Ask AI
-            </button>
-          </Link>
+
         </div>
 
         <div className="hidden md:block absolute  -top-20 right-0 w-96 h-48 opacity-15 pointer-events-none">

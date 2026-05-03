@@ -135,6 +135,28 @@ export const systemOrchestrator = {
     store.calculateProgress();
 
     console.log("[ORCHESTRATOR] Constituency insights engagement handled.");
+  },
+
+  /**
+   * Opens the AI Assistant panel with current context.
+   */
+  openAssistant: (context?: { page?: string; query?: string }) => {
+    const store = useAppStore.getState();
+    const router = window.location.pathname;
+    
+    // Logic to trigger the assistant sidebar/drawer
+    // We can use a global event or update store state if assistant visibility is managed there
+    const event = new CustomEvent('open-ai-assistant', { 
+      detail: { 
+        page: context?.page || router,
+        query: context?.query,
+        readiness: store.progress,
+        voterType: store.voterType
+      } 
+    });
+    window.dispatchEvent(event);
+    
+    console.log("[ORCHESTRATOR] AI Assistant trigger dispatched with context.");
   }
 };
 

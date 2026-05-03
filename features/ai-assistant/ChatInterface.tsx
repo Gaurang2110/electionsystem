@@ -12,6 +12,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { SpeakerButton } from "@/components/ui/SpeakerButton";
 import { VoiceInput } from "./VoiceInput";
 import { useAppStore } from "@/store/useAppStore";
+import { useSearchParams } from "next/navigation";
 
 interface Message {
   id: string;
@@ -32,6 +33,8 @@ export const ChatInterface: React.FC = () => {
   const t = useTranslations('chat');
   const locale = useLocale();
   const { profile } = useAppStore();
+  const searchParams = useSearchParams();
+  const autoPrompt = searchParams.get('prompt');
 
   // Use session storage for messages to keep them per session only
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -40,6 +43,7 @@ export const ChatInterface: React.FC = () => {
   const [error, setError] = React.useState<string | null>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const msgCount = React.useRef(0);
+  const promptAttempted = React.useRef(false);
 
   // Initialize and load from session storage
   React.useEffect(() => {
@@ -54,8 +58,14 @@ export const ChatInterface: React.FC = () => {
       const welcomeMsg = { id: "1", text: t('welcome'), sender: "ai", timestamp: new Date() };
       setMessages([welcomeMsg]);
       msgCount.current = 1;
+
+      // Handle auto-prompting if it's the first time
+      if (autoPrompt && !promptAttempted.current) {
+        promptAttempted.current = true;
+        handleSend(autoPrompt);
+      }
     }
-  }, [t]);
+  }, [t, autoPrompt]);
 
   // Save to session storage
   React.useEffect(() => {

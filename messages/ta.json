@@ -1,267 +1,272 @@
 {
   "onboarding": {
-    "title_part1": "Your Vote,",
-    "title_part2": "Your Future.",
-    "subtitle": "Master the Indian election process with your personal AI assistant.",
+    "title_part1": "உங்கள் வாக்கு,",
+    "title_part2": "உங்கள் எதிர்காலம்.",
+    "subtitle": "உங்கள் தனிப்பட்ட AI உதவியாளருடன் இந்திய தேர்தல் முறையை அறிந்து கொள்ளுங்கள்.",
     "features": {
       "multilingual": {
-        "title": "Multilingual Support",
-        "desc": "Available in 12+ Indian languages"
+        "title": "பல்மொழி ஆதரவு",
+        "desc": "12+ இந்திய மொழிகளில் கிடைக்கிறது"
       },
       "verified": {
-        "title": "Verified Info",
-        "desc": "Sourced directly from ECI guidelines"
+        "title": "சரிபார்க்கப்பட்ட தகவல்",
+        "desc": "நேரடியாக ECI வழிகாட்டுதல்களிலிருந்து பெறப்பட்டது"
       }
     },
-    "cta": "Start Your Voting Journey",
-    "login": "Already have an account? Login",
+    "cta": "உங்கள் தேர்தல் பயணத்தைத் தொடங்குங்கள்",
+    "login": "ஏற்கனவே கணக்கு உள்ளதா? உள்நுழைக",
     "voter_selection": {
-      "title": "Is this your first time voting?",
-      "subtitle": "We'll tailor your experience to make it simple and stress-free.",
-      "yes_title": "Yes, I'm a First-Timer",
-      "yes_desc": "I need help with everything from registration to the booth.",
-      "no_title": "No, I've Voted Before",
-      "no_desc": "I just need a quick status check and booth info.",
-      "button": "Confirm Choice"
+      "title": "நீங்கள் முதல்முறை வாக்களிக்கிறீர்களா?",
+      "subtitle": "உங்கள் அனுபவத்தை எளிமையாகவும் மன அழுத்தமின்றியும் மாற்ற நாங்கள் அதைத் தனிப்பயனாக்குவோம்.",
+      "yes_title": "ஆம், நான் முதல்முறை வாக்காளர்",
+      "yes_desc": "பதிவு முதல் சாவடி வரை அனைத்திலும் எனக்கு உதவி தேவை.",
+      "no_title": "இல்லை, நான் முன்பே வாக்களித்துள்ளேன்",
+      "no_desc": "எனக்கு ஒரு விரைவான நிலை சரிபார்ப்பு மற்றும் சாவடி தகவல் தேவை.",
+      "button": "தேர்வை உறுதிப்படுத்து"
     }
   },
   "dashboard": {
-    "readiness": "Voting Readiness",
-    "complete_profile": "Complete your profile to be 100% ready",
-    "progress_status": "You are {progress}% ready to vote",
-    "next_step": "Next Step",
-    "verify_id": "Verify Voter ID",
+    "readiness": "வாக்காளர் தயார்நிலை",
+    "complete_profile": "100% தயாராக உங்கள் சுயவிவரத்தை முடிக்கவும்",
+    "progress_status": "நீங்கள் வாக்களிக்க {progress}% தயாராக உள்ளீர்கள்",
+    "next_step": "அடுத்த படி",
+    "verify_id": "வாக்காளர் அடையாள அட்டையைச் சரிபார்க்கவும்",
     "actions": {
-      "journey": "Voting Journey",
-      "assistant": "Ask AI Assistant",
-      "eligibility": "Eligibility Check",
-      "documents": "My Documents",
-      "fact_check": "Fact Check",
-      "map": "Booth Finder"
+      "journey": "தேர்தல் பயணம்",
+      "assistant": "AI உதவியாளரிடம் கேளுங்கள்",
+      "eligibility": "தகுதி சரிபார்ப்பு",
+      "documents": "எனது ஆவணங்கள்",
+      "fact_check": "உண்மைச் சரிபார்ப்பு",
+      "map": "சாவடியைக் கண்டறியவும்"
     },
     "deadlines": {
-      "title": "Upcoming Deadlines",
-      "view_all": "View All",
+      "title": "வரவிருக்கும் காலக்கெடு",
+      "view_all": "அனைத்தையும் பார்க்கவும்",
       "item1": {
-        "title": "Last Day to Register",
-        "type": "Urgent"
+        "title": "பதிவு செய்ய கடைசி நாள்",
+        "type": "அவசரம்"
       },
       "item2": {
-        "title": "Document Verification",
-        "type": "Normal"
+        "title": "ஆவண சரிபார்ப்பு",
+        "type": "சாதாரணம்"
       }
     },
-    "first_timer_guidance": "Since it's your first time, we've highlighted the most critical steps for you. Don't worry, it's simpler than it looks!"
+    "first_timer_guidance": "நீங்கள் முதல்முறை என்பதால், உங்களுக்கான மிக முக்கியமான படிகளை நாங்கள் முன்னிலைப்படுத்தியுள்ளோம். கவலைப்பட வேண்டாம், இது தோன்றுவதை விட எளிது!"
   },
   "journey": {
-    "title": "Your Journey",
-    "subtitle": "Follow these steps to ensure you're ready.",
+    "title": "உங்கள் பயணம்",
+    "subtitle": "நீங்கள் தயாராக இருப்பதை உறுதிப்படுத்த இந்தப் படிகளைப் பின்பற்றவும்.",
     "steps": {
       "registration": {
-        "title": "Voter Registration",
-        "desc": "Fill Form 6 on NVSP portal to register as a new voter.",
-        "time": "5 min"
+        "title": "வாக்காளர் பதிவு",
+        "desc": "புதிய வாக்காளராகப் பதிவு செய்ய NVSP போர்ட்டலில் படிவம் 6-ஐ நிரப்பவும்.",
+        "time": "5 நிமிடம்"
       },
       "verification": {
-        "title": "Document Verification",
-        "desc": "Your local BLO will visit for physical verification of your documents.",
-        "time": "2 min"
+        "title": "ஆவண சரிபார்ப்பு",
+        "desc": "உங்கள் ஆவணங்களை நேரில் சரிபார்க்க உங்கள் உள்ளூர் பி.எல்.ஓ (BLO) வருவார்.",
+        "time": "2 நிமிடம்"
       },
       "booth": {
-        "title": "Find Polling Booth",
-        "desc": "Locate your designated polling station on the ECI website.",
-        "time": "1 min"
+        "title": "வாக்குச்சாவடியைக் கண்டறியவும்",
+        "desc": "ECI இணையதளத்தில் உங்களுக்காக ஒதுக்கப்பட்ட வாக்குச்சாவடியைக் கண்டறியவும்.",
+        "time": "1 நிமிடம்"
       },
       "vote": {
-        "title": "Cast Your Vote",
-        "desc": "Head to your booth with your EPIC card and cast your vote.",
-        "time": "15 min"
+        "title": "உங்கள் வாக்கைப் பதிவு செய்யுங்கள்",
+        "desc": "உங்கள் அடையாள அட்டையுடன் ஒதுக்கப்பட்ட சாவடிக்குச் சென்று வாக்களிக்கவும்.",
+        "time": "15 நிமிடம்"
       }
     },
-    "mark_complete": "Mark as Complete",
+    "mark_complete": "முடிந்தது எனக் குறிக்கவும்",
     "tips": {
-      "registration": "FIRST-TIMER TIP: Keep your Aadhaar and a clear passport-size photo ready before starting Form 6.",
-      "verification": "FIRST-TIMER TIP: The BLO will call you before visiting. Keep your originals handy for quick verification.",
-      "booth": "FIRST-TIMER TIP: Booths are usually in schools or community halls nearby. Check the map a day before.",
-      "vote": "FIRST-TIMER TIP: Don't forget your ink mark! It's a badge of honor for every citizen."
+      "registration": "முதல்முறை வாக்காளர்களுக்கான உதவிக்குறிப்பு: படிவம் 6-ஐத் தொடங்குவதற்கு முன் உங்கள் ஆதார் மற்றும் தெளிவான பாஸ்போர்ட் அளவு புகைப்படத்தைத் தயார் நிலையில் வைத்திருங்கள்.",
+      "verification": "முதல்முறை வாக்காளர்களுக்கான உதவிக்குறிப்பு: பி.எல்.ஓ (BLO) வருவதற்கு முன் உங்களை அழைப்பார். விரைவான சரிபார்ப்பிற்கு உங்கள் அசல் ஆவணங்களை வைத்திருங்கள்.",
+      "booth": "முதல்முறை வாக்காளர்களுக்கான உதவிக்குறிப்பு: சாவடிகள் பொதுவாக அருகிலுள்ள பள்ளிகள் அல்லது சமூகக்கூடங்களில் இருக்கும். ஒரு நாளைக்கு முன்பே வரைபடத்தைச் சரிபார்க்கவும்.",
+      "vote": "முதல்முறை வாக்காளர்களுக்கான உதவிக்குறிப்பு: உங்கள் மை அடையாளத்தை மறக்காதீர்கள்! இது ஒவ்வொரு குடிமகனுக்கும் பெருமைக்குரிய அடையாளம்."
     }
   },
   "documents": {
-    "title": "Document Checklist",
-    "subtitle": "Ensure you have these documents ready for verification.",
-    "status_label": "Readiness Status",
-    "complete": "Complete",
-    "of": "of",
-    "documents_ready": "documents ready",
-    "kcy_alert": "Make sure your mobile number is linked with your Aadhaar for faster e-KYC during verification.",
+    "title": "ஆவண சரிபார்ப்புப் பட்டியல்",
+    "subtitle": "சரிபார்ப்பிற்கு இந்த ஆவணங்களைத் தயார் நிலையில் வைத்திருப்பதை உறுதி செய்யவும்.",
+    "status_label": "தயார்நிலை நிலை",
+    "complete": "முழுமையானது",
+    "of": "-",
+    "documents_ready": "ஆவணங்கள் தயார்",
+    "kcy_alert": "சரிபார்ப்பின் போது வேகமான e-KYC-க்கு உங்கள் மொபைல் எண் ஆதாருடன் இணைக்கப்பட்டிருப்பதை உறுதி செய்யவும்.",
     "items": {
       "aadhar": {
-        "title": "Aadhaar Card",
-        "desc": "Required for identity and age proof."
+        "title": "ஆதார் அட்டை",
+        "desc": "அடையாளம் மற்றும் வயதுச் சான்றுக்குத் தேவை."
       },
       "voter-id": {
-        "title": "Voter ID (if any)",
-        "desc": "Existing EPIC card if you are already registered."
+        "title": "வாக்காளர் அடையாள அட்டை (இருந்தால்)",
+        "desc": "நீங்கள் ஏற்கனவே பதிவு செய்திருந்தால் தற்போதுள்ள அடையாள அட்டை."
       },
       "address-proof": {
-        "title": "Address Proof",
-        "desc": "Electricity bill, Gas connection, or Bank passbook."
+        "title": "முகவரிச் சான்று",
+        "desc": "மின்சாரக் கட்டணம், எரிவாயு இணைப்பு அல்லது வங்கி சேமிப்புப் புத்தகம்."
+      },
+      "pan-card": {
+        "title": "பான் கார்டு",
+        "desc": "கூடுதல் சரிபார்ப்பிற்கான விருப்ப அடையாளச் சான்று."
       }
     }
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Let's see if you can vote in the next election.",
-    "age_question": "What is your age?",
-    "age_placeholder": "Enter your age",
-    "citizen_question": "Are you an Indian citizen?",
-    "state_question": "Which state are you from?",
-    "registered_question": "Are you already registered to vote?",
-    "yes": "Yes",
-    "no": "No",
-    "check_result": "Check Result",
-    "result_eligible": "You Are Eligible!",
-    "result_not_eligible": "Not Eligible Yet",
-    "desc_eligible": "Congratulations! You are eligible to vote in the upcoming elections.",
-    "desc_not_eligible": "Unfortunately, you do not meet the criteria to vote yet.",
-    "reason_age": "You must be at least 18 years old to vote.",
-    "reason_citizen": "Only Indian citizens are eligible to vote.",
-    "next_steps_title": "Next Steps",
-    "next_step_register": "Register on the NVSP portal (Form 6)",
-    "next_step_documents": "Keep your Aadhaar and address proof ready",
-    "what_to_do_next": "What should you do next?",
-    "start_over": "Start Over",
-    "next": "Next Step"
+    "title": "தகுதி சரிபார்ப்பு",
+    "subtitle": "அடுத்த தேர்தலில் நீங்கள் வாக்களிக்க முடியுமா என்று பார்ப்போம்.",
+    "age_question": "உங்கள் வயது என்ன?",
+    "age_placeholder": "உங்கள் வயதை உள்ளிடவும்",
+    "citizen_question": "நீங்கள் இந்தியக் குடிமகனா?",
+    "state_question": "நீங்கள் எந்த மாநிலத்தைச் சேர்ந்தவர்?",
+    "registered_question": "நீங்கள் ஏற்கனவே வாக்களிக்கப் பதிவு செய்துள்ளீர்களா?",
+    "yes": "ஆம்",
+    "no": "இல்லை",
+    "check_result": "முடிவைச் சரிபார்க்கவும்",
+    "result_eligible": "நீங்கள் தகுதியுடையவர்!",
+    "result_not_eligible": "இன்னும் தகுதியடையவில்லை",
+    "desc_eligible": "வாழ்த்துகள்! வரவிருக்கும் தேர்தல்களில் வாக்களிக்க நீங்கள் தகுதியுடையவர்.",
+    "desc_not_eligible": "துரதிர்ஷ்டவசமாக, நீங்கள் இன்னும் வாக்களிப்பதற்கான அளவுகோல்களைப் பூர்த்தி செய்யவில்லை.",
+    "reason_age": "வாக்களிக்க உங்களுக்கு குறைந்தபட்சம் 18 வயது இருக்க வேண்டும்.",
+    "reason_citizen": "இந்தியக் குடிமக்கள் மட்டுமே வாக்களிக்கத் தகுதியுடையவர்கள்.",
+    "next_steps_title": "அடுத்த படிகள்",
+    "next_step_register": "NVSP போர்ட்டலில் பதிவு செய்யவும் (படிவம் 6)",
+    "next_step_documents": "உங்கள் ஆதார் மற்றும் முகவரிச் சான்றைத் தயார் நிலையில் வைத்திருக்கவும்",
+    "what_to_do_next": "அடுத்து நீங்கள் என்ன செய்ய வேண்டும்?",
+    "start_over": "மீண்டும் தொடங்கவும்",
+    "next": "அடுத்த படி"
   },
   "timeline": {
-    "title": "Election Timeline",
-    "subtitle": "Key dates for the 2026 General Elections",
-    "remind_me": "Remind Me",
-    "details": "Details",
+    "title": "தேர்தல் காலவரிசை",
+    "subtitle": "2026 பொதுத் தேர்தலுக்கான முக்கிய தேதிகள்",
+    "remind_me": "எனக்கு நினைவூட்டவும்",
+    "details": "விவரங்கள்",
     "events": {
-      "registration_open": { "title": "Registration Opens" },
-      "registration_deadline": { "title": "Registration Deadline", "countdown": "14 days left" },
-      "voter_list": { "title": "Voter List Update" },
-      "election_day": { "title": "Election Day", "countdown": "40 days left" }
+      "registration_open": { "title": "பதிவு தொடங்குகிறது" },
+      "registration_deadline": { "title": "பதிவு காலக்கெடு", "countdown": "14 நாட்கள் உள்ளன" },
+      "voter_list": { "title": "வாக்காளர் பட்டியல் புதுப்பிப்பு" },
+      "election_day": { "title": "தேர்தல் நாள்", "countdown": "40 நாட்கள் உள்ளன" }
     },
     "status": {
-      "completed": "Completed",
-      "active": "Active",
-      "upcoming": "Upcoming"
+      "completed": "முடிந்தது",
+      "active": "செயலில் உள்ளது",
+      "upcoming": "வரவிருக்கிறது"
     }
   },
   "chat": {
-    "welcome": "Hello! I am your Civic AI assistant. How can I help you today?",
-    "mock_response": "I'm a mock AI assistant. Soon I'll be powered by Gemini to provide real-time election information!",
-    "placeholder": "Ask anything...",
+    "welcome": "வணக்கம்! நான் உங்கள் Civic AI உதவியாளர். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?",
+    "mock_response": "நான் ஒரு மாதிரி AI உதவியாளர். விரைவில் நான் Gemini மூலம் நிகழ்நேர தேர்தல் தகவல்களை வழங்குவேன்!",
+    "placeholder": "எது வேண்டுமானாலும் கேளுங்கள்...",
     "suggestions": {
-      "next": "What should I do next?",
-      "register": "How do I register to vote?",
-      "polling": "Check my polling station",
-      "docs": "Documents required for registration"
+      "next": "நான் அடுத்து என்ன செய்ய வேண்டும்?",
+      "register": "வாக்களிக்க நான் எப்படிப் பதிவு செய்வது?",
+      "polling": "எனது வாக்குச்சாவடியைச் சரிபார்க்கவும்",
+      "docs": "பதிவு செய்யத் தேவையான ஆவணங்கள்",
+      "eligibility": "நான் வாக்களிக்கத் தகுதியுள்ளவனா?"
     }
   },
   "nav": {
-    "home": "Home",
-    "journey": "Journey",
-    "assistant": "AI Assistant",
-    "eligibility": "Eligibility",
-    "map": "Booth Finder"
+    "home": "முகப்பு",
+    "journey": "பயணம்",
+    "assistant": "AI உதவியாளர்",
+    "eligibility": "தகுதி",
+    "map": "சாவடியைக் கண்டறியவும்"
   },
   "booth_finder": {
-    "title": "Find My Booth",
-    "subtitle": "Enter your PIN code to locate your designated polling station.",
-    "placeholder": "Enter PIN Code (e.g. 400001)",
-    "search": "Search",
-    "searching": "Searching...",
-    "distance_away": "{distance} away",
-    "get_directions": "Get Directions",
-    "no_results": "No booths found for this PIN code.",
-    "empty_state": "Your results will appear here.",
-    "map_title": "Interactive Map",
-    "map_desc": "Coming soon with real-time navigation."
+    "title": "எனது சாவடியைக் கண்டறியவும்",
+    "subtitle": "உங்களுக்காக ஒதுக்கப்பட்ட வாக்குச்சாவடியைக் கண்டறிய உங்கள் PIN குறியீட்டை உள்ளிடவும்.",
+    "placeholder": "PIN குறியீட்டை உள்ளிடவும் (எ.கா. 400001)",
+    "search": "தேடு",
+    "searching": "தேடுகிறது...",
+    "distance_away": "{distance} தொலைவில்",
+    "get_directions": "வழிகாட்டலைப் பெறவும்",
+    "no_results": "இந்த PIN குறியீட்டிற்குச் சாவடிகள் எதுவும் காணப்படவில்லை.",
+    "empty_state": "உங்கள் முடிவுகள் இங்கே தோன்றும்.",
+    "map_title": "ஊடாடும் வரைபடம்",
+    "map_desc": "நிகழ்நேர வழிகாட்டலுடன் விரைவில் வருகிறது."
   },
   "myth_fact": {
-    "title": "Myth vs Fact",
-    "subtitle": "Busting common election rumors with verified facts.",
-    "myth_label": "Myth",
-    "fact_label": "Fact",
+    "title": "கற்பனை vs உண்மை",
+    "subtitle": "சரிபார்க்கப்பட்ட உண்மைகளுடன் பொதுவான தேர்தல் வதந்திகளைத் தகர்த்தல்.",
+    "myth_label": "கற்பனை",
+    "fact_label": "உண்மை",
     "items": {
       "item1": {
-        "myth": "I have a Voter ID card, so I can definitely vote.",
-        "fact": "Having an EPIC card is not enough. Your name MUST be present in the official Electoral Roll to vote."
+        "myth": "என்னிடம் வாக்காளர் அடையாள அட்டை உள்ளது, எனவே நான் நிச்சயமாக வாக்களிக்க முடியும்.",
+        "fact": "அடையாள அட்டை மட்டும் இருந்தால் போதாது. வாக்களிக்க உங்கள் பெயர் அதிகாரப்பூர்வ வாக்காளர் பட்டியலில் இருக்க வேண்டும்."
       },
       "item2": {
-        "myth": "I can vote from any polling station in my city.",
-        "fact": "No. You can only vote at the specific polling booth assigned to you in the voter list."
+        "myth": "எனது நகரத்தில் உள்ள எந்த வாக்குச்சாவடியிலும் நான் வாக்களிக்கலாம்.",
+        "fact": "இல்லை. வாக்காளர் பட்டியலில் உங்களுக்கு ஒதுக்கப்பட்ட குறிப்பிட்ட சாவடியில் மட்டுமே நீங்கள் வாக்களிக்க முடியும்."
       },
       "item3": {
-        "myth": "Registered voters can vote online from home.",
-        "fact": "Currently, the ECI does not provide an online voting facility for general citizens. You must visit your booth."
+        "myth": "பதிவு செய்த வாக்காளர்கள் வீட்டிலிருந்தே ஆன்லைனில் வாக்களிக்கலாம்.",
+        "fact": "தற்போது, ECI பொதுக் குடிமக்களுக்கு ஆன்லைன் வாக்குப்பதிவு வசதியை வழங்கவில்லை. நீங்கள் உங்கள் சாவடிக்குச் செல்ல வேண்டும்."
       }
     }
   },
   "help_others": {
-    "title": "Help Someone Vote",
-    "subtitle": "Share the simple 4-step process with friends and family to ensure everyone's voice is heard.",
-    "button": "Help Someone",
-    "modal_title": "Help Someone Vote",
-    "modal_subtitle": "Empower your community by sharing essential voting information.",
-    "copy_text": "Copy Steps",
-    "copy_link": "Copy Link",
-    "copied": "Copied!",
-    "people_helped": "People Helped",
-    "option_checklist": "Share Checklist",
-    "option_progress": "Share Progress",
-    "option_guide": "Share Simple Guide",
-    "share_message": "🗳️ *Voting Guide 2026*\n\n1. Register: Fill Form 6 at voters.eci.gov.in\n2. Verify: Keep documents ready for BLO visit\n3. Locate: Find your booth via EPIC number\n4. Vote: Visit booth on election day!\n\nHelp your community vote: {link}",
-    "share_checklist_msg": "🗳️ *My Voting Checklist*\n\nI've prepared my documents for the 2026 Elections. Prepare yours and get ready to vote: {link}",
-    "share_progress_msg": "📈 I am {progress}% ready for the 2026 Elections! Check your voting readiness here: {link}",
-    "share_guide_msg": "📘 Here is a simple step-by-step guide to voting in the 2026 Elections. Share it with anyone who needs help: {link}"
+    "title": "ஒருவர் வாக்களிக்க உதவவும்",
+    "subtitle": "ஒவ்வொருவரின் குரலும் கேட்கப்படுவதை உறுதி செய்ய நண்பர்கள் மற்றும் குடும்பத்தினருடன் எளிய 4-படி செயல்முறையைப் பகிரவும்.",
+    "button": "ஒருவருக்கு உதவவும்",
+    "modal_title": "ஒருவர் வாக்களிக்க உதவவும்",
+    "modal_subtitle": "அத்தியாவசிய தேர்தல் தகவல்களைப் பகிர்வதன் மூலம் உங்கள் சமூகத்தை மேம்படுத்தவும்.",
+    "copy_text": "படிகளை நகலெடுக்கவும்",
+    "copy_link": "இணைப்பை நகலெடுக்கவும்",
+    "copied": "நகலெடுக்கப்பட்டது!",
+    "people_helped": "உதவி பெற்றவர்கள்",
+    "option_checklist": "சரிபார்ப்புப் பட்டியலைப் பகிரவும்",
+    "option_progress": "முன்னேற்றத்தைப் பகிரவும்",
+    "option_guide": "எளிய வழிகாட்டியைப் பகிரவும்",
+    "share_message": "🗳️ *வாக்காளர் வழிகாட்டி 2026*\n\n1. பதிவு: voters.eci.gov.in இல் படிவம் 6-ஐ நிரப்பவும்\n2. சரிபார்ப்பு: பி.எல்.ஓ வருகைக்கு ஆவணங்களைத் தயார் நிலையில் வைத்திருக்கவும்\n3. கண்டறிதல்: அடையாள அட்டை எண் மூலம் உங்கள் சாவடியைக் கண்டறியவும்\n4. வாக்கு: தேர்தல் நாளில் சாவடிக்குச் செல்லவும்!\n\nஉங்கள் சமூகத்திற்கு வாக்களிக்க உதவவும்: {link}",
+    "share_checklist_msg": "🗳️ *எனது வாக்காளர் சரிபார்ப்புப் பட்டியல்*\n\n2026 தேர்தலுக்கான எனது ஆவணங்களைத் தயார் செய்துள்ளேன். நீங்களும் உங்களைத் தயார்படுத்தி வாக்களிக்கத் தயாராகுங்கள்: {link}",
+    "share_progress_msg": "📈 நான் 2026 தேர்தலுக்கு {progress}% தயாராக உள்ளேன்! உங்கள் வாக்காளர் தயார்நிலையை இங்கே சரிபார்க்கவும்: {link}",
+    "share_guide_msg": "📘 2026 தேர்தலில் வாக்களிப்பதற்கான எளிய படிப்படியான வழிகாட்டி இதோ. உதவி தேவைப்படுபவர்களுக்கு இதைப் பகிரவும்: {link}"
   },
   "common": {
-    "hi": "Hi",
-    "election_year": "India Election 2026"
+    "hi": "வணக்கம்",
+    "election_year": "இந்தியத் தேர்தல் 2026"
   },
   "profile": {
-    "title": "Voter Profile",
-    "edit": "Edit Profile",
-    "save": "Save Profile",
-    "readiness": "Readiness Snapshot",
-    "impact_score": "Impact Score",
-    "completion": "Completion",
-    "basic_info": "Basic Information",
-    "full_name": "Full Name",
-    "age": "Age",
-    "state": "State",
-    "district": "District",
-    "voting_status": "Voting Status",
-    "registered_voter": "Registered Voter",
-    "voter_id_available": "Voter ID Available",
-    "first_time_voter": "First-Time Voter",
-    "preferences": "Preferences",
-    "app_language": "App Language"
+    "title": "வாக்காளர் சுயவிவரம்",
+    "edit": "சுயவிவரத்தைத் திருத்தவும்",
+    "save": "சுயவிவரத்தைச் சேமிக்கவும்",
+    "readiness": "தயார்நிலைச் சுருக்கம்",
+    "impact_score": "தாக்க மதிப்பெண்",
+    "completion": "முழுமை",
+    "basic_info": "அடிப்படைத் தகவல்",
+    "full_name": "முழுப் பெயர்",
+    "age": "வயது",
+    "state": "மாநிலம்",
+    "district": "மாவட்டம்",
+    "voting_status": "வாக்களிப்பு நிலை",
+    "registered_voter": "பதிவு செய்யப்பட்ட வாக்காளர்",
+    "voter_id_available": "அடையாள அட்டை உள்ளது",
+    "first_time_voter": "முதல்முறை வாக்காளர்",
+    "preferences": "விருப்பத்தேர்வுகள்",
+    "app_language": "செயலி மொழி"
   },
   "notifications": {
-    "title": "Notifications",
-    "empty": "No new notifications",
-    "mark_all_read": "Mark all as read",
-    "notif_deadline_registration": "Registration closes in 2 days. Complete your Form 6 today!",
-    "notif_incomplete_profile": "Your profile is incomplete. Finish it to see your voting readiness.",
-    "notif_voting_day": "Election Day is approaching on May 20th. Don't forget to vote!",
-    "notif_eligible_now": "Congratulations! Based on your age, you are now eligible to vote.",
-    "notif_document_pending": "You have {count} documents pending in your checklist."
+    "title": "அறிவிப்புகள்",
+    "empty": "புதிய அறிவிப்புகள் இல்லை",
+    "mark_all_read": "அனைத்தையும் படித்ததாகக் குறிக்கவும்",
+    "notif_deadline_registration": "பதிவு 2 நாட்களில் முடிவடைகிறது. இன்று உங்கள் படிவம் 6-ஐ முடிக்கவும்!",
+    "notif_incomplete_profile": "உங்கள் சுயவிவரம் முழுமையடையவில்லை. உங்கள் வாக்காளர் தயார்நிலையைப் பார்க்க அதை முடிக்கவும்.",
+    "notif_voting_day": "தேர்தல் நாள் மே 20 அன்று வருகிறது. வாக்களிக்க மறக்காதீர்கள்!",
+    "notif_eligible_now": "வாழ்த்துகள்! உங்கள் வயதின் அடிப்படையில், நீங்கள் இப்போது வாக்களிக்கத் தகுதியுடையவர்.",
+    "notif_document_pending": "உங்கள் சரிபார்ப்புப் பட்டியலில் {count} ஆவணங்கள் நிலுவையில் உள்ளன."
   },
   "updates": {
-    "title": "Election Updates",
-    "subtitle": "Latest official news and voter tips",
-    "filter_all": "All",
-    "filter_official": "Official",
-    "filter_tip": "Tips",
-    "filter_process": "Process",
-    "read_more": "Read More",
-    "type_official": "OFFICIAL",
-    "type_tip": "VOTER TIP",
-    "type_process": "PROCESS CHANGE"
+    "title": "தேர்தல் செய்திகள்",
+    "subtitle": "சமீபத்திய அதிகாரப்பூர்வ செய்திகள் மற்றும் வாக்காளர் குறிப்புகள்",
+    "filter_all": "அனைத்தும்",
+    "filter_official": "அதிகாரப்பூர்வம்",
+    "filter_tip": "குறிப்புகள்",
+    "filter_process": "செயல்முறை",
+    "read_more": "மேலும் படிக்க",
+    "type_official": "அதிகாரப்பூர்வம்",
+    "type_tip": "வாக்காளர் குறிப்பு",
+    "type_process": "செயல்முறை மாற்றம்"
   }
 }

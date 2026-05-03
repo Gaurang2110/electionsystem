@@ -5,11 +5,10 @@ import { useAppStore } from "@/store/useAppStore";
 import quizData from "@/data/quiz.json";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
-import { Brain, ArrowRight, CheckCircle2, XCircle } from "lucide-react";
-import { systemOrchestrator } from "@/lib/systemOrchestrator";
+import { Brain, ArrowRight, CheckCircle2, XCircle, Trophy, Star } from "lucide-react";
 
 export const MiniQuiz: React.FC = () => {
-  const { gamification } = useAppStore();
+  const { finishQuiz } = useAppStore();
   const [sessionQuestions, setSessionQuestions] = React.useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [selectedOption, setSelectedOption] = React.useState<number | null>(null);
@@ -38,7 +37,7 @@ export const MiniQuiz: React.FC = () => {
     setSelectedOption(index);
     setIsAnswered(true);
     
-    if (index === currentQuestion.correct) {
+    if (index === currentQuestion.answer) {
       setScore(prev => prev + 1);
     }
   };
@@ -50,7 +49,7 @@ export const MiniQuiz: React.FC = () => {
       setIsAnswered(false);
     } else {
       setIsFinished(true);
-      systemOrchestrator.onQuizComplete(score, sessionQuestions.length);
+      finishQuiz(score, sessionQuestions.length);
     }
   };
 
@@ -58,18 +57,22 @@ export const MiniQuiz: React.FC = () => {
 
   if (isFinished) {
     return (
-      <Card className="p-10 text-center bg-slate-900 border-white/5 shadow-3d space-y-6">
-        <div className="w-20 h-20 bg-blue-500/10 rounded-[2rem] flex items-center justify-center text-blue-500 mx-auto shadow-2xl">
-          <Brain size={40} />
+      <Card className="p-8 text-center bg-white border-none shadow-2xl shadow-slate-200 space-y-6 rounded-[2.5rem] relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
+        <div className="w-20 h-20 bg-primary/10 rounded-[2rem] flex items-center justify-center text-primary mx-auto shadow-inner">
+          <Trophy size={40} />
         </div>
         <div className="space-y-2">
-          <h3 className="text-3xl font-black text-white font-display uppercase tracking-tight">Quiz Complete</h3>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">You scored {score} out of {sessionQuestions.length}</p>
+          <h3 className="text-2xl font-black text-slate-900 font-display uppercase tracking-tight">Quiz Complete</h3>
+          <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">You scored {score} out of {sessionQuestions.length}</p>
         </div>
-        <div className="text-4xl font-black text-white font-display">+{score * 10} <span className="text-sm text-blue-500">PTS</span></div>
+        <div className="flex items-center justify-center gap-2">
+           <Star size={16} className="text-primary fill-primary" />
+           <span className="text-3xl font-black text-slate-900 font-display">+{score * 10} <span className="text-sm text-primary uppercase">Points</span></span>
+        </div>
         <button 
           onClick={initializeQuiz}
-          className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-600/20"
+          className="w-full py-4 bg-primary text-white rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]"
         >
           Retake Quiz (Random 10)
         </button>
@@ -78,13 +81,23 @@ export const MiniQuiz: React.FC = () => {
   }
 
   return (
-    <Card className="p-8 bg-slate-900 border-white/5 shadow-3d overflow-hidden relative min-h-[450px] flex flex-col">
+    <Card className="p-8 bg-white border-none shadow-2xl shadow-slate-200/50 rounded-[2.5rem] overflow-hidden relative min-h-[480px] flex flex-col">
+      <div className="absolute top-0 left-0 w-full h-1.5 bg-slate-100">
+        <motion.div 
+          initial={{ width: 0 }}
+          animate={{ width: `${((currentIndex + 1) / sessionQuestions.length) * 100}%` }}
+          className="h-full bg-primary"
+        />
+      </div>
+
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-2">
-          <Brain className="text-blue-500" size={20} />
-          <h3 className="text-xl font-black text-white font-display uppercase tracking-tight">Democracy Quiz</h3>
+          <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+            <Brain size={18} />
+          </div>
+          <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Democracy Quiz</h3>
         </div>
-        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Question {currentIndex + 1}/{sessionQuestions.length}</span>
+        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{currentIndex + 1} / {sessionQuestions.length}</span>
       </div>
 
       <AnimatePresence mode="wait">
@@ -95,14 +108,14 @@ export const MiniQuiz: React.FC = () => {
           exit={{ opacity: 0, x: -20 }}
           className="flex-1 flex flex-col"
         >
-          <h4 className="text-lg font-black text-white leading-tight mb-8">
+          <h4 className="text-lg font-black text-slate-900 leading-tight mb-8">
             {currentQuestion.question}
           </h4>
 
           <div className="space-y-3 flex-1">
-            {currentQuestion.options.map((option, index) => {
+            {currentQuestion.options.map((option: string, index: number) => {
               const isSelected = selectedOption === index;
-              const isCorrect = index === currentQuestion.correct;
+              const isCorrect = index === currentQuestion.answer;
               const isWrong = isSelected && !isCorrect;
 
               return (
@@ -111,16 +124,16 @@ export const MiniQuiz: React.FC = () => {
                   disabled={isAnswered}
                   onClick={() => handleOptionSelect(index)}
                   className={cn(
-                    "w-full p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between group text-left",
-                    !isAnswered && "bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/20",
-                    isAnswered && isCorrect && "bg-emerald-500/10 border-emerald-500/50 text-emerald-400",
-                    isAnswered && isWrong && "bg-rose-500/10 border-rose-500/50 text-rose-400",
-                    isAnswered && !isCorrect && !isSelected && "opacity-30 grayscale"
+                    "w-full p-4 rounded-2xl border-2 transition-all duration-300 flex items-center justify-between group text-left",
+                    !isAnswered && "bg-slate-50 border-slate-50 hover:border-primary/20 hover:bg-white",
+                    isAnswered && isCorrect && "bg-emerald-50 border-emerald-500 text-emerald-700",
+                    isAnswered && isWrong && "bg-rose-50 border-rose-500 text-rose-700",
+                    isAnswered && !isCorrect && !isSelected && "opacity-30 grayscale pointer-events-none"
                   )}
                 >
-                  <span className="text-[11px] font-black uppercase tracking-widest">{option}</span>
-                  {isAnswered && isCorrect && <CheckCircle2 size={18} />}
-                  {isAnswered && isWrong && <XCircle size={18} />}
+                  <span className="text-xs font-bold tracking-tight">{option}</span>
+                  {isAnswered && isCorrect && <CheckCircle2 size={18} className="text-emerald-500" />}
+                  {isAnswered && isWrong && <XCircle size={18} className="text-rose-500" />}
                 </button>
               );
             })}
@@ -131,9 +144,9 @@ export const MiniQuiz: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               onClick={handleNext}
-              className="mt-8 w-full py-4 bg-white text-slate-900 rounded-2xl text-[11px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors"
+              className="mt-8 w-full py-4 bg-slate-900 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10"
             >
-              {currentIndex === quizData.length - 1 ? "Finish" : "Next Question"} <ArrowRight size={14} />
+              {currentIndex === sessionQuestions.length - 1 ? "Finish" : "Next Question"} <ArrowRight size={14} />
             </motion.button>
           )}
         </motion.div>

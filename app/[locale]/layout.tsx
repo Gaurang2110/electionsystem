@@ -21,7 +21,7 @@ import { PersistentProgressBar } from "@/components/ui/PersistentProgressBar";
 import { UniversalContinueCTA } from "@/components/ui/UniversalContinueCTA";
 import { GuidedTourOverlay } from "@/components/ui/GuidedTourOverlay";
 import { TrustBadges } from "@/components/ui/TrustBadges";
-import { VoiceNavigator } from "@/components/ui/VoiceNavigator";
+
 import { SWRegistration } from "@/components/pwa/SWRegistration";
 import { PrivacyConsent } from "@/components/ui/PrivacyConsent";
 import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";

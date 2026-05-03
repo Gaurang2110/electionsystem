@@ -18,7 +18,7 @@ export const AnalyticsDashboard: React.FC = () => {
   const stats = [
     { label: "Total Steps", value: completedSteps.length, icon: Zap, color: "text-amber-500" },
     { label: "Interactions", value: analytics.length, icon: Activity, color: "text-emerald-500" },
-    { label: "Voice Commands", value: eventCounts['voice'] || 0, icon: BarChart3, color: "text-blue-500" },
+    { label: "Constituency", value: eventCounts['constituency'] || 0, icon: BarChart3, color: "text-blue-500" },
     { label: "Engagement", value: engagementScore, icon: Clock, color: "text-purple-500" },
   ];
 
@@ -57,7 +57,7 @@ export const AnalyticsDashboard: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <div className={cn(
                     "w-1.5 h-1.5 rounded-full",
-                    log.event.includes('voice') ? "bg-blue-500" :
+                    log.event.includes('assistant') ? "bg-blue-500" :
                       log.event.includes('map') ? "bg-emerald-500" :
                         log.event.includes('step') ? "bg-amber-500" : "bg-slate-500"
                   )} />

@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/utils/cn";
 import { useTranslations, useLocale } from "next-intl";
 import { SpeakerButton } from "@/components/ui/SpeakerButton";
-import { VoiceInput } from "./VoiceInput";
+
 import { useAppStore } from "@/store/useAppStore";
 import { useSearchParams } from "next/navigation";
 import { useRouter, usePathname } from "@/i18n/navigation";
@@ -58,11 +58,9 @@ export const ChatInterface: React.FC = () => {
       // Revive dates
       const revived = parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) }));
       setMessages(revived);
-      msgCount.current = revived.length;
     } else {
-      const welcomeMsg: Message = { id: "1", text: t('welcome'), sender: "ai", timestamp: new Date() };
+      const welcomeMsg: Message = { id: `ai-${crypto.randomUUID()}`, text: t('welcome'), sender: "ai", timestamp: new Date() };
       setMessages([welcomeMsg]);
-      msgCount.current = 1;
     }
   }, [t]);
 
@@ -80,10 +78,14 @@ export const ChatInterface: React.FC = () => {
     }
   }, [autoPrompt, mounted, pathname, router]);
 
-  // Save to session storage
+  // Save to session storage safely
   React.useEffect(() => {
-    if (messages.length > 0) {
-      sessionStorage.setItem("civic_ai_chat_session", JSON.stringify(messages));
+    try {
+      if (messages.length > 0) {
+        sessionStorage.setItem("civic_ai_chat_session", JSON.stringify(messages));
+      }
+    } catch (e) {
+      console.warn("Failed to save chat session:", e);
     }
   }, [messages]);
 
@@ -91,9 +93,8 @@ export const ChatInterface: React.FC = () => {
     if (!text.trim() || isLoading) return;
 
     setError(null);
-    msgCount.current += 1;
     const userMsg: Message = {
-      id: msgCount.current.toString(),
+      id: `user-${crypto.randomUUID()}`,
       text,
       sender: "user",
       timestamp: new Date(),
@@ -109,9 +110,11 @@ export const ChatInterface: React.FC = () => {
     const nextAction = getNextBestAction();
 
     try {
-      const response = await fetch("/api/chat", {
+      console.log("Sending message to AI:", text);
+      const response = await fetch(window.location.origin + "/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        cache: 'no-store',
         body: JSON.stringify({
           message: text,
           locale: locale,
@@ -125,16 +128,17 @@ export const ChatInterface: React.FC = () => {
       });
 
       const data = await response.json();
-
-      msgCount.current += 1;
-      setMessages(prev => [...prev, {
-        id: msgCount.current.toString(),
-        text: data.text || "I'm sorry, I couldn't process that.",
+      console.log("AI Response received:", data);
+      const aiMsg: Message = {
+        id: `ai-${crypto.randomUUID()}`,
+        text: data.text || data.error || "I'm sorry, I couldn't process that.",
         sender: "ai",
         timestamp: new Date()
-      }]);
+      };
+      setMessages(prev => [...prev, aiMsg]);
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      console.error("Chat Error:", err);
+      setError("Something went wrong. Please check your connection and try again.");
     } finally {
       setIsLoading(false);
     }
@@ -196,6 +200,16 @@ export const ChatInterface: React.FC = () => {
       {/* MESSAGES AREA (SCROLLABLE) */}
       <div className="flex-1 overflow-y-auto px-1 space-y-4 pb-6 scroll-smooth no-scrollbar">
         <AnimatePresence initial={false}>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="p-3 bg-rose-50 border border-rose-100 rounded-xl text-rose-600 text-xs font-bold text-center mb-4"
+            >
+              {error}
+            </motion.div>
+          )}
+
           {messages.map((msg, idx) => (
             <motion.div
               key={msg.id}
@@ -330,11 +344,7 @@ export const ChatInterface: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-1 pr-0.5">
-                <VoiceInput
-                  locale={locale}
-                  onTranscript={(text) => setInput(text)}
-                  disabled={isLoading}
-                />
+
                 <button
                   onClick={() => handleSend(input)}
                   disabled={isLoading || !input.trim()}

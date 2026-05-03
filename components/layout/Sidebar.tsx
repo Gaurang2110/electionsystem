@@ -111,12 +111,7 @@ export const Sidebar: React.FC = () => {
     setMounted(true);
   }, []);
 
-  const handleVoiceTrigger = () => {
-    // In a real app, this would trigger the system orchestrator
-    if ((window as any).systemOrchestrator) {
-      (window as any).systemOrchestrator.startVoice();
-    }
-  };
+
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-[260px] bg-white/70 backdrop-blur-xl flex flex-col z-[100] shadow-[10px_0_40px_rgba(0,0,0,0.03)] border-r border-slate-200/50 overflow-hidden">
@@ -217,17 +212,7 @@ export const Sidebar: React.FC = () => {
           <MoreVertical size={14} className="text-slate-300 group-hover:text-slate-600" />
         </motion.div>
 
-        {/* Voice Trigger Button */}
-        {/* <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleVoiceTrigger}
-          className="w-full h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center gap-3 shadow-lg shadow-slate-900/10 group overflow-hidden relative"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <Mic size={18} className="relative z-10 group-hover:animate-pulse" />
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] relative z-10">Voice Command</span>
-        </motion.button> */}
+
       </div>
     </aside>
   );

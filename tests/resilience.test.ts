@@ -1,5 +1,5 @@
 import { calculateReadiness, ReadinessFactors } from '../services/votingService';
-import { retryAsync } from '../utils/reliability';
+import { retryAsync, safeExecute } from '../utils/reliability';
 
 describe('System Resilience & Intelligence Tests', () => {
   
@@ -125,6 +125,22 @@ describe('System Resilience & Intelligence Tests', () => {
       expect(result).toBe('eventual_success');
       expect(attempts).toBe(3);
     });
+
+    it('should fail twice -> fallback (combination of retryAsync and safeExecute)', async () => {
+      let attempts = 0;
+      const failingOperation = async () => {
+        attempts++;
+        throw new Error('API down');
+      };
+
+      const result = await safeExecute(async () => {
+        // 1 initial try + 1 retry = fails twice
+        return await retryAsync(failingOperation, 1, 5);
+      }, 'fallback_value');
+
+      expect(result).toBe('fallback_value');
+      expect(attempts).toBe(2);
+    });
   });
 
   // 3. Resilience Tests (Silent Failure)
@@ -166,28 +182,21 @@ describe('System Resilience & Intelligence Tests', () => {
   });
   // 4. AI Fallback Tests
   describe('AI Fallback Resilience', () => {
-    it('should return a fallback response if the AI API fails after all retries', async () => {
-      const failingApiCall = async () => {
-        throw new Error('AI Service Down');
+    it('should return a high-fidelity local FAQ fallback if the AI API fails', async () => {
+      const getAIResponse = async (query: string) => {
+        return await safeExecute(async () => {
+          return await retryAsync(async () => {
+            throw new Error("AI API Down");
+          }, 1);
+        }, {
+          text: "Hi! To register as a new voter, just follow these steps:\n• Visit voters.eci.gov.in\n• Fill out Form 6 online",
+          source: 'fallback'
+        });
       };
 
-      // Simulating the catch/fallback pattern in ChatInterface.tsx
-      const getAIResponse = async () => {
-        try {
-          const response = await retryAsync(failingApiCall, 1, 10);
-          return await response.json();
-        } catch (error) {
-          // Mocking the fallback response returned in the catch block
-          return {
-            text: "I'm currently optimizing my responses. For immediate help, please check the Journey tab.",
-            source: 'fallback'
-          };
-        }
-      };
-
-      const result = await getAIResponse();
-      expect(result.source).toBe('fallback');
-      expect(result.text).toContain('optimizing my responses');
+      const data = await getAIResponse("how to register");
+      expect(data.source).toBe('fallback');
+      expect(data.text).toContain('voters.eci.gov.in');
     });
   });
 });

@@ -33,6 +33,14 @@ const QUICK_ACTIONS = [
   { id: "eligibility", icon: CheckCircle, key: "eligibility" },
 ];
 
+import faqData from "@/data/faq.json";
+
+function findLocalFaq(query: string) {
+  const lowQuery = query.toLowerCase();
+  const match = faqData.find(f => f.keywords.some(k => lowQuery.includes(k)));
+  return match?.answer;
+}
+
 export const ChatInterface: React.FC = () => {
   const t = useTranslations('chat');
   const locale = useLocale();
@@ -141,7 +149,7 @@ export const ChatInterface: React.FC = () => {
 
         return await response.json();
       }, {
-        text: "I'm currently optimizing my responses. For immediate help, please check the Journey tab or ask about voting eligibility.",
+        text: findLocalFaq(text) || "I'm currently optimizing my responses. For immediate help, please check the Journey tab or ask about voting eligibility.",
         source: 'fallback'
       }, 'ai_assistant');
 

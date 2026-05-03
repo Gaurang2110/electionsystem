@@ -33,25 +33,3 @@ export const logFirebaseEvent = async (eventName: string, params?: any) => {
   }
 };
 
-/**
- * High-resiliency Firebase Event Logger.
- * Wraps analytics calls in try/catch to ensure non-blocking, zero-side-effect tracking.
- */
-export const logEventSafe = (eventName: string, params?: any) => {
-  if (typeof window === "undefined" || !isFirebaseActive) return;
-  
-  // Use a promise to ensure it doesn't block the main execution flow
-  isSupported().then(supported => {
-    if (supported && app) {
-      try {
-        const analytics = getAnalytics(app);
-        logEvent(analytics, eventName, params);
-      } catch (err) {
-        console.warn(`[Firebase Analytics] Failed to log event ${eventName}:`, err);
-      }
-    }
-  }).catch(() => {
-    // Silently fail if isSupported errors
-  });
-};
-

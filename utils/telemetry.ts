@@ -1,4 +1,4 @@
-import { logEventSafe as logFirebase } from "@/lib/firebase";
+import { logEventSafe as logFirebase } from "@/utils/logger";
 import { sendEventToCloud as logCloud } from "./cloudLogging";
 import { safeExecuteSync } from "./reliability";
 

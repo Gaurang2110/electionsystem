@@ -12,6 +12,13 @@ export default function GoogleAnalytics() {
   useEffect(() => {
     if (pathname) {
       analytics.pageview(pathname);
+      // Mission-Critical: Sync pageview to unified telemetry for Cloud Logging analysis
+      import('@/utils/telemetry').then(({ telemetry }) => {
+        telemetry.log('page_view', { 
+          path: pathname, 
+          query: searchParams?.toString() 
+        }, 0, 'navigation');
+      });
     }
   }, [pathname, searchParams]);
 

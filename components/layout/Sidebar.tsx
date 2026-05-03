@@ -7,18 +7,18 @@ import {
   Map as MapIcon,
   HelpCircle,
   ShieldCheck,
+  Bot,
   FileText,
   FlaskConical,
   BarChart3,
   User,
   WifiOff,
-  Mic,
   Vote,
   MoreVertical
 } from "lucide-react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/utils/cn";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useAppStore } from "@/store/useAppStore";
 import { EngagementSection } from "./sidebar/EngagementSection";
 
@@ -26,7 +26,7 @@ const MENU_ITEMS = [
   { id: "home", icon: LayoutDashboard, href: "/" },
   { id: "journey", icon: Compass, href: "/journey" },
   { id: "map", icon: MapIcon, href: "/map" },
-  { id: "assistant", icon: HelpCircle, href: "/assistant" },
+  { id: "assistant", icon: Bot, href: "/assistant" },
   { id: "eligibility", icon: ShieldCheck, href: "/eligibility" },
   { id: "documents", icon: FileText, href: "/documents" },
   { id: "laboratory", icon: FlaskConical, href: "/laboratory" },
@@ -150,7 +150,7 @@ export const Sidebar: React.FC = () => {
 
       {/* User Profile Snapshot */}
       <div className="px-4 py-2 relative z-20">
-        <motion.div 
+        <motion.div
           whileHover={{ x: 4 }}
           className="p-4 rounded-[2rem] bg-slate-900 text-white relative overflow-hidden group cursor-pointer"
           onClick={() => router.push('/profile' as any)}

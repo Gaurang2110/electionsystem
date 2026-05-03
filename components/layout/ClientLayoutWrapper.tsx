@@ -5,7 +5,7 @@ import { TopHeader } from "./TopHeader";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { TrustBadges } from "@/components/ui/TrustBadges";
 import { LegalDisclaimer } from "@/components/ui/LegalDisclaimer";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { Card } from "@/components/ui/Card";
 import { MessageSquare, Bot, Sparkles } from "lucide-react";
 import { cn } from "@/utils/cn";
@@ -15,7 +15,6 @@ import { NotificationPanel } from "@/components/ui/NotificationPanel";
 import { NextStepBar } from "@/components/ui/NextStepBar";
 import { useAppStore } from "@/store/useAppStore";
 import { systemOrchestrator } from "@/lib/systemOrchestrator";
-import { useRouter } from "next/navigation";
 
 const ProactiveHint = () => {
   const { progress, eligibility, gamification } = useAppStore();
@@ -73,7 +72,7 @@ export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ c
   React.useEffect(() => {
     const handleOpenAssistant = (e: any) => {
       const query = e.detail?.query || getContextualPrompt();
-      router.push(`/en/assistant?prompt=${encodeURIComponent(query)}`);
+      router.push(`/assistant?prompt=${encodeURIComponent(query)}`);
     };
     window.addEventListener('open-ai-assistant', handleOpenAssistant);
     return () => window.removeEventListener('open-ai-assistant', handleOpenAssistant);

@@ -13,6 +13,7 @@ import { SpeakerButton } from "@/components/ui/SpeakerButton";
 import { VoiceInput } from "./VoiceInput";
 import { useAppStore } from "@/store/useAppStore";
 import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 interface Message {
   id: string;
@@ -34,6 +35,8 @@ export const ChatInterface: React.FC = () => {
   const locale = useLocale();
   const { profile } = useAppStore();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const autoPrompt = searchParams.get('prompt');
 
   // Use session storage for messages to keep them per session only
@@ -67,11 +70,15 @@ export const ChatInterface: React.FC = () => {
   React.useEffect(() => {
     if (autoPrompt && mounted && !promptAttempted.current) {
       promptAttempted.current = true;
+      
+      // Clear the prompt from the URL immediately so reloads/back-navigation don't trigger it again
+      router.replace(pathname, { scroll: false });
+      
       setTimeout(() => {
         handleSend(autoPrompt);
       }, 100);
     }
-  }, [autoPrompt, mounted]);
+  }, [autoPrompt, mounted, pathname, router]);
 
   // Save to session storage
   React.useEffect(() => {

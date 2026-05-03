@@ -16,12 +16,20 @@ import { cn } from "@/utils/cn";
 
 export const EngagementSection: React.FC = () => {
   const router = useRouter();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { 
     gamification, 
     progress, 
     leaderboardRank,
     eligibility
   } = useAppStore();
+
+  if (!mounted) return null;
 
   const { quizProgress, points, badges, unlockedStates, questSteps } = gamification;
   

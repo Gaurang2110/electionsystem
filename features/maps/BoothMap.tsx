@@ -43,13 +43,20 @@ const ZoomManager = ({ selectedDistrict }: { selectedDistrict: string | null }) 
   const map = useMap();
   useEffect(() => {
     if (selectedDistrict) {
-      const district = (districtsData as any).features.find((f: any) => f.properties.name === selectedDistrict);
-      if (district) {
-        const coords = district.geometry.coordinates[0];
-        if (coords && coords[0]) {
-          const firstCoord = coords[0];
-          const latLng = Array.isArray(firstCoord[0]) ? [firstCoord[0][1], firstCoord[0][0]] : [firstCoord[1], firstCoord[0]];
-          map.flyTo(latLng as any, 8, { duration: 1.5 });
+      const features = (districtsData as any).features || [];
+      const district = features.find((f: any) => f.properties?.name === selectedDistrict);
+      if (district && district.geometry?.coordinates) {
+        try {
+          const coords = district.geometry.coordinates[0];
+          if (coords && coords[0]) {
+            const firstCoord = coords[0];
+            const latLng = Array.isArray(firstCoord[0]) ? [firstCoord[0][1], firstCoord[0][0]] : [firstCoord[1], firstCoord[0]];
+            if (latLng[0] !== undefined && latLng[1] !== undefined) {
+              map.flyTo(latLng as any, 8, { duration: 1.5 });
+            }
+          }
+        } catch (e) {
+          console.warn("Failed to zoom to district:", selectedDistrict, e);
         }
       }
     }

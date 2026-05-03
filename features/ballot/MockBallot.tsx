@@ -8,6 +8,7 @@ import { useAppStore } from "@/store/useAppStore";
 import { Button } from "@/components/ui/Button";
 import { systemOrchestrator } from "@/lib/systemOrchestrator";
 import { cn } from "@/utils/cn";
+import { NextStepBar } from "@/components/ui/NextStepBar";
 
 export const MockBallot: React.FC = () => {
   const { updateQuestStep, unlockBadge, addPoints } = useAppStore();
@@ -109,33 +110,37 @@ export const MockBallot: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="p-10 rounded-[3rem] bg-emerald-500/5 border-2 border-emerald-500/10 text-center space-y-6"
+                className="space-y-8"
               >
-                <div className="w-20 h-20 bg-emerald-500 rounded-[2rem] flex items-center justify-center mx-auto text-white shadow-xl shadow-emerald-500/20">
-                  <Shield size={40} />
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-3xl font-black text-slate-900 font-display">Neutrality Verified</h4>
-                  <p className="text-slate-500 font-medium max-w-md mx-auto">
-                    Excellent! You've successfully practiced the voting process. This helps build the muscle memory needed for the real election day.
-                  </p>
-                </div>
-                
-                <div className="flex flex-wrap items-center justify-center gap-4 py-4">
-                  <div className="px-5 py-3 rounded-2xl bg-white shadow-sm flex items-center gap-2">
-                    <Star size={16} className="text-amber-500 fill-amber-500" />
-                    <span className="text-sm font-black text-slate-900">+30 <span className="text-[10px] text-slate-400 uppercase">Points</span></span>
+                <div className="p-10 rounded-[3rem] bg-emerald-500/5 border-2 border-emerald-500/10 text-center space-y-6">
+                  <div className="w-20 h-20 bg-emerald-500 rounded-[2rem] flex items-center justify-center mx-auto text-white shadow-xl shadow-emerald-500/20">
+                    <Shield size={40} />
                   </div>
-                  <div className="px-5 py-3 rounded-2xl bg-white shadow-sm flex items-center gap-2">
-                    <Star size={16} className="text-primary fill-primary" />
-                    <span className="text-sm font-black text-slate-900">Expert <span className="text-[10px] text-slate-400 uppercase">Badge</span></span>
+                  <div className="space-y-2">
+                    <h4 className="text-3xl font-black text-slate-900 font-display">Neutrality Verified</h4>
+                    <p className="text-slate-500 font-medium max-w-md mx-auto">
+                      Excellent! You've successfully practiced the voting process. This helps build the muscle memory needed for the real election day.
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-wrap items-center justify-center gap-4 py-4">
+                    <div className="px-5 py-3 rounded-2xl bg-white shadow-sm flex items-center gap-2">
+                      <Star size={16} className="text-amber-500 fill-amber-500" />
+                      <span className="text-sm font-black text-slate-900">+30 <span className="text-[10px] text-slate-400 uppercase">Points</span></span>
+                    </div>
+                    <div className="px-5 py-3 rounded-2xl bg-white shadow-sm flex items-center gap-2">
+                      <Star size={16} className="text-primary fill-primary" />
+                      <span className="text-sm font-black text-slate-900">Expert <span className="text-[10px] text-slate-400 uppercase">Badge</span></span>
+                    </div>
+                  </div>
+  
+                  <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase text-emerald-600 tracking-widest bg-emerald-500/10 py-3 rounded-xl">
+                    <Info size={14} />
+                    Choice made based on democratic principles.
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase text-emerald-600 tracking-widest bg-emerald-500/10 py-3 rounded-xl">
-                  <Info size={14} />
-                  Choice made based on democratic principles.
-                </div>
+                <NextStepBar />
               </motion.div>
             )}
           </AnimatePresence>

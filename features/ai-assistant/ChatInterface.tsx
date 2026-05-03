@@ -271,7 +271,7 @@ export const ChatInterface: React.FC = () => {
 
           {/* QUICK ACTION SUGGESTIONS (X-SMALL) */}
           {!isLoading && (
-            <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar justify-center">
+            <div className="flex gap-1.5  pb-1 no-scrollbar justify-center">
               {QUICK_ACTIONS.map((action) => (
                 <motion.button
                   key={action.id}

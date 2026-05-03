@@ -15,6 +15,12 @@ export const JourneySteps: React.FC = () => {
   const { completedSteps, toggleStep, profile, progress, getNextBestAction } = useAppStore();
   const t = useTranslations('journey');
   const router = useRouter();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const nextAction = getNextBestAction();
 
   // Determine current active step (first non-completed step)
@@ -27,6 +33,8 @@ export const JourneySteps: React.FC = () => {
     damping: 30,
     restDelta: 0.001
   });
+
+  if (!mounted) return null;
 
   return (
     <div className="flex flex-col gap-6 pb-32 max-w-[1200px] mx-auto px-4 md:px-8 ">
@@ -71,7 +79,7 @@ export const JourneySteps: React.FC = () => {
         </div>
 
         {/* Continue Button (Right-Aligned) */}
-        <div className="relative z-20 mt-20 md:mt-30">
+        {/* <div className="relative z-20 mt-20 md:mt-30">
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -82,7 +90,7 @@ export const JourneySteps: React.FC = () => {
           >
             Continue Journey <ArrowRight size={16} />
           </motion.button>
-        </div>
+        </div> */}
 
         {/* Decorative Floating Particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">

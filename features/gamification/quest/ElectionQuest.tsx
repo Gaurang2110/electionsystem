@@ -21,8 +21,16 @@ import { SignLanguageGuide } from "@/components/ui/SignLanguageGuide";
 
 export const ElectionQuest: React.FC = () => {
   const { gamification } = useAppStore();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { questSteps } = gamification;
   const nextStep = GamificationFlow.getNextStep();
+
+  if (!mounted) return null;
 
   const steps = [
     { id: 'register', label: 'Register', icon: UserCheck, completed: questSteps.register, insight: 'Ensures you are on the list to vote.', videoType: 'registration' as const },

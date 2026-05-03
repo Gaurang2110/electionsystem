@@ -162,7 +162,7 @@ export const Sidebar: React.FC = () => {
               </h4>
               <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{progress}% Ready</span>
+                <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{!mounted ? 0 : progress}% Ready</span>
               </div>
             </div>
           </div>

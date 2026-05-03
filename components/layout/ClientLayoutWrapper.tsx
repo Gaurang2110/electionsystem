@@ -15,7 +15,7 @@ import { NotificationPanel } from "@/components/ui/NotificationPanel";
 import { useAppStore } from "@/store/useAppStore";
 
 export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isNotificationOpen, setNotificationOpen } = useAppStore();
+  const { isNotificationOpen, setNotificationOpen, isSimpleMode, isHighContrast } = useAppStore();
   const pathname = usePathname();
   const isAssistant = pathname.includes('/assistant');
 
@@ -32,8 +32,10 @@ export const ClientLayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ c
 
   return (
     <div className={cn(
-      "flex-1 ml-[240px] flex flex-col min-h-screen relative",
-      isAssistant && "h-screen overflow-hidden"
+      "flex-1 ml-[240px] flex flex-col min-h-screen relative transition-all duration-300",
+      isAssistant && "h-screen overflow-hidden",
+      isSimpleMode && "text-lg simple-mode",
+      isHighContrast && "high-contrast bg-black text-white"
     )}>
       <ProfileOnboardingModal />
       <NotificationPanel isOpen={isNotificationOpen} onClose={() => setNotificationOpen(false)} />

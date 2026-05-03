@@ -62,6 +62,8 @@ export const DashboardScreen: React.FC = () => {
     setMounted(true);
   }, []);
 
+  if (!mounted) return null;
+
   return (
     <motion.div
       variants={containerVariants}

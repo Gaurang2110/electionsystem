@@ -14,9 +14,9 @@
 .high-contrast {
   --background: #000000;
   --foreground: #FFFFFF;
-  --primary: #FFFF00; /* Yellow for high visibility */
-  --secondary: #00FF00; /* Lime */
-  --accent: #00FFFF; /* Cyan */
+  --primary: #FFFF00;
+  --secondary: #00FF00;
+  --accent: #00FFFF;
   --card-bg: #000000;
 }
 
@@ -31,24 +31,17 @@
   color: #FFFFFF !important;
 }
 
-.high-contrast .glass, 
-.high-contrast .glass-dark,
-.high-contrast .bg-slate-900,
-.high-contrast .bg-slate-900\/80,
-.high-contrast .bg-slate-950\/90 {
-  background: #000000 !important;
-  border: 2px solid #FFFFFF !important;
-}
-
 .high-contrast button {
   border: 2px solid #FFFFFF !important;
 }
 
-.high-contrast .text-slate-400,
-.high-contrast .text-slate-500 {
-  color: #FFFFFF !important;
-  opacity: 1 !important;
+.simple-mode {
+  font-size: 1.25rem !important;
 }
+
+.simple-mode h1 { font-size: 2.5rem !important; }
+.simple-mode h2 { font-size: 2rem !important; }
+.simple-mode p { line-height: 1.8 !important; }
 
 @theme inline {
   --font-sans: var(--font-inter);

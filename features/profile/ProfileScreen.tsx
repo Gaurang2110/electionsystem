@@ -39,6 +39,7 @@ import { ConfidenceMeter } from "@/components/ui/ConfidenceMeter";
 import { cn } from "@/utils/cn";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { AnalyticsDashboard } from "./AnalyticsDashboard";
+import { BadgeItem } from "@/components/ui/BadgeItem";
 
 const LANGUAGES = [
   { code: 'en', label: 'English' },
@@ -351,10 +352,7 @@ export const ProfileScreen: React.FC = () => {
                   gamification.badges.map(id => {
                     const badge = getBadgeById(id);
                     return badge ? (
-                      <div key={id} className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-3xl shadow-sm relative group/badge">
-                        {badge.icon}
-                        <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-2 py-1 rounded text-[7px] font-black uppercase tracking-widest opacity-0 group-hover/badge:opacity-100 transition-opacity whitespace-nowrap">{badge.label}</div>
-                      </div>
+                      <BadgeItem key={id} id={id} label={badge.label} />
                     ) : null;
                   })
                 )}

@@ -6,6 +6,7 @@ import quizData from "@/data/quiz.json";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/utils/cn";
 import { Brain, ArrowRight, CheckCircle2, XCircle, Trophy, Star } from "lucide-react";
+import { NextStepBar } from "@/components/ui/NextStepBar";
 
 export const MiniQuiz: React.FC = () => {
   const { finishQuiz } = useAppStore();
@@ -56,27 +57,66 @@ export const MiniQuiz: React.FC = () => {
   if (!currentQuestion) return null;
 
   if (isFinished) {
+    const isPerfect = score === sessionQuestions.length;
     return (
-      <Card className="p-8 text-center bg-white border-none shadow-2xl shadow-slate-200 space-y-6 rounded-[2.5rem] relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
-        <div className="w-20 h-20 bg-primary/10 rounded-[2rem] flex items-center justify-center text-primary mx-auto shadow-inner">
-          <Trophy size={40} />
-        </div>
-        <div className="space-y-2">
-          <h3 className="text-2xl font-black text-slate-900 font-display uppercase tracking-tight">Quiz Complete</h3>
-          <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">You scored {score} out of {sessionQuestions.length}</p>
-        </div>
-        <div className="flex items-center justify-center gap-2">
-           <Star size={16} className="text-primary fill-primary" />
-           <span className="text-3xl font-black text-slate-900 font-display">+{score * 10} <span className="text-sm text-primary uppercase">Points</span></span>
-        </div>
-        <button 
-          onClick={initializeQuiz}
-          className="w-full py-4 bg-primary text-white rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]"
-        >
-          Retake Quiz (Random 10)
-        </button>
-      </Card>
+      <div className="space-y-6">
+        <Card className="p-10 text-center bg-white border-none shadow-2xl shadow-slate-200/50 rounded-[3rem] relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
+          
+          <motion.div 
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className={cn(
+              "w-24 h-24 rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-2xl relative",
+              isPerfect ? "bg-amber-500 text-white" : "bg-primary/10 text-primary"
+            )}
+          >
+            {isPerfect ? <Trophy size={48} /> : <Star size={48} />}
+            {isPerfect && (
+              <motion.div 
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="absolute inset-0 bg-amber-400 rounded-[2rem] -z-10"
+              />
+            )}
+          </motion.div>
+
+          <div className="space-y-2 mb-8">
+            <h3 className="text-3xl font-black text-slate-900 font-display uppercase tracking-tight">
+              {isPerfect ? "Absolute Master!" : "Well Done!"}
+            </h3>
+            <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
+              You scored {score} out of {sessionQuestions.length}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+              <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Impact Gained</p>
+              <div className="flex items-center justify-center gap-1.5 text-slate-900 font-black">
+                <Star size={12} className="text-amber-500 fill-amber-500" />
+                <span>+{score * 10} XP</span>
+              </div>
+            </div>
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+              <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Readiness</p>
+              <div className="flex items-center justify-center gap-1.5 text-emerald-600 font-black">
+                <CheckCircle2 size={12} />
+                <span>+{Math.round((score/sessionQuestions.length) * 10)}%</span>
+              </div>
+            </div>
+          </div>
+
+          <button 
+            onClick={initializeQuiz}
+            className="w-full py-4 bg-slate-100 text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all hover:bg-slate-200"
+          >
+            Retake Quiz
+          </button>
+        </Card>
+
+        <NextStepBar />
+      </div>
     );
   }
 
